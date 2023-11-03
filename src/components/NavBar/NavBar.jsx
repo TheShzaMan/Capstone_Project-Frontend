@@ -43,6 +43,16 @@ const Navbar = () => {
 								>
 									Profile
 								</Link>
+								<Link
+									to='/search'
+									style={{
+										textDecoration: "none",
+										color: "white",
+									}}
+								>
+									Search
+								</Link>
+
 								<a onClick={logoutUser}>SignOut</a>
 							</div>
 						</div>
