@@ -1,0 +1,128 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+
+*,
+*::before,
+*::after {
+	padding: 0;
+	box-sizing: inherit;
+	margin: inherit;
+}
+::-webkit-scrollbar {
+	width: 5px;
+}
+::-webkit-scrollbar-track {
+	background: rgba(70, 131, 180, 0.533);
+}
+::-webkit-scrollbar-thumb {
+	background: rgba(49, 173, 177, 0.586);
+	border: solid 1px black;
+}
+
+html {
+	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+	/* height: 100vh; */
+	min-width: 550px;
+}
+.app-wrapper {
+	/* height: 100vh; */
+	width: 100%;
+}
+body {
+	background-color: rgb(75, 75, 75);
+	background-image: linear-gradient(to top, black, transparent, transparent),
+		url("./images/silhouette-oilfield-sunset.jpg");
+
+	background-position: right;
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 100vh;
+	position: relative;
+	bottom: 0;
+}
+
+p {
+	font-size: 20px;
+}
+
+button {
+	background-color: rgba(70, 131, 180, 0.397);
+	border: 2px solid steelblue;
+
+	/* color: rgb(239, 247, 253); */
+	color: #ffffff;
+
+	font-weight: bolder;
+	font-size: 1rem;
+	font-family: inherit;
+	max-width: 100px;
+	padding: 0.5rem 0.5rem;
+}
+
+button:hover {
+	cursor: pointer;
+	color: white;
+	background-color: steelblue;
+	box-shadow: inset 2px 2px black;
+	text-shadow: 2px 2px black;
+}
+
+.container {
+	margin: auto;
+	min-width: 550px;
+
+	text-align: center;
+	/* margin-top: 3%; */
+	/* margin-bottom: 3%; */
+	height: 100vh;
+	justify-content: center;
+	align-items: flex-start;
+	display: flex;
+	padding-top: 15vh;
+}
+
+/* .form {
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+
+	position: none;
+} */
+
+.form input {
+	display: block;
+	width: 100%;
+	height: 25px;
+	margin: 5px;
+	padding: 3px 7px;
+	font-size: 17px;
+	background-color: rgba(115, 169, 169, 0.758);
+}
+label {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-weight: bold;
+}
+form {
+	display: flex;
+	margin: 5px;
+	flex-direction: column;
+	overflow: auto;
+	max-height: 75%;
+	align-items: center;
+	opacity: 0.5;
+	/* border-radius: .5rem; */
+	padding: 2%;
+	margin-top: 5%;
+	/* margin: 30px; */
+	background: rgba(97, 121, 135, 0.289);
+	border: 1px solid rgb(250, 249, 249);
+	opacity: 1;
+	color: rgb(236, 243, 251);
+	text-shadow: 2px 2px black;
+	letter-spacing: 1px;
+}

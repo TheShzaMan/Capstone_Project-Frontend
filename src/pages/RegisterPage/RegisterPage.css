@@ -1,0 +1,73 @@
+.isWorker {
+	display: flex;
+	flex-direction: column;
+}
+
+/* .register-form button {
+	color: black;
+} */
+.register-form input {
+	background-color: rgba(115, 169, 169, 0.758);
+}
+.register-form textarea {
+	background-color: rgba(115, 169, 169, 0.758);
+	/* margin: 5px; */
+	/* padding: 3px 7px; */
+	font-size: 17px;
+	border-width: 2px;
+	border-style: inset;
+	border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+	max-width: 250px;
+}
+.register-form button {
+	letter-spacing: 1px;
+}
+
+/* custom radio buttons */
+
+.radio {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	font-size: 17px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.radio input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+}
+.checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: rgba(97, 121, 135, 0.289);
+	border-radius: 50%;
+}
+.radio:hover input ~ .checkmark {
+	background-color: rgba(115, 169, 169, 0.758);
+}
+.radio input:checked ~ .checkmark {
+	background-color: rgb(98, 170, 170);
+	border: groove 2px white;
+}
+.radio input:checked ~ .checkmark:after {
+	display: block;
+}
+.radio .checkmark:after {
+	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}

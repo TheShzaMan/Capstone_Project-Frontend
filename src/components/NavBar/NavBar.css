@@ -1,0 +1,99 @@
+ul {
+	display: flex;
+	justify-content: space-between;
+	list-style-type: none;
+}
+
+li {
+	font-size: 1.25rem;
+}
+
+.navBar {
+	background-image: linear-gradient(to top, transparent, steelblue, black);
+	/* box-shadow: 4px 2px 5px gray; */
+	color: white;
+	margin-bottom: 1rem;
+	padding: 1.5rem 2rem;
+	height: 8rem;
+	width: 100%;
+	position: fixed;
+	top: 0;
+	min-width: 550px;
+}
+
+.navBar button {
+	background: transparent;
+	border: 2px solid white;
+	color: white;
+	text-shadow: 1px 1px black;
+	padding: 0.4rem 0.5rem;
+}
+
+.navBar button:hover {
+	background: white;
+	color: rgb(3, 3, 3);
+	cursor: pointer;
+	text-shadow: 2px 2px white;
+}
+
+.brand {
+	cursor: pointer;
+	font-size: 2rem;
+}
+.dropbtn {
+	background: rgba(97, 121, 135, 0.289);
+	border: 1px solid black;
+	opacity: 1;
+	/* color: rgb(236, 243, 251); */
+	text-shadow: 2px 2px black;
+
+	padding: 4px;
+	font-size: 16px;
+}
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+.dropdown-content {
+	display: none;
+	position: absolute;
+	right: 0;
+	/* background-color: #f1f1f1; */
+	/* min-width: 160px; */
+	background: rgba(97, 121, 135, 0.289);
+	border: 1px solid black;
+	opacity: 1;
+	color: rgb(236, 243, 251);
+	text-shadow: 2px 2px black;
+	letter-spacing: 1px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	/* padding: 12px 16px; */
+	z-index: 1;
+	font-size: 1rem;
+	width: 200px;
+	overflow: visible;
+}
+.dropdown-content a {
+	color: rgb(251, 249, 249);
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: center;
+	font-weight: bold;
+	border-style: solid;
+	border: 2px black;
+}
+.dropdown-content a:hover {
+	background-color: rgba(115, 169, 169, 0.758);
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+	display: flex;
+	flex-direction: column;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+	background-color: #050505;
+}

@@ -1,0 +1,16 @@
+.error {
+	color: red;
+}
+.container a {
+	color: rgb(245, 243, 243);
+	/* text-decoration: none; */
+	margin-top: 10px;
+}
+.login {
+	flex-direction: column;
+	align-items: center;
+}
+.container p {
+	color: white;
+	margin-top: 10px;
+}
