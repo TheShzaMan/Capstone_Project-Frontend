@@ -22,13 +22,14 @@ html {
 	box-sizing: border-box;
 	font-family: "Poppins", sans-serif;
 	/* height: 100vh; */
-	min-width: 550px;
+	min-width: 425px;
 }
-.app-wrapper {
+body,
+html {
 	/* height: 100vh; */
-	width: 100%;
+	height: 100%;
 }
-body {
+.bg {
 	background-color: rgb(75, 75, 75);
 	background-image: linear-gradient(to top, black, transparent, transparent),
 		url("./images/silhouette-oilfield-sunset.jpg");
@@ -36,9 +37,7 @@ body {
 	background-position: right;
 	background-repeat: no-repeat;
 	background-size: cover;
-	height: 100vh;
-	position: relative;
-	bottom: 0;
+	height: 100%;
 }
 
 p {
@@ -69,7 +68,7 @@ button:hover {
 
 .container {
 	margin: auto;
-	min-width: 550px;
+	min-width: 425px;
 
 	text-align: center;
 	/* margin-top: 3%; */

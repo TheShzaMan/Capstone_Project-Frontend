@@ -25,15 +25,15 @@ const Navbar = () => {
 
 				<li>
 					{user ? (
-						<div class='dropdown'>
+						<div className='dropdown'>
 							<img
-								class='dropbtn'
+								className='dropbtn'
 								src={profileIcon}
 								alt='profile icon'
 							/>
 							{/* <button onClick={logoutUser}>Profile</button> */}
 
-							<div class='dropdown-content'>
+							<div className='dropdown-content'>
 								<Link
 									to='/profile'
 									style={{

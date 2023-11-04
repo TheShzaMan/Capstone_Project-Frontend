@@ -1,7 +1,7 @@
 // General Imports
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import oilfieldBG from "../src/images/silhouette-oilfield-sunset.jpg";
+// import oilfieldBG from "../src/images/silhouette-oilfield-sunset.jpg";
 
 // Pages Imports
 import HomePage from "./pages/HomePage/HomePage";
@@ -19,7 +19,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 
 function App() {
 	return (
-		<div className='app-wrapper'>
+		<div className='bg'>
 			<Navbar />
 			<Routes>
 				<Route

@@ -1,0 +1,11 @@
+.map-display {
+	margin-top: 2%;
+	z-index: 1 !important;
+}
+.gm-style {
+}
+button.gm-control-active.gm-fullscreen-control {
+	background-color: transparent !important;
+	box-shadow: none !important;
+	z-index: 1 !important;
+}
