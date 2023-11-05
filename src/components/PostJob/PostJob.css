@@ -1,0 +1,6 @@
+.popup-container {
+	flex-direction: column;
+}
+.popup-container h2 {
+	color: white;
+}

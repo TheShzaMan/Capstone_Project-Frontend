@@ -7,8 +7,8 @@ import mapMarker from "../../components/mapMarker/mapMarker";
 function Map() {
 	const defaultProps = {
 		center: {
-			lat: 32.02843624959642,
-			lng: -102.05991609093407,
+			lat: 31.848306386126,
+			lng: -102.3686730907617,
 		},
 		zoom: 8,
 	};
