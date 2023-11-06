@@ -1,13 +1,44 @@
 import "./ProfilePage.css";
-// import axios from "axios";
-import MarkerIcon from "../../icons/MarkerIcon/MarkerIcon";
-import pin from "../../images/location-pin.svg";
-import PostJob from "../../components/PostJob/PostJob";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import React from "react";
+import UserCard from "../../components/UserCard/UserCard";
+import useAuth from "../../hooks/useAuth";
+
 const ProfilePage = () => {
+	const [user, token] = useAuth();
+	const [thisUser, setThisUser] = useState();
+
+	const userId = user.id;
+
+	useEffect(() => {
+		fetchUserWithReview();
+	}, []);
+
+	async function fetchUserWithReview() {
+		try {
+			let response = await axios.get(
+				`https://localhost:5001/api/Reviews/profile/${userId}/`,
+				{
+					headers: {
+						Authorization: "Bearer " + token,
+					},
+				}
+			);
+			setThisUser(response.data);
+		} catch (error) {
+			console.warn("Error in the fetchUserWithReview request.", error);
+		}
+	}
+
+	//a button or dropdown menu items for post job and edit profile
 	return (
 		<div className='profile-page container'>
-			<h1>ProfilePage</h1>
-			<PostJob />
+			{thisUser ? (
+				<UserCard singleUser={thisUser} />
+			) : (
+				<h2>Loading...</h2>
+			)}
 		</div>
 	);
 };

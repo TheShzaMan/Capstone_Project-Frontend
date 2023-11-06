@@ -23,17 +23,28 @@ const Navbar = () => {
 					</Link>
 				</li>
 
-				<li>
-					{user ? (
-						<div className='dropdown'>
-							<img
-								className='dropbtn'
-								src={profileIcon}
-								alt='profile icon'
-							/>
+				{user ? (
+					<>
+						<li className='user'>
+							<p>{user.userName}</p>
+						</li>
+						<li className='dropdown'>
+							<div className='dropbtn'>
+								<div className='menubtn'></div>
+								<div className='menubtn'></div>
+								<div className='menubtn'></div>
+							</div>
 							{/* <button onClick={logoutUser}>Profile</button> */}
-
 							<div className='dropdown-content'>
+								<Link
+									to='/'
+									style={{
+										textDecoration: "none",
+										color: "white",
+									}}
+								>
+									Home
+								</Link>
 								<Link
 									to='/profile'
 									style={{
@@ -55,14 +66,12 @@ const Navbar = () => {
 
 								<a onClick={logoutUser}>SignOut</a>
 							</div>
-						</div>
-					) : (
-						// <button onClick={() => navigate("/profile")}></button>
-						<button onClick={() => navigate("/login")}>
-							Sign In
-						</button>
-					)}
-				</li>
+						</li>
+					</>
+				) : (
+					// <button onClick={() => navigate("/profile")}></button>
+					<button onClick={() => navigate("/login")}>Sign In</button>
+				)}
 			</ul>
 		</div>
 	);

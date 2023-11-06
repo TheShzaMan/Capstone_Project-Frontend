@@ -2,17 +2,23 @@ import React from "react";
 import GoogleMapReact from "google-map-react";
 import API_KEY from "../../config";
 import "./Map.css";
-import mapMarker from "../../components/mapMarker/mapMarker";
+// import MapMarker from "../MapMarker/MapMarker";
+// import Pin from "../../icons/pin-marker-map.svg";
+import Pin from "../../icons/oil-jack.svg";
 
-function Map() {
+const Map = () => {
 	const defaultProps = {
 		center: {
-			lat: 31.848306386126,
-			lng: -102.3686730907617,
+			lat: 31.864646339833772,
+			lng: -102.69415872883643,
 		},
-		zoom: 8,
+		zoom: 9,
 	};
-	// const markerSpot = ({ text }) => <div>{text}</div>;
+	const MapMarker = ({ Pin }) => (
+		<div>
+			<img src={Pin} />
+		</div>
+	);
 
 	return (
 		<div className='map-display' style={{ height: "60vh", width: "60vh" }}>
@@ -23,13 +29,13 @@ function Map() {
 				defaultCenter={defaultProps.center}
 				defaultZoom={defaultProps.zoom}
 			>
-				<mapMarker
+				<MapMarker
 					lat={32.02843624959642}
 					lng={-102.05991609093407}
-					text='My Marker'
+					Pin={Pin}
 				/>
 			</GoogleMapReact>
 		</div>
 	);
-}
+};
 export default Map;

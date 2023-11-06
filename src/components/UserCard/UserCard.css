@@ -1,0 +1,16 @@
+.card-info {
+	margin-top: 0;
+	padding: 2px;
+}
+.cardline {
+	padding: 3px;
+}
+.name {
+	font-size: 24px;
+	font-weight: bold;
+}
+.hr {
+	height: 2px;
+	background-color: rgb(236, 243, 251);
+	box-shadow: 1px 1px 1px black;
+}

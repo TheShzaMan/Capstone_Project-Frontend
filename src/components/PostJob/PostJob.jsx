@@ -33,6 +33,7 @@ const PostJob = (props) => {
 					},
 				}
 			);
+            setJobForMap(response.Location)
 		} catch (error) {
 			console.warn("Error at postNewJob", error.message);
 		}

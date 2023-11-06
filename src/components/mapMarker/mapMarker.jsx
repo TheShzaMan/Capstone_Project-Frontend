@@ -1,14 +1,11 @@
-import mapMark from "../../images/location-pin.svg";
-import pumpjack from "../../images/oil-jack.svg";
 import React from "react";
-
-const mapMarker = (lat, lng, text) => {
+import MarkerPin from "../../icons/pin-marker-map.svg";
+const MapMarker = (lat, lng, text) => {
 	return (
 		<div className='marker-container'>
-			<img src={mapMark} className='marker'></img>
-			<img src={pumpjack} className='jack'></img>
+			<img src={MarkerPin} />
 		</div>
 	);
 };
 
-export default mapMarker;
+export default MapMarker;

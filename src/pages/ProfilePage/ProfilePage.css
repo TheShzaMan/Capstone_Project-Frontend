@@ -2,3 +2,7 @@
 a {
 	color: #fefefe;
 }
+.profile-page {
+	align-items: center;
+	justify-content: start;
+}
