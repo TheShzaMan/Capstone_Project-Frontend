@@ -1,39 +1,42 @@
-import "./UserCard.css";
 import React from "react";
 
 const UserCard = (singleUser) => {
-	console.log(singleUser.singleUser.user);
+	// console.log(singleUser.singleUser);
 	const user = singleUser.singleUser.user;
-	const review = singleUser.singleUser;
 
 	return (
-		<div className='user card'>
+		<div className='card'>
 			{user.isWorker ? (
 				<div className='card-info'>
-					<div className='name cardline'>{`${user.firstName} ${user.lastName}`}</div>
+					<div className='cardname'>{`${user.firstName} ${user.lastName}`}</div>
 					<div className='hr'></div>
-					<div className='cardline'>{`@${user.userName}`}</div>
+					<div>{`@${user.userName}`}</div>
+					{/* A ternary because not all users will have both phone number and email */}
 					{user.phoneNumber && (
-						<div className='cardline'>
-							Contact: {user.phoneNumber}
+						<div>
+							Contact:
+							{user.phoneNumber}
 						</div>
 					)}{" "}
-					{user.email && (
-						<div className='cardline'>Email: {user.email}</div>
-					)}
-					<div className='cardline'>
-						Availability: {user.availability}
-					</div>
-					<div className='cardline'>
+					{user.email && <div>Email: {user.email}</div>}
+					<div>Availability: {user.availability}</div>
+					<div>
 						Rate per hour:{" $"}
 						{user.wagePerHour}
 					</div>
-					<div className='cardline'>
-						Skill Level: {user.skillLevel}
-					</div>
+					<div>Skill Level: {user.skillLevel}</div>
 				</div>
 			) : (
-				<div className='not-worker-card'></div>
+				<div className='card-info'>
+					<div className='cardname'>{user.firstName}</div>
+					<div className='hr'></div>
+					<div>{`@${user.userName}`}</div>
+					{user.phoneNumber && (
+						<div>Contact: {user.phoneNumber}</div>
+					)}{" "}
+					{user.email && <div>Email: {user.email}</div>}
+					<div>About: {user.businessDescription}</div>
+				</div>
 			)}
 		</div>
 	);

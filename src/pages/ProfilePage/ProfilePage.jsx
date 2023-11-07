@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import UserCard from "../../components/UserCard/UserCard";
 import useAuth from "../../hooks/useAuth";
+import ReviewSummaryCard from "../../components/ReviewSummaryCard/ReviewSummaryCard";
 
 const ProfilePage = () => {
 	const [user, token] = useAuth();
@@ -35,7 +36,10 @@ const ProfilePage = () => {
 	return (
 		<div className='profile-page container'>
 			{thisUser ? (
-				<UserCard singleUser={thisUser} />
+				<>
+					<UserCard singleUser={thisUser} />
+					<ReviewSummaryCard singleUser={thisUser} />
+				</>
 			) : (
 				<h2>Loading...</h2>
 			)}

@@ -10,7 +10,7 @@
 	flex-direction: column;
 	align-items: center;
 }
-.container p {
+.reg-link {
 	color: white;
 	margin-top: 10px;
 }

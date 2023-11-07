@@ -4,7 +4,6 @@
 }
 
 .register-form {
-	display: flex;
 	flex-direction: row;
 }
 .register-form input {

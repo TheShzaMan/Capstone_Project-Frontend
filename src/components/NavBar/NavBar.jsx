@@ -18,8 +18,10 @@ const Navbar = () => {
 						to='/'
 						style={{ textDecoration: "none", color: "white" }}
 					>
-						<b>Shea's Oilfield App</b>
-						<p>with NO name...yet</p>
+						<b>Prospector</b>
+						<p
+							style={{ textIndent: "0%" }}
+						>{`The Oilfield, Connected.`}</p>
 					</Link>
 				</li>
 
@@ -70,7 +72,14 @@ const Navbar = () => {
 					</>
 				) : (
 					// <button onClick={() => navigate("/profile")}></button>
-					<button onClick={() => navigate("/login")}>Sign In</button>
+					<div className='signin'>
+						<button onClick={() => navigate("/register")}>
+							Sign Up
+						</button>
+						<button onClick={() => navigate("/login")}>
+							Sign In
+						</button>
+					</div>
 				)}
 			</ul>
 		</div>

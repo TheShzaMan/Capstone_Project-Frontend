@@ -1,0 +1,48 @@
+.homepage {
+	align-items: start;
+	justify-content: center;
+	overflow: auto;
+	padding-bottom: 8vh;
+	flex-direction: row;
+}
+.title-textra {
+	font-family: math;
+	/* font-size: 30px; */
+	/* margin-top: 0; */
+	font-size: 35px;
+	margin: 0;
+	color: black;
+	text-align: left;
+	margin-top: 4px;
+}
+h2.title-textra {
+	font-weight: bolder;
+	text-align: start;
+}
+.title {
+	margin-top: 5vh;
+	position: fixed;
+	left: 1vw;
+	/* text-shadow: 1px 1px rgb(252, 217, 17); */
+	text-shadow: 2px 2px 1px rgb(255, 235, 125), 3px 3px rgb(252, 189, 1);
+	/* flex-wrap: wrap; */
+	display: flex;
+	flex-direction: column;
+	max-width: 100%;
+	/* flex-direction: column; */
+}
+
+.title-textra.u {
+	margin: 1px;
+	margin-top: 4px;
+}
+
+.homebody {
+	margin: 0;
+	position: fixed;
+	bottom: 15vh;
+	right: 10vh;
+	color: white;
+	text-shadow: 1px 1px black;
+	font-size: 24px;
+}

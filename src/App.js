@@ -22,14 +22,7 @@ function App() {
 		<div className='bg'>
 			<Navbar />
 			<Routes>
-				<Route
-					path='/'
-					element={
-						<PrivateRoute>
-							<HomePage />
-						</PrivateRoute>
-					}
-				/>
+				<Route path='/' element={<HomePage />} />
 				<Route path='/login' element={<LoginPage />} />
 				<Route path='/register' element={<RegisterPage />} />
 				<Route
