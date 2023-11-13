@@ -1,7 +1,10 @@
 import DbPreLoadUsers from "../../context/DbPreLoadData";
 import registerUser from "../../context/AuthContext";
+import AlertModal from "../../components/AlertModal/AlertModal";
+import { useState } from "react";
 
 const DbEZLoadPage = () => {
+	const [modalOn, setModalOn] = useState(false);
 	const preLoadUsers = DbPreLoadUsers.map((user) => ({
 		firstName: user.firstName,
 		lastName: user.lastName,
@@ -20,11 +23,24 @@ const DbEZLoadPage = () => {
 		preLoadUsers.map((user) => registerUser(user));
 	};
 
+	const handleClick = () => {
+		setModalOn(!modalOn);
+		const modalMessage = {
+			header: "SUCCESS",
+			message: "Your new modal componenet works!",
+		};
+		return modalMessage;
+	};
+
 	return (
 		<div className='dbloader container'>
 			<button type='button' onClick={loadUsers} disabled>
 				PreLoad
 			</button>
+			<button type='button' onClick={handleClick}>
+				Modal test
+			</button>
+			{modalOn === true && <AlertModal />}
 		</div>
 	);
 };
