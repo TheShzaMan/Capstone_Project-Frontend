@@ -29,6 +29,7 @@ h2.title-textra {
 	display: flex;
 	flex-direction: column;
 	max-width: 100%;
+	/* z-index: 0; */
 	/* flex-direction: column; */
 }
 

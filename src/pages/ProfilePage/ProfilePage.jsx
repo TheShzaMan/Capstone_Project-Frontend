@@ -8,7 +8,7 @@ import ReviewSummaryCard from "../../components/ReviewSummaryCard/ReviewSummaryC
 
 const ProfilePage = () => {
 	const [user, token] = useAuth();
-	const [thisUser, setThisUser] = useState();
+	const [thisUser, setThisUser] = useState("");
 
 	const userId = user.id;
 
@@ -27,6 +27,7 @@ const ProfilePage = () => {
 				}
 			);
 			setThisUser(response.data);
+			console.log(thisUser);
 		} catch (error) {
 			console.warn("Error in the fetchUserWithReview request.", error);
 		}
@@ -38,6 +39,7 @@ const ProfilePage = () => {
 			{thisUser ? (
 				<>
 					<UserCard singleUser={thisUser} />
+
 					<ReviewSummaryCard singleUser={thisUser} />
 				</>
 			) : (

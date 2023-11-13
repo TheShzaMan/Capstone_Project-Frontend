@@ -3,7 +3,7 @@ import React from "react";
 const UserCard = (singleUser) => {
 	// console.log(singleUser.singleUser);
 	const user = singleUser.singleUser.user;
-
+	console.log({ user });
 	return (
 		<div className='card'>
 			{user.isWorker ? (

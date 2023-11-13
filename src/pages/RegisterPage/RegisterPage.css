@@ -2,6 +2,12 @@
 	display: flex;
 	flex-direction: column;
 }
+.register-form select {
+	background-color: rgba(115, 169, 169, 0.758);
+	font-weight: bold;
+	border-style: inset;
+	border-color: black;
+}
 
 .register-form {
 	flex-direction: row;
@@ -13,7 +19,8 @@
 	background-color: rgba(115, 169, 169, 0.758);
 	/* margin: 5px; */
 	/* padding: 3px 7px; */
-	font-size: 17px;
+	font-size: 14px;
+	font-weight: bold;
 	border-width: 2px;
 	border-style: inset;
 	border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
@@ -23,9 +30,16 @@
 	letter-spacing: 1px;
 }
 
+.required {
+	align-self: end;
+}
+
+/* .register-form form {
+	display: block;
+} */
 /* custom radio buttons */
 
-.radio {
+/* .radio {
 	display: block;
 	position: relative;
 	padding-left: 35px;
@@ -70,4 +84,4 @@
 	height: 8px;
 	border-radius: 50%;
 	background: white;
-}
+} */

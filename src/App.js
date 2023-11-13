@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import SearchPage from "./pages/SearchPage/SearchPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import DbEZLoadPage from "./pages/DbEZLoadPage/DbEZLoadPage";
 
 // Component Imports
 import Navbar from "./components/NavBar/NavBar";
@@ -21,6 +22,7 @@ function App() {
 	return (
 		<div className='bg'>
 			<Navbar />
+
 			<Routes>
 				<Route path='/' element={<HomePage />} />
 				<Route path='/login' element={<LoginPage />} />
@@ -41,6 +43,7 @@ function App() {
 						</PrivateRoute>
 					}
 				/>
+				<Route path='/dbSeed' element={<DbEZLoadPage />} />
 			</Routes>
 			<Footer />
 		</div>

@@ -1,6 +1,6 @@
 footer {
 	position: fixed;
-
+	/* background-color: rgb(2, 2, 2); */
 	font-size: 1.2rem;
 	left: 0;
 	bottom: 0;
@@ -8,5 +8,6 @@ footer {
 	text-align: center;
 	width: 100%;
 	margin-top: 10px;
-	background-image: linear-gradient(to top, steelblue, transparent);
+	background-image: linear-gradient(transparent, steelblue),
+		linear-gradient(to top, rgb(0, 0, 0), black, transparent);
 }

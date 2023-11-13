@@ -9,7 +9,7 @@
 }
 
 ::-webkit-scrollbar {
-	width: 5px;
+	width: 20px;
 }
 
 ::-webkit-scrollbar-track {
@@ -17,8 +17,13 @@
 }
 
 ::-webkit-scrollbar-thumb {
-	background: rgba(49, 173, 177, 0.586);
-	border: solid 1px black;
+	background: steelblue(49, 173, 177, 0.586);
+	border: outset 1px rgb(255, 253, 253);
+}
+::-webkit-scrollbar-thumb:hover {
+	border: inset 2px white;
+	background: rgba(70, 131, 180, 0.767);
+	transform: scale(1.2);
 }
 
 html {
@@ -42,6 +47,7 @@ html {
 	background-repeat: no-repeat;
 	background-size: cover;
 	height: 100%;
+	/* z-index: -2; */
 }
 
 p {
@@ -114,6 +120,7 @@ form {
 	color: rgb(236, 243, 251);
 	text-shadow: 2px 2px black;
 	letter-spacing: 1px;
+	/* z-index: 0; */
 }
 
 .card {
@@ -123,7 +130,7 @@ form {
 	word-wrap: break-word;
 	max-height: 75%;
 	align-items: center;
-	box-shadow: 3px 3px 3px rgb(3, 3, 3);
+	box-shadow: 2px 2px 4px 1px rgb(3, 3, 3);
 	padding: 2%;
 	margin-top: 5%;
 	background: rgba(97, 121, 135, 0.289);
@@ -134,6 +141,7 @@ form {
 	letter-spacing: 1px;
 	max-width: 60vw;
 	min-width: 250px;
+	border-radius: 4px;
 }
 
 .card-info {
@@ -162,5 +170,5 @@ form {
 	background-color: rgba(70, 131, 180, 0.81);
 	opacity: 1;
 	width: 40px;
-	padding: 2px 6px;
+	padding: 2px 7px;
 }

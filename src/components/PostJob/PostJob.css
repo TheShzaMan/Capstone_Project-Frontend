@@ -1,5 +1,9 @@
 .popup-container {
 	flex-direction: column;
+	position: absolute;
+	background-color: rgba(70, 131, 180, 0.89);
+	background-image: linear-gradient(to top, black, rgba(70, 131, 180, 0.79));
+	/* z-index: 400; */
 }
 .popup-container h2 {
 	color: white;

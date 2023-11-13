@@ -6,6 +6,10 @@
 	font-size: 15px;
 	margin-top: 0;
 }
+.r-data .textra {
+	padding: 1px 5px;
+}
+
 .r-data .explain {
 	visibility: hidden;
 	width: 50vw;

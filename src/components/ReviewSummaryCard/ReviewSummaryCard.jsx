@@ -4,7 +4,9 @@ import "./ReviewSummaryCard.css";
 const ReviewSummaryCard = (singleUser) => {
 	const review = singleUser.singleUser;
 	const user = singleUser.singleUser.user;
-	console.log(user.userName);
+	const avgOverall = review.avgOverallScore;
+	const avgForDisplay = avgOverall.toFixed(1);
+	// console.log({ singleUser });
 	return (
 		<div className='card review'>
 			{user.isWorker ? (
@@ -16,34 +18,42 @@ const ReviewSummaryCard = (singleUser) => {
 					<div className='hr'></div>
 					<h3>
 						Overall Avg. Score:{" "}
-						<span className='textra'>{review.avgOverallScore}</span>
+						<span className='textra'>{avgForDisplay}</span>
 						/5
 					</h3>
 					<div>
-						{`Total of number of reviews: `}
+						Total of number of reviews:{" "}
 						<span className='textra'>
-							{" "}
-							{review.totalReviewsJobs}
+							{review.totalReviewsJobs.toFixed(1)}
 						</span>
 					</div>
 					<div className='subcard card'>
 						<h4>Avg scores breakdown:</h4>
 						<div className='r-data'>
-							{`Adherence to offer: ${review.avgAdherence}`}
+							Adherence to offer:{" "}
+							<span className='textra'>
+								{review.avgAdherence.toFixed(1)}
+							</span>
 							<span className='explain'>
 								How close the real work done was to what was
 								originally agreed upon.
 							</span>
 						</div>
 						<div className='r-data'>
-							{`Work Quality: ${review.avgQuality}`}
+							Work Quality:{" "}
+							<span className='textra'>
+								{review.avgQuality.toFixed(1)}
+							</span>
 							<span className='explain'>
 								The job that was done was done correctly and
 								efficiently to your satisfaction.
 							</span>
 						</div>
 						<div className='r-data'>
-							{`Adaptability: ${review.avgAdaptability}`}
+							Adaptability:
+							<span className='textra'>
+								{review.avgAdaptability.toFixed(1)}
+							</span>
 							<span className='explain'>
 								How quickly this worker was able to learn what
 								was needed and adapt to this job. If part of a
@@ -51,7 +61,10 @@ const ReviewSummaryCard = (singleUser) => {
 							</span>
 						</div>
 						<div className='r-data'>
-							{`Communication: ${review.avgCommunication}`}
+							Communication:{" "}
+							<span className='textra'>
+								{review.avgCommunication.toFixed(1)}
+							</span>
 							<span className='explain'>
 								Any communication made was professional. Any
 								issues that arose were well communicated in a
@@ -59,7 +72,10 @@ const ReviewSummaryCard = (singleUser) => {
 							</span>
 						</div>
 						<div className='r-data'>
-							{`Timeliness: ${review.avgTimeliness}`}
+							Timeliness:{" "}
+							<span className='textra'>
+								{review.avgTimeliness.toFixed(1)}
+							</span>
 							<span className='explain'>
 								Showed up on time and worked to the time agreed
 								upon. No long breaks. No staying longer than
@@ -67,7 +83,10 @@ const ReviewSummaryCard = (singleUser) => {
 							</span>
 						</div>
 						<div className='r-data'>
-							{`Likeliness of repeat: ${review.avgWouldRepeat}`}
+							Likeliness of repeat:{" "}
+							<span className='textra'>
+								{review.avgWouldRepeat.toFixed(1)}
+							</span>
 							<span className='explain'>
 								Likeliness that this job provider would consider
 								hiring this worker again.
@@ -84,27 +103,34 @@ const ReviewSummaryCard = (singleUser) => {
 					<div className='hr'></div>
 					<h3>
 						Overall Avg. Score:{" "}
-						<span className='textra'>{review.avgOverallScore}</span>
+						<span className='textra'>
+							{review.avgOverallScore.toFixed(1)}
+						</span>
 						/5
 					</h3>
 					<div>
-						{`Total of number of reviews: `}
+						Total of number of reviews:{" "}
 						<span className='textra'>
-							{" "}
 							{review.totalReviewsJobs}
 						</span>
 					</div>
 					<div className='subcard card'>
 						<h4>Avg scores breakdown:</h4>
 						<div className='r-data'>
-							{`Adherence to offer: ${review.avgAdherence}`}
+							Adherence to offer:{" "}
+							<span className='textra'>
+								{review.avgAdherence.toFixed(1)}
+							</span>
 							<span className='explain'>
 								How close the real job was to what was
 								originally agreed upon.
 							</span>
 						</div>
 						<div className='r-data'>
-							{`Job Quality: ${review.avgQuality}`}
+							Job Quality:{" "}
+							<span className='textra'>
+								{review.avgQuality.toFixed(1)}
+							</span>
 							<span className='explain'>
 								Includes things like access to water, restroom,
 								sufficient break policy, the quality of the work
@@ -112,7 +138,10 @@ const ReviewSummaryCard = (singleUser) => {
 							</span>
 						</div>
 						<div className='r-data'>
-							{`Communication: ${review.avgCommunication}`}
+							Communication:{" "}
+							<span className='textra'>
+								{review.avgCommunication.toFixed(1)}
+							</span>
 							<span className='explain'>
 								The job was explained and if questions arose
 								they were answered. The job specifics were made
@@ -120,7 +149,10 @@ const ReviewSummaryCard = (singleUser) => {
 							</span>
 						</div>
 						<div className='r-data'>
-							{`Timeliness: ${review.avgTimeliness}`}
+							Timeliness:{" "}
+							<span className='textra'>
+								{review.avgTimeliness.toFixed(1)}
+							</span>
 							<span className='explain'>
 								The job started and stopped on time. If time
 								issues arise, they are communicated. Everyone's
@@ -128,7 +160,10 @@ const ReviewSummaryCard = (singleUser) => {
 							</span>
 						</div>
 						<div className='r-data'>
-							{`Likeliness of repeat: ${review.avgWouldRepeat}`}
+							Likeliness of repeat:{" "}
+							<span className='textra'>
+								{review.avgWouldRepeat.toFixed(1)}
+							</span>
 							<span className='explain'>
 								Given the opportunity, would you take this job
 								again? Would you recommend it to a friend?

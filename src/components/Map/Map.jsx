@@ -20,6 +20,9 @@ const Map = () => {
 		</div>
 	);
 
+	const mapsMarkers = [];
+	mapsMarkers.push();
+
 	return (
 		<div className='map-display' style={{ height: "60vh", width: "60vh" }}>
 			<GoogleMapReact
@@ -30,8 +33,23 @@ const Map = () => {
 				defaultZoom={defaultProps.zoom}
 			>
 				<MapMarker
-					lat={32.02843624959642}
-					lng={-102.05991609093407}
+					lat={31.664044426610904}
+					lng={-102.90282387934406}
+					Pin={Pin}
+				/>
+				<MapMarker
+					lat='31.55085720431489'
+					lng=' -103.26046333621791'
+					Pin={Pin}
+				/>
+				<MapMarker
+					lat='32.187949317393645'
+					lng='-103.16208294066081'
+					Pin={Pin}
+				/>
+				<MapMarker
+					lat='31.39746345498654'
+					lng='-103.35549843084951'
 					Pin={Pin}
 				/>
 			</GoogleMapReact>

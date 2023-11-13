@@ -7,6 +7,7 @@ ul {
 
 li {
 	font-size: 1.25rem;
+	display: flex;
 }
 
 .navBar {
@@ -35,6 +36,45 @@ li {
 	color: rgb(3, 3, 3);
 	cursor: pointer;
 	text-shadow: 2px 2px white;
+}
+.popup-container {
+	position: fixed;
+	top: 14vh;
+	/* right: 10vh; */
+	left: 30vh;
+	margin-right: 2vw;
+	overflow: auto;
+	max-height: 70vh;
+	margin-top: 2vh;
+	min-width: 60vw;
+
+	/* justify-content: center; */
+}
+/* .form-container input[type="text"],
+.form-container input[type="password"] {
+	width: 100%;
+	padding: 15px;
+	margin: 5px 0 22px 0;
+} */
+/* .form-container input:focus {
+	background-color: steelblue;
+	outline: none;
+}
+.form-container .btn:hover, .open-button:hover {
+	opacity: 1;
+  } */
+
+/* .closed-form {
+	display: none;
+} */
+.opened-form {
+	display: flex;
+}
+button.navbar {
+	display: flex;
+	top: 0vh;
+	right: 10vw;
+	position: relative;
 }
 
 .brand {
@@ -71,7 +111,7 @@ li {
 	/* margin-bottom: 0; */
 }
 .dropdown-content {
-	display: none;
+	/* display: none; */
 	position: relative;
 	right: 0;
 	top: 8vh;
@@ -85,10 +125,10 @@ li {
 	letter-spacing: 1px;
 	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 	/* padding: 12px 16px; */
-	z-index: 8000005;
+	/* z-index: 8000005; */
 	font-size: 1rem;
 	width: 150px;
-	overflow: visible;
+	overflow: auto;
 }
 .dropdown-content a {
 	color: rgb(251, 249, 249);
@@ -111,6 +151,7 @@ li {
 
 .user {
 	margin-right: 2vw;
+	position: relative;
 }
 
 .menubtn {
@@ -120,8 +161,17 @@ li {
 	margin: 0;
 	margin-top: 5px;
 	margin-left: 10px;
+	position: relative;
 }
 .signin {
 	flex-direction: row;
 	margin-left: 2rem;
 }
+/* .form-popup {
+	display: none;
+	position: fixed;
+
+	right: 15px;
+	border: 3px solid #f1f1f1;
+	z-index: 9;
+} */

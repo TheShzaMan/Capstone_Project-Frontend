@@ -4,26 +4,29 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useCustomForm from "../../hooks/useCustomForm";
+import { useState } from "react";
 
-const PostJob = (props) => {
+const PostJob = () => {
 	const [user, token] = useAuth();
 	const navigate = useNavigate();
-
+	const [jobForMap, setJobForMap] = useState([]);
 	const initialValues = {
 		Location: "",
 		JobName: "",
 		SkillLevel: "",
 		JobDescription: " ",
 		PayPerHour: " ",
+		IsWorker: false,
 	};
 
-	const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(
+	const [formData, handleInputChange, handleSubmit] = useCustomForm(
 		postNewJob,
 		initialValues
 	);
 
 	async function postNewJob() {
 		try {
+			console.log(user);
 			let response = await axios.post(
 				"https://localhost:5001/api/Jobs",
 				formData,
@@ -33,7 +36,8 @@ const PostJob = (props) => {
 					},
 				}
 			);
-            setJobForMap(response.Location)
+			navigate("/search");
+			setJobForMap(response.Location);
 		} catch (error) {
 			console.warn("Error at postNewJob", error.message);
 		}

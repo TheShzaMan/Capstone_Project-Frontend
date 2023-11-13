@@ -15,6 +15,7 @@ function setUserObject(user) {
 		userName: user.userName,
 		id: user.id,
 		email: user.email,
+		isWorker: false,
 	};
 }
 
@@ -30,16 +31,16 @@ export const AuthProvider = ({ children }) => {
 	const registerUser = async (registerData) => {
 		try {
 			let finalData = {
+				firstName: registerData.firstName,
+				lastName: registerData.lastName,
 				userName: registerData.username,
 				password: registerData.password,
 				email: registerData.email,
-				firstName: registerData.firstName,
-				lastName: registerData.lastName,
 				phoneNumber: registerData.phoneNumber,
 				isWorker: registerData.isWorker,
 				availability: registerData.availability,
-				wagePerHour: registerData.wagePerHour,
-				experience: registerData.experience,
+				payPerHour: registerData.payPerHour,
+				skillLevel: registerData.experience,
 				businessDescription: registerData.businessDescription,
 			};
 			let response = await axios.post(`${BASE_URL}`, finalData);
