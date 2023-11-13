@@ -1,11 +1,15 @@
 import "./AlertModal.css";
-
-const AlertModal = (modal) => {
+import { useState } from "react";
+const AlertModal = ({ header, message }) => {
+	const [modalState, setModalState] = useState("modal-active");
+	const handleClick = () => {
+		setModalState("modal-inactive");
+	};
 	return (
-		<div className='modal-container'>
+		<div onClick={handleClick} className={modalState}>
 			<div className='modal-content'>
-				<div className='modal-header'>{modal.header}</div>
-				<div className='modal-body'>{modal.message}</div>
+				<div className='modal-header'>{header}</div>
+				<div className='modal-body'>{message}</div>
 			</div>
 		</div>
 	);

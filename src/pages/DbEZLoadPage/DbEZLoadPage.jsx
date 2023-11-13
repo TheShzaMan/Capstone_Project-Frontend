@@ -25,11 +25,6 @@ const DbEZLoadPage = () => {
 
 	const handleClick = () => {
 		setModalOn(!modalOn);
-		const modalMessage = {
-			header: "SUCCESS",
-			message: "Your new modal componenet works!",
-		};
-		return modalMessage;
 	};
 
 	return (
@@ -40,7 +35,12 @@ const DbEZLoadPage = () => {
 			<button type='button' onClick={handleClick}>
 				Modal test
 			</button>
-			{modalOn === true && <AlertModal />}
+			{modalOn === true && (
+				<AlertModal
+					header='SUCCESS'
+					message='Your new modal component works!'
+				/>
+			)}
 		</div>
 	);
 };
