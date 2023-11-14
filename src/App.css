@@ -9,16 +9,17 @@
 }
 
 ::-webkit-scrollbar {
-	width: 20px;
+	width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-	background: rgba(70, 131, 180, 0.533);
+	background: rgba(70, 131, 180, 0.334);
 }
 
 ::-webkit-scrollbar-thumb {
-	background: steelblue(49, 173, 177, 0.586);
+	background: rgba(70, 131, 180, 0.574);
 	border: outset 1px rgb(255, 253, 253);
+	border-radius: 5px;
 }
 ::-webkit-scrollbar-thumb:hover {
 	border: inset 2px white;
@@ -83,7 +84,9 @@ button:hover {
 	align-items: flex-start;
 	display: flex;
 	flex-direction: column;
-	padding-top: 15vh;
+	padding-top: 18vh;
+	width: max-content;
+	padding-bottom: 5vh;
 }
 
 .form input {
@@ -171,4 +174,7 @@ form {
 	opacity: 1;
 	width: 40px;
 	padding: 2px 7px;
+}
+.loading {
+	color: white;
 }

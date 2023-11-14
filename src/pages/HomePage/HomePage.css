@@ -40,9 +40,9 @@ h2.title-textra {
 
 .homebody {
 	margin: 0;
-	position: fixed;
-	bottom: 15vh;
-	right: 10vh;
+	position: absolute;
+	bottom: 10vh;
+	right: 15vw;
 	color: white;
 	text-shadow: 1px 1px black;
 	font-size: 24px;

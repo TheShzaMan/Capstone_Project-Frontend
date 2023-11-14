@@ -4,10 +4,12 @@ a {
 }
 .profile-page {
 	align-items: center;
-	justify-content: start;
+	justify-content: space-between;
 	overflow: auto;
-	padding-bottom: 8vh;
+	/* padding-bottom: 8vh; */
 	/* margin-left: 10vw; */
 	/* margin-right: 10vw; */
 	/* align-items: baseline; */
+	max-height: 90vh;
+	overflow-x: hidden;
 }

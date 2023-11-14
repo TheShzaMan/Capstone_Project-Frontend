@@ -11,14 +11,16 @@ li {
 }
 
 .navBar {
+	/* background-color: gold; */
 	background-image: linear-gradient(to top, transparent, steelblue, black);
+
 	/* box-shadow: 4px 2px 5px gray; */
 	color: white;
-	margin-bottom: 1rem;
+	/* margin-bottom: 1rem; */
 	padding: 1.5rem 2rem;
 	height: 8rem;
 	width: 100%;
-	position: fixed;
+	position: absolute;
 	top: 0;
 	min-width: 550px;
 }
@@ -50,19 +52,10 @@ li {
 
 	/* justify-content: center; */
 }
-/* .form-container input[type="text"],
-.form-container input[type="password"] {
-	width: 100%;
-	padding: 15px;
-	margin: 5px 0 22px 0;
-} */
-/* .form-container input:focus {
-	background-color: steelblue;
-	outline: none;
+li.user {
+	column-gap: 5px;
+	margin-right: 0;
 }
-.form-container .btn:hover, .open-button:hover {
-	opacity: 1;
-  } */
 
 /* .closed-form {
 	display: none;
@@ -74,7 +67,7 @@ button.navbar {
 	display: flex;
 	top: 0vh;
 	right: 10vw;
-	position: relative;
+	/* position: relative; */
 }
 
 .brand {
@@ -84,41 +77,46 @@ button.navbar {
 .brand p {
 	margin-left: 3vw;
 }
-.dropbtn {
-	/* background: transparent; */
-	position: fixed;
+button.dropbtn {
+	position: relative;
+	border-style: none;
 	right: 1vw;
-	top: 2em;
+
 	margin-right: 1em;
 	opacity: 1;
-	/* color: rgb(236, 243, 251); */
+
 	text-shadow: 2px 2px black;
 	margin-bottom: 10px;
-	/* margin-left: 1.5vh; */
-	padding: 4px;
-	padding-bottom: 0;
+	padding: 0;
 	font-size: 16px;
 }
-/* img.dropbtn {
-	margin: 0;
-} */
+button.dropbtn:hover {
+	background-color: rgba(250, 251, 252, 0.529);
+	border-style: none;
+	box-shadow: none;
+}
 
 .dropdown {
-	position: fixed;
-	right: 0vw;
-	display: inline-block;
+	/* position: fixed; */
+	right: 0;
+	margin-right: 0;
+	/* display: inline-block; */
 	/* display: flex; */
 	/* margin-bottom: 0; */
 }
+.closed-menu {
+	display: none;
+}
+.opened-menu {
+	display: block;
+}
 .dropdown-content {
-	/* display: none; */
-	position: relative;
+	display: flex;
+	position: fixed;
 	right: 0;
-	top: 8vh;
-	/* background-color: #f1f1f1; */
-	/* min-width: 160px; */
+	flex-direction: column;
+	justify-content: space-evenly;
 	background: rgba(97, 121, 135, 0.289);
-	/* border: 1px solid black; */
 	opacity: 1;
 	color: rgb(236, 243, 251);
 	text-shadow: 2px 2px black;
@@ -129,6 +127,9 @@ button.navbar {
 	font-size: 1rem;
 	width: 150px;
 	overflow: auto;
+	margin: 8px;
+	margin-right: 0;
+	height: 80%;
 }
 .dropdown-content a {
 	color: rgb(251, 249, 249);
@@ -145,13 +146,16 @@ button.navbar {
 }
 
 .dropdown:hover .dropdown-content {
-	display: block;
+	/* display: block; */
 	/* flex-direction: column; */
 }
 
 .user {
 	margin-right: 2vw;
 	position: relative;
+}
+a.user {
+	margin-right: 2rem;
 }
 
 .menubtn {
@@ -160,7 +164,8 @@ button.navbar {
 	background-color: white;
 	margin: 0;
 	margin-top: 5px;
-	margin-left: 10px;
+	margin-bottom: 5px;
+	/* margin-left: 0; */
 	position: relative;
 }
 .signin {

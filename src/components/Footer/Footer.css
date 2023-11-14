@@ -8,6 +8,7 @@ footer {
 	text-align: center;
 	width: 100%;
 	margin-top: 10px;
+	background-color: black;
 	background-image: linear-gradient(transparent, steelblue),
 		linear-gradient(to top, rgb(0, 0, 0), black, transparent);
 }

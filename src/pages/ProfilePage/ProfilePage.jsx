@@ -11,7 +11,7 @@ const ProfilePage = () => {
 	const [thisUser, setThisUser] = useState("");
 
 	const userId = user.id;
-
+	// console.log(userId);
 	useEffect(() => {
 		fetchUserWithReview();
 	}, []);
@@ -27,7 +27,7 @@ const ProfilePage = () => {
 				}
 			);
 			setThisUser(response.data);
-			console.log(thisUser);
+			// console.log(thisUser);
 		} catch (error) {
 			console.warn("Error in the fetchUserWithReview request.", error);
 		}
@@ -39,11 +39,16 @@ const ProfilePage = () => {
 			{thisUser ? (
 				<>
 					<UserCard singleUser={thisUser} />
-
-					<ReviewSummaryCard singleUser={thisUser} />
+					{thisUser.totalReviews > 0 ? (
+						<ReviewSummaryCard singleUser={thisUser} />
+					) : (
+						<div className='card'>
+							User has not yet been reviewed.
+						</div>
+					)}
 				</>
 			) : (
-				<h2>Loading...</h2>
+				<h2 className='loading'>Loading...</h2>
 			)}
 		</div>
 	);

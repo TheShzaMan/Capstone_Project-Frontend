@@ -132,3 +132,4 @@ dist
 # added ignore
 .src/zKeys/googleMapAPIKey.txt
 .src/zKeys
+.src/config.js
