@@ -1,10 +1,11 @@
 import React from "react";
-import MarkerPin from "../../icons/pin-marker-map.svg";
-const MapMarker = (lat, lng, text) => {
+import Pin from "../../icons/oil-jack.svg";
+import { Marker } from "@react-google-maps/api";
+const MapMarker = ({ position }) => {
 	return (
-		<div className='marker-container'>
-			<img src={MarkerPin} />
-		</div>
+		<Marker position={position} />
+		// 	<img src={Pin} alt='pump jack icon' />
+		// </Marker>
 	);
 };
 

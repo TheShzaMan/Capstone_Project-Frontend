@@ -37,7 +37,6 @@ const PostJob = () => {
 				}
 			);
 			navigate("/search");
-			setJobForMap(response.Location);
 		} catch (error) {
 			console.warn("Error at postNewJob", error.message);
 		}
