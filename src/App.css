@@ -73,6 +73,16 @@ button:hover {
 	box-shadow: inset 2px 2px black;
 	text-shadow: 2px 2px black;
 }
+.alt-btn {
+	background-color: transparent;
+	/* border-top-style: none; */
+	border-right-style: none;
+	border-left-style: none;
+	margin-top: 0;
+	width: max-content;
+
+	text-wrap: nowrap;
+}
 
 .container {
 	margin: auto;
@@ -97,6 +107,13 @@ button:hover {
 	padding: 3px 7px;
 	font-size: 17px;
 	background-color: rgba(115, 169, 169, 0.758);
+}
+.form textarea {
+	font-family: "Poppins", sans-serif;
+	background-color: rgba(115, 169, 169, 0.758);
+	color: white;
+	letter-spacing: 0.6px;
+	font-style: italic;
 }
 
 label {
@@ -131,12 +148,13 @@ form {
 	flex-direction: column;
 	margin: 5px;
 	word-wrap: break-word;
-	max-height: 75%;
+	max-height: 80%;
 	align-items: center;
 	box-shadow: 2px 2px 4px 1px rgb(3, 3, 3);
 	padding: 2%;
 	margin-top: 5%;
-	background: rgba(97, 121, 135, 0.289);
+	/* background: rgba(97, 121, 135, 0.403); */
+	background: rgba(43, 104, 139, 0.555);
 	border: 1px solid rgb(250, 249, 249);
 	opacity: 1;
 	color: rgb(236, 243, 251);
@@ -146,11 +164,17 @@ form {
 	min-width: 250px;
 	border-radius: 4px;
 }
+.card p {
+	font-size: 18px;
+	/* letter-spacing: normal; */
+	font-weight: 400;
+	display: inline;
+}
 
 .card-info {
 	margin-top: 0;
 	padding: 2px;
-	margin-bottom: 1rem;
+	/* margin-bottom: 1rem; */
 	letter-spacing: 1px;
 	font-weight: bold;
 	font-size: 17px;
@@ -177,4 +201,46 @@ form {
 }
 .loading {
 	color: white;
+}
+.popup-container {
+	flex-direction: column;
+	position: absolute;
+	top: 14vh;
+	left: 15vw;
+	right: 15vw;
+	background-color: rgba(70, 131, 180, 0.89);
+	background-image: linear-gradient(to top, black, rgba(70, 131, 180, 0.79));
+	overflow: auto;
+
+	max-height: 70vh;
+	margin-top: 2vh;
+	min-width: 60vw;
+	/* z-index: 400; */
+}
+
+.popup-container h2 {
+	color: white;
+}
+.closed-form {
+	display: none;
+}
+.opened-form {
+	display: flex;
+}
+button.exit-form {
+	display: grid;
+	margin: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 43px;
+	height: 43px;
+	font-size: larger;
+}
+select {
+	max-width: 70%;
+}
+form.form {
+	margin-top: 5px;
+	overflow-x: hidden;
 }

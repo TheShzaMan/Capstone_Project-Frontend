@@ -1,41 +1,71 @@
 import React from "react";
+import EditProfileForm from "../EditProfileForm/EditProfileForm";
+import "./UserCard.css";
+import { useState } from "react";
 
-const UserCard = (singleUser) => {
-	const user = singleUser.singleUser;
-	// console.log(singleUser.singleUser);
+const UserCard = ({ displayedUser, token, handleClickEdit }) => {
+	// displayedUser = displayedUser.displayedUser;
+	// const [handleClickEdit] = handleClickEdit();
+	// handleClickEdit = handleClickEdit();
+	// console.log(displayedUser);
 	return (
 		<div className='card'>
-			{user.isWorker ? (
+			{displayedUser.isWorker ? (
 				<div className='card-info'>
-					<div className='cardname'>{`${user.firstName} ${user.lastName}`}</div>
+					<div className='cardname'>{`${displayedUser.firstName} ${displayedUser.lastName}`}</div>
 					<div className='hr'></div>
-					<div>{`@${user.userName}`}</div>
+					<div>{`@${displayedUser.userName}`}</div>
 					{/* A ternary because not all users will have both phone number and email */}
-					{user.phoneNumber && (
+					{displayedUser.phoneNumber && (
 						<div>
-							Contact:
-							{user.phoneNumber}
+							Contact{":   "}
+							<p>{displayedUser.phoneNumber}</p>
 						</div>
 					)}{" "}
-					{user.email && <div>Email: {user.email}</div>}
-					<div>Availability: {user.availability}</div>
+					{displayedUser.email && (
+						<div>
+							Email{":   "} <p>{displayedUser.email}</p>
+						</div>
+					)}
 					<div>
-						Rate per hour:{" $"}
-						{user.wagePerHour}
+						Availability{":   "}
+						<p>{displayedUser.availability}</p>
 					</div>
-					<div>Skill Level: {user.skillLevel}</div>
+					<div>
+						Rate per hour{":   "}
+						{" $"}
+						<p>{displayedUser.wagePerHour}</p>
+					</div>
+					<div>
+						Skill Level{":   "}
+						<p>{displayedUser.skillLevel}</p>
+					</div>
 				</div>
 			) : (
 				<div className='card-info'>
-					<div className='cardname'>{user.firstName}</div>
+					<div className='cardname'>{displayedUser.firstName}</div>
 					<div className='hr'></div>
-					<div>{`@${user.userName}`}</div>
-					{user.phoneNumber && (
-						<div>Contact: {user.phoneNumber}</div>
+					<div>{`@${displayedUser.userName}`}</div>
+					{displayedUser.phoneNumber && (
+						<div>
+							Contact{":   "}
+							<p>{displayedUser.phoneNumber}</p>
+						</div>
 					)}{" "}
-					{user.email && <div>Email: {user.email}</div>}
-					<div>About: {user.businessDescription}</div>
+					{displayedUser.email && (
+						<div>
+							Email{":   "} <p>{displayedUser.email}</p>
+						</div>
+					)}
+					<div>
+						About{":   "} <p>{displayedUser.businessDescription}</p>
+					</div>
 				</div>
+			)}
+			{token != "" && (
+				<button className='alt-btn' onClick={handleClickEdit}>
+					Edit Profile
+				</button>
 			)}
 		</div>
 	);

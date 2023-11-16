@@ -162,7 +162,7 @@ const RegisterPage = () => {
 
 						<input
 							type='number'
-							name='wagePerHour'
+							name='payPerHour'
 							cols='4'
 							value={formData.payPerHour}
 							onChange={handleInputChange}

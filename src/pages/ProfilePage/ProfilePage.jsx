@@ -5,18 +5,19 @@ import React from "react";
 import UserCard from "../../components/UserCard/UserCard";
 import useAuth from "../../hooks/useAuth";
 import ReviewSummaryCard from "../../components/ReviewSummaryCard/ReviewSummaryCard";
+import EditProfileForm from "../../components/EditProfileForm/EditProfileForm";
 
 const ProfilePage = () => {
 	const [user, token] = useAuth();
-	const [thisUser, setThisUser] = useState("");
-
+	const [displayedUser, setDisplayedUser] = useState("");
+	const [editFormOpenState, setEditFormOpenState] = useState("closed-form");
 	const userId = user.id;
-	// console.log(userId);
+
 	useEffect(() => {
-		fetchUserWithReview();
+		fetchUser();
 	}, []);
 
-	async function fetchUserWithReview() {
+	async function fetchUser() {
 		try {
 			let response = await axios.get(
 				`https://localhost:5001/api/Reviews/profile/${userId}/`,
@@ -26,21 +27,40 @@ const ProfilePage = () => {
 					},
 				}
 			);
-			setThisUser(response.data);
-			// console.log(thisUser);
+			setDisplayedUser(response.data);
+			// console.log(userId);
+			// console.log(displayedUser.id);
 		} catch (error) {
-			console.warn("Error in the fetchUserWithReview request.", error);
+			console.warn("Error in the fetchUser request.", error);
 		}
 	}
-
+	const handleClickEdit = () => {
+		editFormOpenState === "closed-form"
+			? setEditFormOpenState("opened-form")
+			: setEditFormOpenState("closed-form");
+	};
 	//a button or dropdown menu items for post job and edit profile
 	return (
 		<div className='profile-page container'>
-			{thisUser ? (
+			{displayedUser ? (
 				<>
-					<UserCard singleUser={thisUser} />
-					{thisUser.totalReviews > 0 ? (
-						<ReviewSummaryCard singleUser={thisUser} />
+					<UserCard
+						token={token}
+						displayedUser={displayedUser}
+						handleClickEdit={handleClickEdit}
+					/>
+					<div className={editFormOpenState}>
+						<EditProfileForm
+							thisUser={displayedUser}
+							token={token}
+							handleClickEdit={handleClickEdit}
+							reloadProfile={fetchUser}
+						/>
+					</div>
+
+					{/* <button onClick={handleClickEdit}>Edit Profile</button> */}
+					{displayedUser.totalReviews > 0 ? (
+						<ReviewSummaryCard displayedUser={displayedUser} />
 					) : (
 						<div className='card'>
 							User has not yet been reviewed.

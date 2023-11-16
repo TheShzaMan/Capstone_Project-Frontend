@@ -1,16 +1,15 @@
 import "./AlertModal.css";
 import { useState } from "react";
-const AlertModal = ({ header, message }) => {
-	const [modalState, setModalState] = useState("modal-active");
-	const handleClick = () => {
-		setModalState("modal-inactive");
-	};
+// import { useNavigate } from "react-router-dom";
+
+const AlertModal = ({ header, message, handleClick }) => {
+	// const navigate = useNavigate();
+
+	// console.log(modalState);
 	return (
-		<div onClick={handleClick} className={modalState}>
-			<div className='modal-content'>
-				<div className='modal-header'>{header}</div>
-				<div className='modal-body'>{message}</div>
-			</div>
+		<div onClick={handleClick} className='modal-content'>
+			<div className='modal-header'>{header}</div>
+			<div className='modal-body'>{message}</div>
 		</div>
 	);
 };
