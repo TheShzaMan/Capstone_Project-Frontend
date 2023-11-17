@@ -35,48 +35,17 @@ const HomePage = () => {
 	return (
 		<div className='homepage container'>
 			<div className='title'>
-				<p className='title-textra r'>
-					West Texas and <br />
-					<span style={{ marginLeft: "25px" }}>
-						Southeastern New Mexico
-					</span>
-				</p>
-				{/* <p className='title-textra r'> </p> */}
-				<p
-					className='title-textra r'
-					style={{ margin: "8px 0", marginLeft: "4vw" }}
-				>
-					Oilfield JOBS and Skilled
-				</p>
-
-				<p
-					className='title-textra u'
-					style={{ margin: "8px 0", marginLeft: "7vw" }}
-				>
-					Oilfield WORKERS
-				</p>
-				<p
-					className='title-textra u'
-					style={{ margin: "8px 0", marginLeft: "6vw" }}
-				>
-					Ready to work
-				</p>
-				<div
-					className='title-textra u'
-					style={{
-						marginTop: "15px",
-						marginLeft: "15vw",
-						fontSize: "45px",
-						textDecoration: "underline",
-						fontStyle: "italic",
-						color: "gold",
-						textShadow: "none",
-						fontWeight: "bold",
-					}}
-				>
-					{" "}
-					TODAY
+				<div className='title-textra r one'>
+					<p>West Texas and</p>
+					<p className='pb'> Southeastern New Mexico</p>
 				</div>
+				<p className='title-textra r two'>...Oilfield JOBS...</p>
+
+				<p className='title-textra r three '>...Oilfield WORKERS...</p>
+				<p className='title-textra r four'>
+					Find them all in one place,
+				</p>
+				<div className='title-textra u'> Prospector</div>
 			</div>
 			<div className='homebody'>
 				<h3>

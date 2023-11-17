@@ -1,26 +1,29 @@
 .isWorker {
 	display: flex;
 	flex-direction: column;
+	align-self: center;
+	align-items: end;
+	margin-left: 0;
+	margin-right: 0;
+	column-gap: 1rem;
 }
-.register-form select {
-	background-color: rgba(115, 169, 169, 0.758);
-	font-weight: bold;
-	border-style: inset;
-	border-color: black;
+.work-select {
+	display: inline-grid;
+	grid-template-columns: auto auto;
+	column-gap: 2rem;
 }
 
 .register-form {
 	flex-direction: row;
 }
 .register-form input {
-	background-color: rgba(115, 169, 169, 0.758);
 }
 .register-form textarea {
-	background-color: rgba(115, 169, 169, 0.758);
+	background-color: rgba(70, 131, 180, 0.849);
 	/* margin: 5px; */
-	/* padding: 3px 7px; */
+	color: white;
 	font-size: 14px;
-	font-weight: bold;
+	/* font-weight: bold; */
 	border-width: 2px;
 	border-style: inset;
 	border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
@@ -32,6 +35,60 @@
 
 .required {
 	align-self: end;
+}
+
+.isWorker button {
+	display: flex;
+	width: 50px;
+	aspect-ratio: 1/1;
+	border-radius: 50%;
+}
+
+/* button.workers-btn {
+	display: flex;
+} */
+
+.provider[target="providerbtn"] {
+	background-color: steelblue;
+	border-left: 2px solid white;
+	border-top: 3px solid white;
+	border-bottom: 1px solid white;
+	border-right: 0px solid white;
+	font-size: 24px;
+	transition-duration: 250ms;
+}
+.worker[target="workerbtn"] {
+	background-color: steelblue;
+	border-left: 2px solid white;
+	border-top: 3px solid white;
+	border-bottom: 1px solid white;
+	border-right: 0px solid white;
+	font-size: 24px;
+	transition-duration: 250ms;
+}
+.provider[target="workerbtn"] {
+	background-color: slategray;
+	color: darkgray;
+	text-shadow: 1px 1px black;
+	border-left: 0px solid darkgray;
+	border-top: 2px solid darkgray;
+	border-bottom: 4px solid darkgray;
+	border-right: 3px solid darkgray;
+	text-align: left;
+	align-items: start;
+	transition-duration: 250ms;
+}
+.worker[target="providerbtn"] {
+	background-color: slategray;
+	color: darkgray;
+	text-shadow: 1px 1px black;
+	border-left: 0px solid darkgray;
+	border-top: 2px solid darkgray;
+	border-bottom: 4px solid darkgray;
+	border-right: 3px solid darkgray;
+	text-align: left;
+	align-items: start;
+	transition-duration: 250ms;
 }
 
 /* .register-form form {

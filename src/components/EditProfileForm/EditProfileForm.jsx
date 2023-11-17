@@ -10,27 +10,24 @@ const EditProfileForm = ({
 	token,
 	handleClickEdit,
 	reloadProfile,
+	handleClickModal,
 }) => {
 	// const navigate = useNavigate();
 	const [putResponse, setPutResponse] = useState("");
 	const [profileEdit, setProfileEdit] = useState();
-	const [modalState, setModalState] = useState("modal-inactive");
 	const user = thisUser;
+
 	const defaultValues = {
 		skillLevel: user.skillLevel,
 		availability: user.availability,
 		payPerHour: user.payPerHour,
 		businessDescription: user.businessDescription,
 	};
-	const handleClick = () => {
-		modalState === "modal-active"
-			? setModalState("modal-inactive")
-			: setModalState("modal-active");
-	};
 
 	useEffect(() => {
 		setProfileEdit(defaultValues);
 	}, []);
+
 	const putEditProfile = async (formData) => {
 		try {
 			let finalData = {
@@ -49,8 +46,8 @@ const EditProfileForm = ({
 				}
 			);
 			// setPutResponse(response);
-			handleClick();
-			console.log(putResponse.status);
+			handleClickModal();
+
 			setProfileEdit(finalData);
 			handleClickEdit();
 			reloadProfile();
@@ -131,7 +128,6 @@ const EditProfileForm = ({
 									cols='4'
 									value={formData.payPerHour}
 									onChange={handleInputChange}
-									required
 								/>
 							</span>
 						</label>
@@ -153,15 +149,6 @@ const EditProfileForm = ({
 					SUBMIT
 				</button>
 			</form>
-			<div className='modal-content'>
-				<div className={modalState}>
-					<AlertModal
-						header='SUCCESS'
-						message='Your profile has been successfully edited.'
-						handleClick={handleClick}
-					/>
-				</div>
-			</div>
 		</div>
 	);
 };

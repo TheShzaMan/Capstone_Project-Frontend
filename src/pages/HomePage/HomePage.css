@@ -1,49 +1,91 @@
-.homepage {
+.homepage.container {
 	align-items: start;
-	justify-content: center;
-	overflow: auto;
+	justify-content: start;
+	overflow: visible;
 	padding-bottom: 8vh;
-	flex-direction: row;
+	display: flex;
+	grid-template-columns: auto auto auto auto;
+	grid-template-rows: auto auto;
+	width: 90vw;
 }
 .title-textra {
 	font-family: math;
-	/* font-size: 30px; */
-	/* margin-top: 0; */
 	font-size: 35px;
 	margin: 0;
 	color: black;
 	text-align: left;
 	margin-top: 4px;
+	/* display: grid; */
 }
 h2.title-textra {
 	font-weight: bolder;
 	text-align: start;
 }
-.title {
-	margin-top: 5vh;
-	position: fixed;
-	left: 1vw;
-	/* text-shadow: 1px 1px rgb(252, 217, 17); */
-	text-shadow: 2px 2px 1px rgb(255, 235, 125), 3px 3px rgb(252, 189, 1);
-	/* flex-wrap: wrap; */
-	display: flex;
-	flex-direction: column;
-	max-width: 100%;
-	/* z-index: 0; */
-	/* flex-direction: column; */
-}
 
-.title-textra.u {
-	margin: 1px;
-	margin-top: 4px;
+.title {
+	margin: 0;
+	margin-top: 1vh;
+	margin-bottom: 10vh;
+	grid-column-start: 1;
+	grid-column-end: 4;
+	display: flex;
+	text-shadow: 2px 2px 1px rgb(255, 235, 125), 3px 3px rgb(252, 189, 1);
+	max-width: 90vw;
+	flex-direction: column;
 }
 
 .homebody {
 	margin: 0;
-	position: absolute;
-	bottom: 10vh;
-	right: 15vw;
+	grid-column-start: 3;
 	color: white;
 	text-shadow: 1px 1px black;
-	font-size: 24px;
+	font-size: 20px;
+	display: flex;
+	align-self: center;
+}
+.u {
+	font-family: "Poppins", sans-serif;
+	font-size: 45px;
+	font-style: italic;
+	color: gold;
+	text-shadow: none;
+	font-weight: bold;
+	grid-area: five;
+	display: flex;
+	align-self: flex-end;
+	text-shadow: 0.5px -0.5px rgb(6, 6, 6), -0.5px 0.5px rgb(0, 0, 0),
+		2px 2px rgb(4, 4, 4);
+}
+.one {
+	grid-area: one;
+	display: flex;
+	flex-direction: column;
+	width: 60vw;
+}
+.one p {
+	font-size: 30px;
+	max-width: fit-content;
+}
+.pb {
+	align-self: center;
+	margin-bottom: 10px;
+}
+.two {
+	grid-area: two;
+	display: grid;
+}
+.three {
+	grid-area: three;
+	display: flex;
+	align-self: center;
+	margin-top: 5vh;
+}
+.four {
+	grid-area: four;
+	display: flex;
+	align-self: flex-start;
+	font-weight: 900;
+	text-shadow: 0.5px -0.5px rgb(255, 235, 125),
+		-0.5px 0.5px rgb(255, 235, 125), 2px 2px rgb(252, 189, 1);
+	margin-top: 5vh;
 }

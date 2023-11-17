@@ -26,7 +26,11 @@ const Navbar = () => {
 				<li className='brand'>
 					<Link
 						to='/'
-						style={{ textDecoration: "none", color: "white" }}
+						style={{
+							textDecoration: "none",
+							color: "white",
+							fontStyle: "italic",
+						}}
 					>
 						<b>Prospector</b>
 						<p>{`The Oilfield, Connected.`}</p>
@@ -40,14 +44,14 @@ const Navbar = () => {
 							<a className='user'>{user.userName}</a>
 
 							<div className='dropdown'>
-								<button
+								<div
 									className='dropbtn'
 									onClick={handleClickMenu}
 								>
 									<div className='menubtn'></div>
 									<div className='menubtn'></div>
 									<div className='menubtn'></div>
-								</button>
+								</div>
 								{/* <button onClick={logoutUser}>Profile</button> */}
 								<div className={menuDropState}>
 									<div className='dropdown-content'>

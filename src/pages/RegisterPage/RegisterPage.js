@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 import "./RegisterPage.css";
+import { useState } from "react";
 
 const RegisterPage = () => {
 	const { registerUser } = useContext(AuthContext);
+	const [formType, setFormType] = useState("worker");
 	const defaultValues = {
 		firstName: "",
 		lastName: "",
@@ -22,26 +24,54 @@ const RegisterPage = () => {
 		registerUser,
 		defaultValues
 	);
+	const handleClickJ = () => {
+		formType === "provider" && setFormType("worker");
+	};
+	const handleClickW = () => {
+		formType === "worker" && setFormType("provider");
+	};
+
+	// formData.isWorker === true
+	// 	? setFormType("worker")
+	// 	: setFormType("provider");
 
 	return (
 		<div className='register-form container'>
 			<form onSubmit={handleSubmit}>
 				<label className='isWorker'>
 					<p>Looking For:</p>
-					<div>
-						<registerUser />
-						<select
+					<div className='work-select'>
+						{/* <select
 							className='isWorker'
 							name='isWorker'
 							value={formData.isWorker}
+							onChange={handleInputChange} */}
+
+						<button
+							type='button'
+							className={formType}
+							target='workerbtn'
+							name='isWorker'
+							onClick={handleClickJ}
+							value={true}
 							onChange={handleInputChange}
 						>
-							<option value={true}>Jobs</option>
-							<option value={false}>Workers</option>
-						</select>
+							Jobs
+						</button>
+						<button
+							type='button'
+							className={formType}
+							target='providerbtn'
+							name='isWorker'
+							onClick={handleClickW}
+							value={false}
+							onChange={handleInputChange}
+						>
+							Workers
+						</button>
+						{/* </select> */}
 					</div>
 				</label>
-
 				{/* <p>Looking For:</p>
 					<label className='radio' name='isWorker'>
 						Work
@@ -68,7 +98,6 @@ const RegisterPage = () => {
 						<span className='checkmark'></span>
 					</label>
 					<h5 className='required'>* = required</h5> */}
-
 				<label>
 					*First Name/Company Name:{" "}
 					<input
@@ -76,19 +105,19 @@ const RegisterPage = () => {
 						name='firstName'
 						value={formData.firstName}
 						onChange={handleInputChange}
-						required
 					/>
 				</label>
-
-				<label>
-					Last Name:{" "}
-					<input
-						type='text'
-						name='lastName'
-						value={formData.lastName}
-						onChange={handleInputChange}
-					/>
-				</label>
+				{formType === "worker" && (
+					<label>
+						Last Name:{" "}
+						<input
+							type='text'
+							name='lastName'
+							value={formData.lastName}
+							onChange={handleInputChange}
+						/>
+					</label>
+				)}
 				<label>
 					*Username:{" "}
 					<input
@@ -96,7 +125,6 @@ const RegisterPage = () => {
 						name='username'
 						value={formData.username}
 						onChange={handleInputChange}
-						required
 					/>
 				</label>
 				<label>
@@ -106,7 +134,6 @@ const RegisterPage = () => {
 						name='password'
 						value={formData.password}
 						onChange={handleInputChange}
-						required
 					/>
 				</label>
 				<label>
@@ -127,80 +154,86 @@ const RegisterPage = () => {
 						onChange={handleInputChange}
 					/>
 				</label>
-
-				<label>
-					*Availability:{" "}
-					<select
-						name='availability'
-						value={formData.availability}
-						onChange={handleInputChange}
-					>
-						<option value='Anytime Day or Night Any Day'>
-							Anytime, Day or Night Shifts
-						</option>
-						<option value='Anytime Day or Night No Weekends'>
-							Anytime, Day or Night Shifts No Weekedns
-						</option>
-						<option value='Only Day shifts Any Day'>
-							Only Day Shift Any Day
-						</option>
-						<option value='Only Day shifts No Weekends'>
-							Only Day shifts No Weekends
-						</option>
-						<option value='Only Night shifts Any Day'>
-							Only Day shifts No Weekends
-						</option>
-						<option value='Only Night shifts No Weekends'>
-							Only Night shifts No Weekends
-						</option>
-					</select>
-				</label>
-				<label>
-					<div>*Charge/Pay per Hour:</div>
-					<span>
-						{" $"}
-
-						<input
-							type='number'
-							name='payPerHour'
-							cols='4'
-							value={formData.payPerHour}
+				{formType === "worker" && (
+					<label>
+						*Availability:{" "}
+						<select
+							name='availability'
+							value={formData.availability}
 							onChange={handleInputChange}
-							required
-						/>
-					</span>
-				</label>
-				<label>
-					Skill Level:{"Select"}
-					<select
-						name='skillLevel'
-						value={formData.skillLevel}
-						onChange={handleInputChange}
-					>
-						<option value='Basic'>
-							Basic - Only General Labor
-						</option>
-						<option value='Advanced'>
-							Advanced - More than 3yrs experience. Can operate
-							heavy machinery
-						</option>
-						<option value='Pro'>
-							Pro Level - More than 10yrs experience. Certified in
-							precision equipment. Documents required.
-						</option>
-					</select>
-				</label>
-				<label>
-					Short Business Description:{" "}
-					<textarea
-						name='businessDescription'
-						rows='2'
-						cols='40'
-						value={formData.businessDescription}
-						onChange={handleInputChange}
-					/>
-				</label>
+						>
+							<option value='Anytime Day or Night Any Day'>
+								Anytime, Day or Night Shifts
+							</option>
+							<option value='Anytime Day or Night No Weekends'>
+								Anytime, Day or Night Shifts No Weekedns
+							</option>
+							<option value='Only Day shifts Any Day'>
+								Only Day Shift Any Day
+							</option>
+							<option value='Only Day shifts No Weekends'>
+								Only Day shifts No Weekends
+							</option>
+							<option value='Only Night shifts Any Day'>
+								Only Day shifts No Weekends
+							</option>
+							<option value='Only Night shifts No Weekends'>
+								Only Night shifts No Weekends
+							</option>
+						</select>
+					</label>
+				)}
+				{formType === "worker" && (
+					<label>
+						<div>*Charge/Pay per Hour:</div>
+						<span>
+							{" $"}
 
+							<input
+								type='number'
+								name='payPerHour'
+								cols='4'
+								value={formData.payPerHour}
+								onChange={handleInputChange}
+							/>
+						</span>
+					</label>
+				)}
+				{formType === "worker" && (
+					<label>
+						Skill Level:{"Select"}
+						<select
+							name='skillLevel'
+							value={formData.skillLevel}
+							onChange={handleInputChange}
+						>
+							<option value='Basic'>
+								Basic - Only General Labor
+							</option>
+							<option value='Advanced'>
+								Advanced - More than 3yrs experience. Can
+								operate heavy machinery
+							</option>
+							<option value='Pro'>
+								Pro Level - More than 10yrs experience.
+								Certified in precision equipment. Documents
+								required.
+							</option>
+						</select>
+					</label>
+				)}
+				{formType === "provider" && (
+					<label>
+						Short Business Description:{" "}
+						<textarea
+							name='businessDescription'
+							rows='2'
+							cols='40'
+							value={formData.businessDescription}
+							onChange={handleInputChange}
+						/>
+					</label>
+				)}
 				<button>Register!</button>
 			</form>
 		</div>

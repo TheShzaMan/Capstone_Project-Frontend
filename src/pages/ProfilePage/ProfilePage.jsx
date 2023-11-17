@@ -6,16 +6,31 @@ import UserCard from "../../components/UserCard/UserCard";
 import useAuth from "../../hooks/useAuth";
 import ReviewSummaryCard from "../../components/ReviewSummaryCard/ReviewSummaryCard";
 import EditProfileForm from "../../components/EditProfileForm/EditProfileForm";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 const ProfilePage = () => {
 	const [user, token] = useAuth();
 	const [displayedUser, setDisplayedUser] = useState("");
 	const [editFormOpenState, setEditFormOpenState] = useState("closed-form");
+	const [modalState, setModalState] = useState("modal-inactive");
+
 	const userId = user.id;
 
 	useEffect(() => {
 		fetchUser();
 	}, []);
+
+	const handleClickModal = () => {
+		modalState === "modal-active"
+			? setModalState("modal-inactive")
+			: setModalState("modal-active");
+	};
+
+	const handleClickEdit = () => {
+		editFormOpenState === "closed-form"
+			? setEditFormOpenState("opened-form")
+			: setEditFormOpenState("closed-form");
+	};
 
 	async function fetchUser() {
 		try {
@@ -34,11 +49,7 @@ const ProfilePage = () => {
 			console.warn("Error in the fetchUser request.", error);
 		}
 	}
-	const handleClickEdit = () => {
-		editFormOpenState === "closed-form"
-			? setEditFormOpenState("opened-form")
-			: setEditFormOpenState("closed-form");
-	};
+
 	//a button or dropdown menu items for post job and edit profile
 	return (
 		<div className='profile-page container'>
@@ -55,6 +66,14 @@ const ProfilePage = () => {
 							token={token}
 							handleClickEdit={handleClickEdit}
 							reloadProfile={fetchUser}
+							handleClickModal={handleClickModal}
+						/>
+					</div>
+					<div className={modalState}>
+						<AlertModal
+							header='SUCCESS'
+							message='Your profile has been successfully edited.'
+							handleClickModal={handleClickModal}
 						/>
 					</div>
 
