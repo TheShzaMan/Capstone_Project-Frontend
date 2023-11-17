@@ -34,7 +34,7 @@ const UserCard = ({ displayedUser, token, handleClickEdit }) => {
 					<div>
 						Rate per hour{":   "}
 						{" $"}
-						<p>{displayedUser.wagePerHour}</p>
+						<p>{displayedUser.payPerHour.toFixed(2)}</p>
 					</div>
 					<div>
 						Skill Level{":   "}
