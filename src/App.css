@@ -206,10 +206,20 @@ form {
 .loading {
 	color: white;
 }
+.darkout-bg {
+	background-color: rgba(0, 0, 0, 0.619);
+	height: 100%;
+	width: 100%;
+	/* z-index: 1; */
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 .popup-container {
 	flex-direction: column;
 	position: absolute;
 	top: 14vh;
+	/* top: 0; */
 	left: 15vw;
 	right: 15vw;
 	background-color: rgba(70, 131, 180, 0.89);
@@ -247,11 +257,12 @@ select {
 	border-style: inset;
 	color: white;
 	border-color: black;
-	min-width: 100px;
+	/* min-width: 100px; */
 	height: 25px;
 	text-align: center;
 	align-items: center;
-	max-width: 400px;
+	max-width: 300px;
+	overflow: auto;
 }
 form.form {
 	margin-top: 5px;

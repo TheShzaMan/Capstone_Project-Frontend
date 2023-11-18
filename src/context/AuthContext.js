@@ -14,8 +14,9 @@ function setUserObject(user) {
 	return {
 		userName: user.userName,
 		id: user.id,
+		firstName: user.firstName,
 		email: user.email,
-		isWorker: false,
+		isWorker: user.isWorker,
 	};
 }
 
@@ -27,6 +28,8 @@ export const AuthProvider = ({ children }) => {
 	const [user, setUser] = useState(setUserObject(decodedUser));
 	const [isServerError, setIsServerError] = useState(false);
 	const navigate = useNavigate();
+
+	//\\//\\// ADD AlertModal here for successes and fails \\//\\//
 
 	const registerUser = async (registerData) => {
 		try {
@@ -40,19 +43,23 @@ export const AuthProvider = ({ children }) => {
 				isWorker: registerData.isWorker,
 				availability: registerData.availability,
 				payPerHour: registerData.payPerHour,
-				skillLevel: registerData.experience,
+				skillLevel: registerData.skillLevel,
 				businessDescription: registerData.businessDescription,
 			};
 			let response = await axios.post(`${BASE_URL}`, finalData);
 			if (response.status === 201) {
 				console.log("Successful registration! Log in to access token");
+
 				setIsServerError(false);
 				navigate("/login");
 			} else {
 				navigate("/register");
 			}
 		} catch (error) {
-			console.log(error);
+			console.log(
+				"Problem posting new registration at AuthContext",
+				error
+			);
 		}
 	};
 
@@ -76,7 +83,7 @@ export const AuthProvider = ({ children }) => {
 		} catch (error) {
 			console.log(error);
 			setIsServerError(true);
-			navigate("/register");
+			//\\//\\  Add modal here for failed login //\\//\\
 		}
 	};
 

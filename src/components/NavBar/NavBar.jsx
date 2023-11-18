@@ -8,11 +8,11 @@ import { useState } from "react";
 
 const Navbar = () => {
 	const { logoutUser, user } = useContext(AuthContext);
-	//const [user, token] = useAuth();
-	const navigate = useNavigate();
-	//let userName = user.userName;
-
 	const [menuDropState, setMenuDropState] = useState("closed-menu");
+	const navigate = useNavigate();
+	//const [user, token] = useAuth();
+	//let userName = user.userName;
+	// const [menuBtnState, setMenuBtnState] = useState("closed");
 
 	const handleClickMenu = () => {
 		menuDropState === "closed-menu"

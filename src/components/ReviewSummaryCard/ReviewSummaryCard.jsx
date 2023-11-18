@@ -2,11 +2,11 @@ import React from "react";
 import "./ReviewSummaryCard.css";
 
 const ReviewSummaryCard = (singleUser) => {
-	const review = singleUser.singleUser;
-	const user = singleUser.singleUser.user;
+	const review = singleUser.displayedUser;
+	const user = review.user;
+	// console.log(review.user);
 	const avgOverall = review.avgOverallScore;
 	const avgForDisplay = avgOverall.toFixed(1);
-	// console.log({ singleUser });
 	return (
 		<div className='card review'>
 			{user.isWorker ? (

@@ -18,17 +18,21 @@
 .modal-content {
 	background-color: rgba(70, 131, 180, 0.855);
 	margin: auto;
-	padding: 20px 10px;
+	padding: 15px 15px;
 	border: 1px solid #888;
 	width: 40%;
-	min-height: fit-content;
+	min-height: 35%;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 	position: relative;
+	display: flex;
+	flex-direction: column;
 }
 .modal-header {
 	padding: 6px 16px;
 	background-color: #4d4e4d;
 	color: white;
+	width: 100%;
+	margin: 0;
 }
 .modal-body {
 	padding: 2px 16px;

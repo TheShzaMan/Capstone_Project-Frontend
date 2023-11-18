@@ -122,6 +122,7 @@ button.dropbtn:hover {
 	font-weight: bold;
 	border-style: solid;
 	border-color: white;
+	border-radius: 4px;
 }
 .dropdown-content a:hover {
 	background-color: rgba(115, 169, 169, 0.758);

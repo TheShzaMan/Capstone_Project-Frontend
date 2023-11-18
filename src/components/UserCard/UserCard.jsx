@@ -4,70 +4,75 @@ import "./UserCard.css";
 import { useState } from "react";
 
 const UserCard = ({ displayedUser, token, handleClickEdit }) => {
-	// displayedUser = displayedUser.displayedUser;
-	// const [handleClickEdit] = handleClickEdit();
-	// handleClickEdit = handleClickEdit();
+	const user = displayedUser;
+
 	// console.log(displayedUser);
 	return (
-		<div className='card'>
-			{displayedUser.isWorker ? (
-				<div className='card-info'>
-					<div className='cardname'>{`${displayedUser.firstName} ${displayedUser.lastName}`}</div>
-					<div className='hr'></div>
-					<div>{`@${displayedUser.userName}`}</div>
-					{/* A ternary because not all users will have both phone number and email */}
-					{displayedUser.phoneNumber && (
+		user && (
+			<div className='card'>
+				{user.isWorker === true ? (
+					<div className='card-info'>
+						<div className='cardname'>{`${user.firstName} ${user.lastName}`}</div>
+						<div className='hr'></div>
+						<div>{`@${user.userName}`}</div>
+						{/* A ternary because not all users will have both phone number and email */}
+						{user.phoneNumber && (
+							<div>
+								Contact{":   "}
+								<p>{user.phoneNumber}</p>
+							</div>
+						)}{" "}
+						{user.email && (
+							<div>
+								Email{":   "} <p>{user.email}</p>
+							</div>
+						)}
 						<div>
-							Contact{":   "}
-							<p>{displayedUser.phoneNumber}</p>
+							Availability{":   "}
+							<p>{user.availability}</p>
 						</div>
-					)}{" "}
-					{displayedUser.email && (
+						{user.payPerHour && (
+							<div>
+								Rate per hour{":   "}
+								{" $"}
+								<p>{user.payPerHour.toFixed(2)}</p>
+							</div>
+						)}
+						{user.skillLevel && (
+							<div>
+								Skill Level{":   "}
+								<p>{user.skillLevel}</p>
+							</div>
+						)}
+					</div>
+				) : (
+					<div className='card-info'>
+						<div className='cardname'>{user.firstName}</div>
+						<div className='hr'></div>
+						<div>{`@${user.userName}`}</div>
+						{user.phoneNumber && (
+							<div>
+								Contact{":   "}
+								<p>{user.phoneNumber}</p>
+							</div>
+						)}{" "}
+						{user.email && (
+							<div>
+								Email{":   "} <p>{user.email}</p>
+							</div>
+						)}
 						<div>
-							Email{":   "} <p>{displayedUser.email}</p>
+							About{":   "} <p>{user.businessDescription}</p>
 						</div>
-					)}
-					<div>
-						Availability{":   "}
-						<p>{displayedUser.availability}</p>
 					</div>
-					<div>
-						Rate per hour{":   "}
-						{" $"}
-						<p>{displayedUser.payPerHour.toFixed(2)}</p>
-					</div>
-					<div>
-						Skill Level{":   "}
-						<p>{displayedUser.skillLevel}</p>
-					</div>
-				</div>
-			) : (
-				<div className='card-info'>
-					<div className='cardname'>{displayedUser.firstName}</div>
-					<div className='hr'></div>
-					<div>{`@${displayedUser.userName}`}</div>
-					{displayedUser.phoneNumber && (
-						<div>
-							Contact{":   "}
-							<p>{displayedUser.phoneNumber}</p>
-						</div>
-					)}{" "}
-					{displayedUser.email && (
-						<div>
-							Email{":   "} <p>{displayedUser.email}</p>
-						</div>
-					)}
-					<div>
-						About{":   "} <p>{displayedUser.businessDescription}</p>
-					</div>
-				</div>
-			)}
-			{token != "" && (
-				<button className='alt-btn' onClick={handleClickEdit}>
-					Edit Profile
-				</button>
-			)}
-		</div>
+				)}
+				{token != "" && (
+					<button className='alt-btn' onClick={handleClickEdit}>
+						Edit Profile
+					</button>
+				)}
+			</div>
+		)
 	);
 };
 

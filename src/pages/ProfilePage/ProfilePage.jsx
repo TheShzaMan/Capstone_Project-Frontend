@@ -10,21 +10,21 @@ import AlertModal from "../../components/AlertModal/AlertModal";
 
 const ProfilePage = () => {
 	const [user, token] = useAuth();
-	const [displayedUser, setDisplayedUser] = useState("");
+	const [displayedUser, setDisplayedUser] = useState();
 	const [editFormOpenState, setEditFormOpenState] = useState("closed-form");
 	const [modalState, setModalState] = useState("modal-inactive");
 
 	const userId = user.id;
-
 	useEffect(() => {
 		fetchUser();
 	}, []);
-
+	// console.log(userId);
 	const handleClickModal = () => {
 		modalState === "modal-active"
 			? setModalState("modal-inactive")
 			: setModalState("modal-active");
 	};
+	// console.log(token);
 
 	const handleClickEdit = () => {
 		editFormOpenState === "closed-form"
@@ -42,9 +42,9 @@ const ProfilePage = () => {
 					},
 				}
 			);
+			// console.log(response.data);
 			setDisplayedUser(response.data);
-			// console.log(userId);
-			// console.log(displayedUser.id);
+			// console.log(displayedUser);
 		} catch (error) {
 			console.warn("Error in the fetchUser request.", error);
 		}
@@ -78,7 +78,7 @@ const ProfilePage = () => {
 					</div>
 
 					{/* <button onClick={handleClickEdit}>Edit Profile</button> */}
-					{displayedUser.totalReviews > 0 ? (
+					{displayedUser.totalReviewsJobs > 0 ? (
 						<ReviewSummaryCard displayedUser={displayedUser} />
 					) : (
 						<div className='card'>

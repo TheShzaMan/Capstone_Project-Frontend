@@ -3,10 +3,18 @@ import AuthContext from "../../context/AuthContext";
 import useCustomForm from "../../hooks/useCustomForm";
 import "./RegisterPage.css";
 import { useState } from "react";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 const RegisterPage = () => {
 	const { registerUser } = useContext(AuthContext);
 	const [formType, setFormType] = useState("worker");
+	const [modalState, setModalState] = useState("modal-inactive");
+
+	const handleClickModal = () => {
+		modalState === "modal-active"
+			? setModalState("modal-inactive")
+			: setModalState("modal-active");
+	};
 	const defaultValues = {
 		firstName: "",
 		lastName: "",
@@ -22,7 +30,8 @@ const RegisterPage = () => {
 	};
 	const [formData, handleInputChange, handleSubmit] = useCustomForm(
 		registerUser,
-		defaultValues
+		defaultValues,
+		handleClickModal
 	);
 	const handleClickJ = () => {
 		formType === "provider" && setFormType("worker");
@@ -99,7 +108,9 @@ const RegisterPage = () => {
 					</label>
 					<h5 className='required'>* = required</h5> */}
 				<label>
-					*First Name/Company Name:{" "}
+					{formType === "provider"
+						? `*Company Name:${" "}`
+						: `First Name:${" "}`}
 					<input
 						type='text'
 						name='firstName'
@@ -107,6 +118,7 @@ const RegisterPage = () => {
 						onChange={handleInputChange}
 					/>
 				</label>
+
 				{formType === "worker" && (
 					<label>
 						Last Name:{" "}
@@ -132,6 +144,8 @@ const RegisterPage = () => {
 					<input
 						type='password'
 						name='password'
+						pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
+						title='Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters'
 						value={formData.password}
 						onChange={handleInputChange}
 					/>
@@ -236,6 +250,13 @@ const RegisterPage = () => {
 				)}
 				<button>Register!</button>
 			</form>
+			<div className={modalState}>
+				<AlertModal
+					header='Welcome to Prospector'
+					message="You have officially registered and unlocked full feature use. Whether you're prospecting for jobs or for workers, you'll find it all with Prospector!"
+					handleClickModal={handleClickModal}
+				/>
+			</div>
 		</div>
 	);
 };
