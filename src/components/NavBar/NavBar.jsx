@@ -33,7 +33,7 @@ const Navbar = () => {
 			? setModalState("modal-inactive")
 			: setModalState("modal-active");
 	};
-	console.log("modalState:", modalState);
+	console.log("menuDropState:", menuDropState);
 
 	return (
 		<div className='navBar'>
@@ -89,7 +89,10 @@ const Navbar = () => {
 											Profile
 										</Link>
 										{!user.isWorker && (
-											<a onClick={handleClickPostJob}>
+											<a
+												onClick={handleClickPostJob}
+												style={{ cursor: "pointer" }}
+											>
 												Post Job
 											</a>
 										)}
@@ -102,7 +105,12 @@ const Navbar = () => {
 										>
 											Search
 										</Link>
-										<a onClick={logoutUser}>SignOut</a>
+										<a
+											onClick={logoutUser}
+											style={{ cursor: "pointer" }}
+										>
+											SignOut
+										</a>
 									</div>
 								</div>
 							</div>

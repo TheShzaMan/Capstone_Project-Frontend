@@ -1,21 +1,26 @@
 .search-page {
-	justify-content: end;
+	justify-content: center;
 	align-items: center;
-	position: relative;
+	flex-direction: row-reverse;
+	margin-top: 3vh;
+	/* position: relative; */
 }
 p.search-page {
 	color: white;
 }
 .alt-btn.m {
 	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100px;
-	height: auto;
+	/* justify-self: center; */
+	/* align-self: center; */
 	position: absolute;
+
+	max-width: none;
+	width: auto;
+	height: auto;
+
 	background-color: rgba(70, 131, 180, 0.434);
 	top: 18vh;
-	right: 25vw;
+	right: 0vh;
 	font-size: 20px;
 	text-shadow: 2px 2px black;
 	box-shadow: none;
@@ -25,7 +30,7 @@ p.search-page {
 	border-style: inset;
 }
 .alt-btn.m:hover {
-	font-size: 21px;
-	width: 120px;
-	font-weight: 900;
+	/* font-size: 21px; */
+
+	font-size: 19px;
 }
