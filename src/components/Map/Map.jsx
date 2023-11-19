@@ -59,20 +59,23 @@ const Map = () => {
 	//const addSite = (site) => {
 	// setSites(...sites, clickCoordinates);
 
-	return isLoaded ? (
-		// initMap()
-		<GoogleMap
-			zoom={9}
-			center={clickCoordinates}
-			mapContainerClassName='map-display'
-			onClick={handleMapClick}
-		>
-			{sites.map((site) => (
-				<Marker position={site} />
-			))}
-		</GoogleMap>
-	) : (
-		<div className='loading'>Loading...</div>
+	return (
+		<div className='map'>
+			{!isLoaded ? (
+				<div className='loading'>Loading...</div>
+			) : (
+				<GoogleMap
+					mapContainerClassName='map-container'
+					center={clickCoordinates}
+					zoom={9}
+					onClick={handleMapClick}
+				/>
+
+				// {sites.map((site) => (
+				// 	<Marker position={site} />
+				// ))}
+			)}
+		</div>
 	);
 
 	// const defaultProps = {

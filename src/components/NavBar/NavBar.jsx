@@ -3,12 +3,16 @@ import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
 import "./NavBar.css";
+import PostJob from "../PostJob/PostJob";
+import AlertModal from "../AlertModal/AlertModal";
 
 import { useState } from "react";
 
 const Navbar = () => {
 	const { logoutUser, user } = useContext(AuthContext);
 	const [menuDropState, setMenuDropState] = useState("closed-menu");
+	const [jobFormState, setJobFormState] = useState("closed-form");
+	const [modalState, setModalState] = useState("modal-inactive");
 	const navigate = useNavigate();
 	//const [user, token] = useAuth();
 	//let userName = user.userName;
@@ -19,6 +23,17 @@ const Navbar = () => {
 			? setMenuDropState("opened-menu")
 			: setMenuDropState("closed-menu");
 	};
+	const handleClickPostJob = () => {
+		jobFormState === "closed-form"
+			? setJobFormState("opened-form")
+			: setJobFormState("closed-form");
+	};
+	const handleClickModal = () => {
+		modalState === "modal-active"
+			? setModalState("modal-inactive")
+			: setModalState("modal-active");
+	};
+	console.log("modalState:", modalState);
 
 	return (
 		<div className='navBar'>
@@ -43,7 +58,7 @@ const Navbar = () => {
 						<li className='user'>
 							<a className='user'>{user.userName}</a>
 
-							<div className='dropdown'>
+							<div className='dropdown' onClick={handleClickMenu}>
 								<div
 									className='dropbtn'
 									onClick={handleClickMenu}
@@ -73,6 +88,11 @@ const Navbar = () => {
 										>
 											Profile
 										</Link>
+										{!user.isWorker && (
+											<a onClick={handleClickPostJob}>
+												Post Job
+											</a>
+										)}
 										<Link
 											to='/search'
 											style={{
@@ -87,6 +107,20 @@ const Navbar = () => {
 								</div>
 							</div>
 						</li>
+						<div className={jobFormState}>
+							<div className='darkout-bg post'>
+								<PostJob
+									handleClickPostJob={handleClickPostJob}
+								/>
+							</div>
+							<div className={modalState}>
+								<AlertModal
+									header='JOB POSTED!'
+									message='Your job has been added to the list of available jobs and can be accessed on the map.'
+									handleClickModal={handleClickModal}
+								/>
+							</div>
+						</div>
 					</>
 				)}
 				{!user && (

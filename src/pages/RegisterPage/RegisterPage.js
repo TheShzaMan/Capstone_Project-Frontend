@@ -22,10 +22,10 @@ const RegisterPage = () => {
 		password: "",
 		email: "",
 		phoneNumber: "",
-		isWorker: false,
+		isWorker: "",
 		availability: "",
-		payPerHour: 1.0,
-		skillLevel: "Basic",
+		payPerHour: "",
+		skillLevel: "",
 		businessDescription: "",
 	};
 	const [formData, handleInputChange, handleSubmit] = useCustomForm(
@@ -57,23 +57,25 @@ const RegisterPage = () => {
 							onChange={handleInputChange} */}
 
 						<button
-							type='button'
+							type='radio'
 							className={formType}
 							target='workerbtn'
 							name='isWorker'
 							onClick={handleClickJ}
-							value={true}
+							// checked={true}
+							value={formData.isWorker}
 							onChange={handleInputChange}
 						>
 							Jobs
 						</button>
 						<button
-							type='button'
+							type='radio'
 							className={formType}
 							target='providerbtn'
 							name='isWorker'
 							onClick={handleClickW}
-							value={false}
+							// checked={false}
+							value={formData.isWorker}
 							onChange={handleInputChange}
 						>
 							Workers
@@ -189,7 +191,7 @@ const RegisterPage = () => {
 								Only Day shifts No Weekends
 							</option>
 							<option value='Only Night shifts Any Day'>
-								Only Day shifts No Weekends
+								Only Night shifts Any Night
 							</option>
 							<option value='Only Night shifts No Weekends'>
 								Only Night shifts No Weekends

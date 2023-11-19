@@ -1,16 +1,15 @@
-div .map-display {
-	margin-top: 2%;
-	cursor: crosshair !important;
-	height: 50vh;
+.map {
+	height: 70vh;
+	width: 60vw;
+}
+
+.map-container {
+	height: 80%;
 	width: 100%;
-}
-.gm-style {
-}
-button.gm-control-active.gm-fullscreen-control {
-	background-color: transparent !important;
-	box-shadow: none !important;
-	z-index: 1 !important;
-}
-Map {
-	cursor: crosshair !important;
+	border-radius: 30px;
+	border: inset 5px steelblue;
+	border-top-color: steelblue;
+	border-bottom-color: steelblue;
+	border-left: none;
+	border-right: none;
 }

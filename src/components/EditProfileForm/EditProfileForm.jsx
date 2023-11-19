@@ -12,8 +12,6 @@ const EditProfileForm = ({
 	reloadProfile,
 	handleClickModal,
 }) => {
-	// const navigate = useNavigate();
-	// const [putResponse, setPutResponse] = useState("");
 	const [profileEdit, setProfileEdit] = useState({});
 	const user = thisUser;
 	// console.log(user);
@@ -26,7 +24,7 @@ const EditProfileForm = ({
 			? user.businessDescription
 			: "",
 	};
-	// console.log(defaultValues.skillLevel);
+
 	useEffect(() => {
 		setProfileEdit(defaultValues);
 	}, []);
@@ -34,10 +32,14 @@ const EditProfileForm = ({
 	const putEditProfile = async (formData) => {
 		try {
 			let finalData = {
-				skillLevel: formData.skillLevel,
-				availability: formData.availability,
-				payPerHour: formData.payPerHour,
-				businessDescription: formData.businessDescription,
+				skillLevel: formData.skillLevel ? formData.skillLevel : "",
+				availability: formData.availability
+					? formData.availability
+					: "",
+				payPerHour: formData.payPerHour ? formData.payPerHour : 0,
+				businessDescription: formData.businessDescription
+					? formData.businessDescription
+					: "",
 			};
 			let response = await axios.put(
 				`https://localhost:5001/api/Users/${user.id}`,
@@ -115,7 +117,7 @@ const EditProfileForm = ({
 										Only Day shifts No Weekends
 									</option>
 									<option value='Only Night shifts Any Day'>
-										Only Day shifts No Weekends
+										Only Night shifts Any Night
 									</option>
 									<option value='Only Night shifts No Weekends'>
 										Only Night shifts No Weekends
@@ -123,10 +125,8 @@ const EditProfileForm = ({
 								</select>
 							</label>
 							<label>
-								<div>*Charge/Pay per Hour:</div>
+								<div>*Charge/Pay $ per Hour:</div>
 								<span>
-									{" $"}
-
 									<input
 										type='number'
 										name='payPerHour'

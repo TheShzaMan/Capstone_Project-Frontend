@@ -1,3 +1,31 @@
 .search-page {
-	z-index: 0;
+	justify-content: end;
+	align-items: center;
+	position: relative;
+}
+p.search-page {
+	color: white;
+}
+.alt-btn.m {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100px;
+	height: auto;
+	position: absolute;
+	background-color: rgba(70, 131, 180, 0.434);
+	top: 18vh;
+	right: 25vw;
+	font-size: 20px;
+	text-shadow: 2px 2px black;
+	box-shadow: none;
+	padding-top: 0.3rem;
+	padding-bottom: 0.3rem;
+	border-radius: 10px;
+	border-style: inset;
+}
+.alt-btn.m:hover {
+	font-size: 21px;
+	width: 120px;
+	font-weight: 900;
 }

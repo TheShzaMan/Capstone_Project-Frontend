@@ -6,10 +6,14 @@ a {
 	align-items: center;
 	justify-content: space-between;
 	overflow: auto;
-	/* padding-bottom: 8vh; */
-	/* margin-left: 10vw; */
+	padding-bottom: 8vh;
+	margin-left: 0vw;
 	/* margin-right: 10vw; */
 	/* align-items: baseline; */
-	max-height: 90vh;
+	max-height: 70vh;
 	overflow-x: hidden;
+	margin-top: 20vh;
+	/* margin-bottom: 10vh; */
+	padding-top: 0;
+	row-gap: 1rem;
 }
