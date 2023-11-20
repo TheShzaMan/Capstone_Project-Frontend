@@ -71,7 +71,8 @@ const Map = ({ handleMapClick, clickCoordinates, confirmPin, jobMarkers }) => {
 					zoom={9}
 					onClick={handleMapClick}
 				>
-					{jobMarkers}
+					{/* <Marker position= */}
+					{/* {jobMarkers} */}
 				</GoogleMap>
 
 				// {sites.map((site) => (

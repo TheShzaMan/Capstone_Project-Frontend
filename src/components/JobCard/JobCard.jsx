@@ -1,18 +1,21 @@
 import "./JobCard.css";
 import React from "react";
 
-const JobCard = ({ job, handleDisplayDetail }) => {
-	console.log(job);
+const JobCard = ({ job, handleDisplayDetail, setJob }) => {
+	// console.log(job);
+
+	const handleClickDisplay = () => {
+		handleDisplayDetail();
+		setJob(job);
+	};
+
 	return (
-		<div className='jobcard card'>
+		<div>
 			{!job ? (
 				<div className='loading'>Loading...</div>
 			) : (
-				<>
-					<div
-						className='cardname'
-						//onClick={handleDisplayDetail(job.id)}
-					>
+				<div className='jobcard card' onClick={handleClickDisplay}>
+					<div className='cardname'>
 						{job.jobName} - {job.jobDescription}
 					</div>
 					<div>
@@ -23,7 +26,7 @@ const JobCard = ({ job, handleDisplayDetail }) => {
 						</div>
 						<div className='card-info'>{job.location}</div>
 					</div>
-				</>
+				</div>
 			)}
 		</div>
 	);

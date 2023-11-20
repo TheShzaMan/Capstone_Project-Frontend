@@ -1,9 +1,13 @@
 .search-page {
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 	flex-direction: row-reverse;
-	margin-top: 10vh;
+	margin-top: 8vh;
 	margin-bottom: 19vh;
+	height: 78vh;
+	width: 80vw;
+	padding-left: 5vw;
+	padding-right: 5vw;
 
 	/* position: relative; */
 }
@@ -35,4 +39,8 @@ p.search-page {
 	/* font-size: 21px; */
 
 	font-size: 19px;
+}
+.search-page.open-form {
+	height: 70vh;
+	margin-top: 10vh;
 }

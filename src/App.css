@@ -246,7 +246,7 @@ form {
 	min-width: 60vw;
 	margin-bottom: 1vh;
 	border-radius: 4px;
-	/* z-index: 400; */
+	overflow-x: hidden; /* If anything is affected negatively, this is why. just remove it to fix*/
 }
 
 .popup-container h2 {
