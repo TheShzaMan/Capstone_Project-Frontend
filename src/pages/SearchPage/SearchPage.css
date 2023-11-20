@@ -2,7 +2,9 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: row-reverse;
-	margin-top: 3vh;
+	margin-top: 10vh;
+	margin-bottom: 19vh;
+
 	/* position: relative; */
 }
 p.search-page {
@@ -15,9 +17,9 @@ p.search-page {
 	position: absolute;
 
 	max-width: none;
-	width: auto;
+	width: 20vw;
 	height: auto;
-
+	/* z-index: -1; */
 	background-color: rgba(70, 131, 180, 0.434);
 	top: 18vh;
 	right: 0vh;

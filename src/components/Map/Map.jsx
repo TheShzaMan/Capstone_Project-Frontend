@@ -15,13 +15,13 @@ import MapMarker from "../MapMarker/MapMarker";
 import Pin from "../../icons/oil-jack.svg";
 import googleMapReact from "google-map-react";
 
-const Map = () => {
-	const [clickCoordinates, setClickCoordinates] = useState({}, {});
+const Map = ({ handleMapClick, clickCoordinates, confirmPin, jobMarkers }) => {
+	const [coordinates, setCoordinates] = useState({}, {});
 	// const [map, setMap] = useState(null);
 	const [sites, setSites] = useState([]);
 
 	useEffect(() => {
-		setClickCoordinates(defaultProps);
+		setCoordinates(defaultProps);
 	}, []);
 
 	const defaultProps = {
@@ -50,14 +50,15 @@ const Map = () => {
 	// 	// const map = new GoogleMap({ zoom: 9, center: center });
 	// 	const marker = new Marker({ map, postion: pin });
 
-	const handleMapClick = (e) => {
-		const coordinates = { lat: e.latLng.lat(), lng: e.latLng.lng() };
-		setClickCoordinates(coordinates);
-		let updatedSites = [...sites, coordinates];
-		setSites(updatedSites);
-	};
+	// const handleMapClick = (e) => {
+	// 	setCoordinates({ lat: e.latLng.lat(), lng: e.latLng.lng() });
+	// 	setClickCoordinates(coordinates);
+	// 	console.log(coordinates);
+	// 	setDisplayMap("closed");
+	// };
 	//const addSite = (site) => {
 	// setSites(...sites, clickCoordinates);
+	// console.log(clickCoordinates);
 
 	return (
 		<div className='map'>
@@ -66,10 +67,12 @@ const Map = () => {
 			) : (
 				<GoogleMap
 					mapContainerClassName='map-container'
-					center={clickCoordinates}
+					center={coordinates}
 					zoom={9}
 					onClick={handleMapClick}
-				/>
+				>
+					{jobMarkers}
+				</GoogleMap>
 
 				// {sites.map((site) => (
 				// 	<Marker position={site} />

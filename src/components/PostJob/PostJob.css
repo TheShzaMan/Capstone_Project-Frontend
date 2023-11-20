@@ -1,0 +1,12 @@
+.alt-btn.c {
+	position: fixed;
+}
+.mapclick {
+	position: fixed;
+	left: 15vw;
+	z-index: 0;
+}
+.location {
+	margin: 0;
+	text-align: center;
+}

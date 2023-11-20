@@ -4,12 +4,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import JobCard from "../../components/JobCard/JobCard";
 import axios from "axios";
+import { Marker } from "@react-google-maps/api";
 //will be needing to add props to < map/> of a list of marker spots
 const SearchPage = () => {
 	const [mapState, setMapState] = useState("closed-form");
 	const [listState, setListState] = useState("closed-form");
 	const [setBtn, setSetBtn] = useState("Map View");
 	const [jobList, setJobList] = useState([]);
+	const [setJobToDisplay, setSetJobToDisplay] = useState();
 	// const [sites, setSites] = useState([]);
 	// const [clickCoordinates, setClickCoordinates] = useState({}, {});
 	//connect to a post new job form
@@ -30,7 +32,20 @@ const SearchPage = () => {
 			console.warn("Error in the fetchJobs request.", error);
 		}
 	}
-
+	async function fetchJobWithReview(jobId) {
+		try {
+			let response = await axios.get(
+				`https://localhost:5001/api/Jobs/${jobId}`
+			);
+			console.log(response);
+			setJobToDisplay(response);
+		} catch (error) {
+			console.warn("Error in the fetchJobWithReview", error);
+		}
+	}
+	// const handleDisplayDetail = (jobId) => {
+	// 	fetchJobWithReview({ jobId });
+	// };
 	const handleToggleMap = () => {
 		if (mapState === "closed-form") {
 			setMapState("open-form");
@@ -48,6 +63,9 @@ const SearchPage = () => {
 	const availableJobs = jobList.map((job, index) => (
 		<JobCard job={job} key={index} />
 	));
+	const jobMarkers = jobList.map((job, index) => (
+		<Marker position={job.location} />
+	));
 	// const jobsByCard = jobList.map((job) => {
 	// 	<JobCard singleJob={job} />;
 	// });
@@ -60,7 +78,10 @@ const SearchPage = () => {
 			</button>
 			{setBtn === "List View" && (
 				<div className={mapState}>
-					<Map handleToggleMap={handleToggleMap} />
+					<Map
+						handleToggleMap={handleToggleMap}
+						jobMarkers={jobMarkers}
+					/>
 				</div>
 			)}
 			{setBtn === "Map View" && <div>{availableJobs}</div>}

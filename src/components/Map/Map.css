@@ -6,6 +6,7 @@
 }
 
 .map-container {
+	z-index: 0;
 	margin: 1px;
 	height: 100%;
 	width: 100%;

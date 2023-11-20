@@ -86,6 +86,7 @@ button:hover {
 	margin-top: 0;
 	width: max-content;
 	text-wrap: nowrap;
+	/* z-index: 0; */
 }
 
 .alt-btn:hover {
@@ -223,7 +224,7 @@ form {
 	background-color: rgba(0, 0, 0, 0.619);
 	height: 100vh;
 	width: 100%;
-	z-index: 1;
+	/* z-index: 1; */
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -239,7 +240,7 @@ form {
 	border: solid white;
 	background-image: linear-gradient(to top, black, rgba(70, 131, 180, 0.79));
 	overflow: auto;
-
+	max-width: 60vw;
 	max-height: 70vh;
 	margin-top: 1vh;
 	min-width: 60vw;
@@ -250,6 +251,7 @@ form {
 
 .popup-container h2 {
 	color: white;
+	text-align: center;
 }
 .closed-form {
 	display: none;
@@ -258,9 +260,10 @@ form {
 	display: flex;
 }
 button.exit-form {
-	display: grid;
+	display: block;
 	margin: 0;
 	position: absolute;
+	align-self: flex-end;
 	top: 0;
 	right: 0;
 	width: 43px;
@@ -281,6 +284,12 @@ select {
 	overflow: auto;
 }
 form.form {
-	margin-top: 5px;
+	margin: 1vh 5vw;
+
 	overflow-x: hidden;
+}
+.txt-btn {
+	text-decoration: underline;
+	cursor: pointer;
+	margin: 0;
 }
