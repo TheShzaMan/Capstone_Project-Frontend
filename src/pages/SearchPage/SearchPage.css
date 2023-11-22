@@ -40,6 +40,32 @@ p.search-page {
 
 	font-size: 19px;
 }
+.alt-btn.l {
+	display: flex;
+	/* justify-self: center; */
+	/* align-self: center; */
+	position: absolute;
+
+	max-width: none;
+	width: 20vw;
+	height: auto;
+	/* z-index: -1; */
+	background-color: rgba(70, 131, 180, 0.434);
+	top: 33vh;
+	right: 0vh;
+	font-size: 20px;
+	text-shadow: 2px 2px black;
+	box-shadow: none;
+	padding-top: 0.3rem;
+	padding-bottom: 0.3rem;
+	border-radius: 10px;
+	border-style: inset;
+}
+.alt-btn.l:hover {
+	/* font-size: 21px; */
+
+	font-size: 19px;
+}
 .search-page.open-form {
 	height: 70vh;
 	margin-top: 10vh;

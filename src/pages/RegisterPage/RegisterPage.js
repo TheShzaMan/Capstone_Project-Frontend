@@ -9,7 +9,7 @@ const RegisterPage = () => {
 	const { registerUser } = useContext(AuthContext);
 	const [formType, setFormType] = useState("worker");
 	const [modalState, setModalState] = useState("modal-inactive");
-
+	const [isWorkerInput, setIsWorkerInput] = useState(false);
 	const handleClickModal = () => {
 		modalState === "modal-active"
 			? setModalState("modal-inactive")
@@ -35,10 +35,13 @@ const RegisterPage = () => {
 	);
 	const handleClickJ = () => {
 		formType === "provider" && setFormType("worker");
+		setIsWorkerInput(true);
 	};
 	const handleClickW = () => {
 		formType === "worker" && setFormType("provider");
+		setIsWorkerInput(false);
 	};
+	const updatedIsWorker = { ...formData, isWorker: `${isWorkerInput}` };
 
 	// formData.isWorker === true
 	// 	? setFormType("worker")
@@ -83,6 +86,7 @@ const RegisterPage = () => {
 						{/* </select> */}
 					</div>
 				</label>
+
 				{/* <p>Looking For:</p>
 					<label className='radio' name='isWorker'>
 						Work

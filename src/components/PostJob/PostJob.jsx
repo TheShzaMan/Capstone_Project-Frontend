@@ -11,12 +11,19 @@ import Map from "../Map/Map";
 const PostJob = ({ handleClickPostJob }) => {
 	const [user, token] = useAuth();
 	const navigate = useNavigate();
-	const [clickCoordinates, setClickCoordinates] = useState({}, {});
 	const [mapCenter, setMapCenter] = useState("");
 	const [displayMap, setDisplayMap] = useState("closed");
 	const [confirmPin, setConfirmPin] = useState("");
+	const [clickCoordinates, setClickCoordinates] = useState(null);
+	const [modalState, setModalState] = useState("modal-inactive");
+
+	const handleClickModal = () => {
+		modalState === "modal-active"
+			? setModalState("modal-inactive")
+			: setModalState("modal-active");
+	};
 	const initialValues = {
-		Location: confirmPin,
+		Location: "",
 		JobName: "",
 		SkillLevel: "",
 		JobDescription: "",
@@ -27,52 +34,63 @@ const PostJob = ({ handleClickPostJob }) => {
 		lat: 31.864646339833772,
 		lng: -102.69415872883643,
 	};
+	const [formData, handleInputChange, handleSubmit] = useCustomForm(
+		postNewJob,
+		initialValues,
+		clickCoordinates
+	);
 
 	useEffect(() => {
 		setMapCenter(defaultCenterPos);
 	}, []);
 
-	const [formData, handleInputChange, handleSubmit] = useCustomForm(
-		postNewJob,
-		initialValues
-	);
-
 	async function postNewJob() {
 		try {
-			formData.Location = confirmPin;
+			const updatedFormData = {
+				...formData,
+				Location: clickCoordinates
+					? `lat: ${clickCoordinates.lat}, lng: ${clickCoordinates.lng}`
+					: "",
+			};
 			console.log(formData.Location);
 			let response = await axios.post(
 				"https://localhost:5001/api/Jobs",
-				formData,
+				updatedFormData,
 				{
 					headers: {
 						Authorization: "Bearer " + token,
 					},
 				}
 			);
+			setModalState("modal-active");
 		} catch (error) {
 			console.warn("Error at postNewJob", error.message);
 		}
 	}
 
-	const handleMapClick = (e) => {
-		const clickLocation = { lat: e.latLng.lat(), lng: e.latLng.lng() };
-		setClickCoordinates(clickLocation);
-		setMapCenter(clickLocation);
-		// handleDisplayMap();
-		// setConfirmPin(`${clickLocation.lat}, ${clickLocation.lng}`);
-		setConfirmPin(
-			`lat=${clickCoordinates.lat} lng=${clickCoordinates.lng}`
-		);
-		// console.log(clickLocation);
-	};
 	const handleDisplayMap = () => {
 		displayMap === "closed"
 			? setDisplayMap("opened")
 			: setDisplayMap("closed");
 		// setMapLocation("");
 	};
-
+	const handleMapClick = (e) => {
+		const clickLocation = { lat: e.latLng.lat(), lng: e.latLng.lng() };
+		setClickCoordinates(clickLocation);
+		setMapCenter(clickLocation);
+		// handleDisplayMap();
+		// setConfirmPin(
+		// 	`lat=${clickCoordinates.lat} lng=${clickCoordinates.lng}`
+		// );
+		// console.log(clickLocation);
+	};
+	const updatedFormData = {
+		...formData,
+		Location: clickCoordinates
+			? `lat: ${clickCoordinates.lat}, lng: ${clickCoordinates.lng}`
+			: "",
+	};
+	console.log(clickCoordinates);
 	return (
 		<div className='darkout-bg post'>
 			<div className='popup-container'>
@@ -95,7 +113,7 @@ const PostJob = ({ handleClickPostJob }) => {
 						<input
 							type='text'
 							name='Location'
-							value={formData.Location}
+							value={updatedFormData.Location}
 							onChange={handleInputChange}
 							readOnly
 						/>
@@ -154,9 +172,9 @@ const PostJob = ({ handleClickPostJob }) => {
 			{displayMap === "opened" && (
 				<div className='mapclick'>
 					<Map
-						handleMapClick={handleMapClick}
 						setDisplayMap={setDisplayMap}
-						clickCoordinates={clickCoordinates}
+						handleMapClick={handleMapClick}
+						//clickCoordinates={clickCoordinates}
 					/>
 
 					<button className='alt-btn c' onClick={handleDisplayMap}>
@@ -164,6 +182,13 @@ const PostJob = ({ handleClickPostJob }) => {
 					</button>
 				</div>
 			)}
+			<div className={modalState}>
+				<AlertModal
+					header='NEW JOB POSTED'
+					message='Your new job posting is active and available for prospects to apply.'
+					handleClickModal={handleClickModal}
+				/>
+			</div>
 		</div>
 	);
 };

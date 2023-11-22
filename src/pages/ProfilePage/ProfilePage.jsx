@@ -14,11 +14,11 @@ const ProfilePage = () => {
 	const [editFormOpenState, setEditFormOpenState] = useState("closed-form");
 	const [modalState, setModalState] = useState("modal-inactive");
 
-	const userId = user.id;
+	const thisUserId = user.id;
 	useEffect(() => {
 		fetchUser();
 	}, []);
-	// console.log(userId);
+	// console.log(thisUserId);
 	const handleClickModal = () => {
 		modalState === "modal-active"
 			? setModalState("modal-inactive")
@@ -35,7 +35,7 @@ const ProfilePage = () => {
 	async function fetchUser() {
 		try {
 			let response = await axios.get(
-				`https://localhost:5001/api/Reviews/profile/${userId}/`,
+				`https://localhost:5001/api/Reviews/profile/${thisUserId}/`,
 				{
 					headers: {
 						Authorization: "Bearer " + token,
@@ -44,7 +44,6 @@ const ProfilePage = () => {
 			);
 			// console.log(response.data);
 			setDisplayedUser(response.data);
-			// console.log(displayedUser);
 		} catch (error) {
 			console.warn("Error in the fetchUser request.", error);
 		}
@@ -56,7 +55,7 @@ const ProfilePage = () => {
 			{displayedUser ? (
 				<>
 					<UserCard
-						token={token}
+						thisUserId={thisUserId}
 						displayedUser={displayedUser}
 						handleClickEdit={handleClickEdit}
 					/>

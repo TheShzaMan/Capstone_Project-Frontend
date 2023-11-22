@@ -15,10 +15,9 @@ import MapMarker from "../MapMarker/MapMarker";
 import Pin from "../../icons/oil-jack.svg";
 import googleMapReact from "google-map-react";
 
-const Map = ({ handleMapClick, clickCoordinates, confirmPin, jobMarkers }) => {
+const Map = ({ handleMapClick, clickCoordinates, confirmPin, jobList }) => {
 	const [coordinates, setCoordinates] = useState({}, {});
 	// const [map, setMap] = useState(null);
-	const [sites, setSites] = useState([]);
 
 	useEffect(() => {
 		setCoordinates(defaultProps);
@@ -71,8 +70,82 @@ const Map = ({ handleMapClick, clickCoordinates, confirmPin, jobMarkers }) => {
 					zoom={9}
 					onClick={handleMapClick}
 				>
-					{/* <Marker position= */}
-					{/* {jobMarkers} */}
+					{/* {jobList.map((job) => ( */}
+					{/* //(job) => console.log(job.location) //key={job.id} */}
+					{/* //position={`{{${job.location}}}`} */}
+					<Marker
+						title={"Cleaning up test stuff"}
+						icon={Pin}
+						position={{
+							lat: 32.13836232052251,
+							lng: -103.2111858385741,
+						}}
+					/>
+					<Marker
+						title='site preparation'
+						icon={Pin}
+						position={{
+							lat: 31.91595069107862,
+							lng: -102.93791788410985,
+						}}
+					/>
+					<Marker
+						title='{Cleaning up test stuff}'
+						icon={Pin}
+						position={{
+							lat: 31.91595069107862,
+							lng: -102.93791788410985,
+						}}
+					/>
+					<Marker
+						title='Cleaning up test stuff'
+						icon={Pin}
+						position={{
+							lat: 31.763798933862954,
+							lng: -102.31742227960822,
+						}}
+					/>
+					<Marker
+						title='Equipment Operator'
+						icon={Pin}
+						position={{
+							lat: 32.389166126079076,
+							lng: -103.20452637422835,
+						}}
+					/>
+					<Marker
+						title='Excavation pre-site'
+						icon={Pin}
+						position={{
+							lat: 32.24174073505699,
+							lng: -102.7198098146934,
+						}}
+					/>
+					<Marker
+						title='Service Technician'
+						icon={Pin}
+						position={{
+							lat: 32.42400928153081,
+							lng: -102.53662431816952,
+						}}
+					/>
+					<Marker
+						title='Pump Hand'
+						icon={Pin}
+						position={{
+							lat: 31.68306342773541,
+							lng: -102.2779799450916,
+						}}
+					/>
+					<Marker
+						title='Pump Hand'
+						icon={Pin}
+						position={{
+							lat: 31.600342163091234,
+							lng: -103.01103789260488,
+						}}
+					/>
+					{/* ))} */}
 				</GoogleMap>
 
 				// {sites.map((site) => (

@@ -18,24 +18,30 @@ const SearchPage = () => {
 	const [jobDisplayState, setJobDisplayState] = useState("closed");
 	const [jobList, setJobList] = useState([]);
 	const [jobToDisplay, setJobToDisplay] = useState();
-	const [job, setJob] = useState("");
 	const [displayedUser, setDisplayedUser] = useState();
-
+	const [postedByUserId, setPostedByUserId] = useState();
+	const [jobFilters, setJobFilters] = useState("allJobs");
+	const [myJobs, setMyJobs] = useState([]);
+	const [filterBtn, setFilterBtn] = useState("My Jobs");
+	//const [job, setJob] = useState("");
 	// const [sites, setSites] = useState([]);
 	// const [clickCoordinates, setClickCoordinates] = useState({}, {});
 	//connect to a post new job form
-	// console.log(mapState);
-
+	// console.log(user.id);
+	const thisUserId = user.id;
 	useEffect(() => {
 		fetchJobs();
 	}, []);
+	useEffect(() => {
+		fetchUser();
+	}, [jobToDisplay]);
 
 	const fetchJobs = async () => {
 		try {
 			let response = await axios.get(
 				`https://localhost:5001/api/Jobs/avail`
 			);
-			console.log(response.data);
+			// console.log(response.data);
 			setJobList(response.data);
 		} catch (error) {
 			console.warn("Error in the fetchJobs request.", error);
@@ -43,19 +49,26 @@ const SearchPage = () => {
 	};
 	const fetchUser = async () => {
 		try {
+			//while (!postedByUserId) {
+			//console.log(jobToDisplay);
 			let response = await axios.get(
-				`https://localhost:5001/api/Reviews/profile/${job.postedByUser.id}/`,
+				`https://localhost:5001/api/Reviews/profile/${jobToDisplay}/`,
 				{
 					headers: {
 						Authorization: "Bearer " + token,
 					},
 				}
 			);
+			//}
+			console.log("displayedUser:", response.data);
+
 			setDisplayedUser(response.data);
 		} catch (error) {
 			console.warn("Error in the fetchUser request.", error);
 		}
 	};
+	// console.log(displayedUser);
+
 	// const fetchJobWithReview = async () => {
 	// 	try {
 	// 		let response = await axios.get(
@@ -72,12 +85,27 @@ const SearchPage = () => {
 	// 		console.warn("Error in the fetchJobWithReview", error);
 	// 	}
 	// };
-
+	const filterMyJobs = () => {
+		setMyJobs(jobList.filter((job) => job.postedByUser.id === thisUserId));
+	};
 	const handleDisplayDetail = () => {
-		setJobToDisplay(job);
-		console.log(job);
-		//fetchUser();
+		//setPostedByUserId(jobToDisplay.postedByUser.id);
+
+		console.log(jobToDisplay);
+
 		setJobDisplayState(jobDisplayState === "open" ? "closed" : "open");
+	};
+	const handleJobFilters = () => {
+		if (jobFilters === "allJobs") {
+			setJobFilters("myJobs");
+			setMapState("closed-form");
+			setListState("closed-form");
+			setFilterBtn("My Jobs");
+			filterMyJobs();
+		} else if (jobFilters === "myJobs") {
+			setJobFilters("allJobs");
+			setFilterBtn("All Jobs");
+		}
 	};
 
 	const handleToggleMap = () => {
@@ -85,26 +113,38 @@ const SearchPage = () => {
 			setMapState("open-form");
 			setListState("closed-form");
 			setSetBtn("List View");
-		} else {
+		} else if (mapState === "open-form") {
 			setMapState("closed-form");
+			setListState("opened-form");
+			setSetBtn("Map View");
+		} else if (mapState === "closed-form" && listState === "closed=form") {
 			setListState("opened-form");
 			setSetBtn("Map View");
 		}
 	};
-	console.log(setBtn);
-
-	console.log(displayedUser);
-	const availableJobs = jobList.map((job, index) => (
+	const myJobCards = myJobs.map((myJob, index) => (
 		<JobCard
-			job={job}
+			oneJob={myJob}
 			key={index}
-			handleDisplayDetail={handleDisplayDetail}
-			setJob={setJob}
+			// handleDisplayDetail={handleDisplayDetail}
+			// setJobToDisplay={setJobToDisplay}
 		/>
 	));
-	const jobMarkers = jobList.map((job, index) => (
-		<Marker position={job.location} />
+
+	const availableJobs = jobList.map((oneJob, index) => (
+		<JobCard
+			oneJob={oneJob}
+			key={index}
+			handleDisplayDetail={handleDisplayDetail}
+			setJobToDisplay={setJobToDisplay}
+		/>
 	));
+
+	// const jobMarkers = jobList.map((job, index) => (
+	// 	<Marker position={job.location} />
+	// ));
+	console.log("jobToDisplay:", jobToDisplay);
+	console.log("displayedUser for userCard and reviewCard", displayedUser);
 
 	return !jobList ? (
 		<div className='loading'>Loading...</div>
@@ -113,16 +153,26 @@ const SearchPage = () => {
 			{jobDisplayState === "open" && (
 				<div className='darkout-bg'>
 					<div className='popup-container'>
-						<h2>This Job is Hosted By</h2>
 						<button
 							className='exit-form'
 							onClick={handleDisplayDetail}
 						>
 							X
 						</button>
-						{displayedUser ? (
-							<UserCard displayedUser={displayedUser.user} />
+						<h2>This Job is Hosted By</h2>
+						{displayedUser?.user ? (
+							<UserCard
+								displayedUser={displayedUser.user} //erroring on some users because need .user added here.
+								thisUserId={thisUserId}
+							/>
 						) : (
+							<UserCard
+								displayedUser={displayedUser}
+								thisUserId={thisUserId}
+							/>
+						)}
+
+						{!displayedUser && (
 							<div className='loading'>Loading...</div>
 						)}
 
@@ -136,18 +186,24 @@ const SearchPage = () => {
 					</div>
 				</div>
 			)}
-			<button className='alt-btn m' onClick={handleToggleMap}>
-				{setBtn}
-			</button>
-			{setBtn === "List View" && (
-				<div className={mapState}>
-					<Map
-						handleToggleMap={handleToggleMap}
-						jobMarkers={jobMarkers}
-					/>
-				</div>
-			)}
-			{setBtn === "Map View" && <div>{availableJobs}</div>}
+			<div className='job-btns'>
+				<button className='alt-btn m' onClick={handleToggleMap}>
+					{setBtn}
+				</button>
+				{setBtn === "List View" && (
+					<div className={mapState}>
+						<Map
+							handleToggleMap={handleToggleMap}
+							jobList={jobList}
+						/>
+					</div>
+				)}
+				{setBtn === "Map View" && <div>{availableJobs}</div>}
+				<button className='alt-btn l' onClick={handleJobFilters}>
+					{filterBtn}
+				</button>
+				{jobFilters === "myJobs" && <div>{myJobCards}</div>}
+			</div>
 		</div>
 	);
 };
