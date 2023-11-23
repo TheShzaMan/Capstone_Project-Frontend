@@ -49,7 +49,7 @@ const RegisterPage = () => {
 
 	return (
 		<div className='register-form container'>
-			<form onSubmit={handleSubmit}>
+			<div className='form-container'>
 				<label className='isWorker'>
 					<p>Looking For:</p>
 					<div className='work-select'>
@@ -60,12 +60,11 @@ const RegisterPage = () => {
 							onChange={handleInputChange} */}
 
 						<button
-							type='radio'
-							className={formType}
 							target='workerbtn'
-							name='isWorker'
+							className={formType}
 							onClick={handleClickJ}
-							// checked={true}
+							type='radio'
+							name='isWorker' // checked={true}
 							value={formData.isWorker}
 							onChange={handleInputChange}
 						>
@@ -86,8 +85,8 @@ const RegisterPage = () => {
 						{/* </select> */}
 					</div>
 				</label>
-
-				{/* <p>Looking For:</p>
+				<form onSubmit={handleSubmit}>
+					{/* <p>Looking For:</p>
 					<label className='radio' name='isWorker'>
 						Work
 						<input
@@ -113,155 +112,156 @@ const RegisterPage = () => {
 						<span className='checkmark'></span>
 					</label>
 					<h5 className='required'>* = required</h5> */}
-				<label>
-					{formType === "provider"
-						? `*Company Name:${" "}`
-						: `First Name:${" "}`}
-					<input
-						type='text'
-						name='firstName'
-						value={formData.firstName}
-						onChange={handleInputChange}
-					/>
-				</label>
-
-				{formType === "worker" && (
 					<label>
-						Last Name:{" "}
+						{formType === "provider"
+							? `*Company Name:${" "}`
+							: `First Name:${" "}`}
 						<input
 							type='text'
-							name='lastName'
-							value={formData.lastName}
+							name='firstName'
+							value={formData.firstName}
 							onChange={handleInputChange}
 						/>
 					</label>
-				)}
-				<label>
-					*Username:{" "}
-					<input
-						type='text'
-						name='username'
-						value={formData.username}
-						onChange={handleInputChange}
-					/>
-				</label>
-				<label>
-					*Password:{" "}
-					<input
-						type='password'
-						name='password'
-						pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
-						title='Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters'
-						value={formData.password}
-						onChange={handleInputChange}
-					/>
-				</label>
-				<label>
-					Email:{" "}
-					<input
-						type='email'
-						name='email'
-						value={formData.email}
-						onChange={handleInputChange}
-					/>
-				</label>
-				<label>
-					Mobile Number:{" "}
-					<input
-						type='phoneNumber'
-						name='phoneNumber'
-						value={formData.phoneNumber}
-						onChange={handleInputChange}
-					/>
-				</label>
-				{formType === "worker" && (
-					<label>
-						*Availability:{" "}
-						<select
-							name='availability'
-							value={formData.availability}
-							onChange={handleInputChange}
-						>
-							<option value='Anytime Day or Night Any Day'>
-								Anytime, Day or Night Shifts
-							</option>
-							<option value='Anytime Day or Night No Weekends'>
-								Anytime, Day or Night Shifts No Weekedns
-							</option>
-							<option value='Only Day shifts Any Day'>
-								Only Day Shift Any Day
-							</option>
-							<option value='Only Day shifts No Weekends'>
-								Only Day shifts No Weekends
-							</option>
-							<option value='Only Night shifts Any Day'>
-								Only Night shifts Any Night
-							</option>
-							<option value='Only Night shifts No Weekends'>
-								Only Night shifts No Weekends
-							</option>
-						</select>
-					</label>
-				)}
-				{formType === "worker" && (
-					<label>
-						<div>*Charge/Pay per Hour:</div>
-						<span>
-							{" $"}
 
+					{formType === "worker" && (
+						<label>
+							Last Name:{" "}
 							<input
-								type='number'
-								name='payPerHour'
-								cols='4'
-								value={formData.payPerHour}
+								type='text'
+								name='lastName'
+								value={formData.lastName}
 								onChange={handleInputChange}
 							/>
-						</span>
-					</label>
-				)}
-				{formType === "worker" && (
+						</label>
+					)}
 					<label>
-						Skill Level:{"Select"}
-						<select
-							name='skillLevel'
-							value={formData.skillLevel}
-							onChange={handleInputChange}
-						>
-							<option value='Basic'>
-								Basic - Only General Labor
-							</option>
-							<option value='Advanced'>
-								Advanced - More than 3yrs experience. Can
-								operate heavy machinery
-							</option>
-							<option value='Pro'>
-								Pro Level - More than 10yrs experience.
-								Certified in precision equipment. Documents
-								required.
-							</option>
-						</select>
-					</label>
-				)}
-				{formType === "provider" && (
-					<label>
-						Short Business Description:{" "}
-						<textarea
-							name='businessDescription'
-							rows='2'
-							cols='40'
-							value={formData.businessDescription}
+						*Username:{" "}
+						<input
+							type='text'
+							name='username'
+							value={formData.username}
 							onChange={handleInputChange}
 						/>
 					</label>
-				)}
-				<button>Register!</button>
-			</form>
-			<div className={modalState}>
-				<AlertModal
-					header='Welcome to Prospector'
-					message="You have officially registered and unlocked full feature use. Whether you're prospecting for jobs or for workers, you'll find it all with Prospector!"
-					handleClickModal={handleClickModal}
-				/>
+					<label>
+						*Password:{" "}
+						<input
+							type='password'
+							name='password'
+							pattern='(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}'
+							title='Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters'
+							value={formData.password}
+							onChange={handleInputChange}
+						/>
+					</label>
+					<label>
+						Email:{" "}
+						<input
+							type='email'
+							name='email'
+							value={formData.email}
+							onChange={handleInputChange}
+						/>
+					</label>
+					<label>
+						Mobile Number:{" "}
+						<input
+							type='phoneNumber'
+							name='phoneNumber'
+							value={formData.phoneNumber}
+							onChange={handleInputChange}
+						/>
+					</label>
+					{formType === "worker" && (
+						<label>
+							*Availability:{" "}
+							<select
+								name='availability'
+								value={formData.availability}
+								onChange={handleInputChange}
+							>
+								<option value='Anytime Day or Night Any Day'>
+									Anytime, Day or Night Shifts
+								</option>
+								<option value='Anytime Day or Night No Weekends'>
+									Anytime, Day or Night Shifts No Weekedns
+								</option>
+								<option value='Only Day shifts Any Day'>
+									Only Day Shift Any Day
+								</option>
+								<option value='Only Day shifts No Weekends'>
+									Only Day shifts No Weekends
+								</option>
+								<option value='Only Night shifts Any Day'>
+									Only Night shifts Any Night
+								</option>
+								<option value='Only Night shifts No Weekends'>
+									Only Night shifts No Weekends
+								</option>
+							</select>
+						</label>
+					)}
+					{formType === "worker" && (
+						<label>
+							<div>*Charge/Pay per Hour:</div>
+							<span>
+								{" $"}
+
+								<input
+									type='number'
+									name='payPerHour'
+									cols='4'
+									value={formData.payPerHour}
+									onChange={handleInputChange}
+								/>
+							</span>
+						</label>
+					)}
+					{formType === "worker" && (
+						<label>
+							Skill Level:{"Select"}
+							<select
+								name='skillLevel'
+								value={formData.skillLevel}
+								onChange={handleInputChange}
+							>
+								<option value='Basic'>
+									Basic - Only General Labor
+								</option>
+								<option value='Advanced'>
+									Advanced - More than 3yrs experience. Can
+									operate heavy machinery
+								</option>
+								<option value='Pro'>
+									Pro Level - More than 10yrs experience.
+									Certified in precision equipment. Documents
+									required.
+								</option>
+							</select>
+						</label>
+					)}
+					{formType === "provider" && (
+						<label>
+							Short Business Description:{" "}
+							<textarea
+								name='businessDescription'
+								rows='2'
+								cols='40'
+								value={formData.businessDescription}
+								onChange={handleInputChange}
+							/>
+						</label>
+					)}
+					<button>Register!</button>
+				</form>
+				<div className={modalState}>
+					<AlertModal
+						header='Welcome to Prospector'
+						message="You have officially registered and unlocked full feature use. Whether you're prospecting for jobs or for workers, you'll find it all with Prospector!"
+						handleClickModal={handleClickModal}
+					/>
+				</div>
 			</div>
 		</div>
 	);

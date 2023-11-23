@@ -5,7 +5,7 @@ import { useState } from "react";
 const UserCard = ({ displayedUser, thisUserId, handleClickEdit }) => {
 	const user = displayedUser;
 
-	console.log("user from UserCard:", user);
+	//console.log("user from UserCard:", user);
 	// console.log({ thisUserId });
 	return !user ? (
 		<div className='loading'>Loading...</div>

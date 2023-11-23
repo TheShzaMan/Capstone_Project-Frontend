@@ -1,16 +1,27 @@
 .isWorker {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-self: center;
-	align-items: end;
-	margin-left: 0;
+	align-items: baseline;
+	margin-left: 7vh;
 	margin-right: 0;
 	column-gap: 1rem;
+	justify-content: start;
+	margin-bottom: 20px;
+}
+.isWorker p {
+	color: white;
+	margin-bottom: 0;
+	margin-top: 15px;
+	text-shadow: 2px 2px black;
 }
 .work-select {
 	display: inline-grid;
 	grid-template-columns: auto auto;
-	column-gap: 2rem;
+	/* column-gap: 2rem; */
+	position: absolute;
+	top: 20vh;
+	right: 35vw;
 }
 
 .register-form {
@@ -59,6 +70,8 @@
 	border-right: 0px solid white;
 	font-size: 24px;
 	transition-duration: 250ms;
+	text-shadow: 2px 2px black;
+	box-shadow: inset 2px 2px black;
 }
 .worker[target="workerbtn"] {
 	background-color: steelblue;
@@ -68,6 +81,8 @@
 	border-right: 0px solid white;
 	font-size: 24px;
 	transition-duration: 250ms;
+	text-shadow: 2px 2px black;
+	box-shadow: inset 2px 2px black;
 }
 .provider[target="workerbtn"] {
 	background-color: slategray;
@@ -95,7 +110,20 @@
 }
 .register-form form {
 	padding-top: 5vh;
+	margin-top: 5px;
+	height: 80%;
 }
+.form-container {
+	margin-top: 2vh;
+	border: solid 1px white;
+	/* margin-bottom: 20vh; */
+	background: rgba(43, 104, 139, 0.555);
+	padding: 5%;
+	height: 67vh;
+	width: 70vw;
+	padding-top: 0;
+}
+
 /* custom radio buttons */
 
 /* .radio {

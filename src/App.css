@@ -143,11 +143,11 @@ label {
 
 form {
 	display: flex;
-
-	margin: 1vh 15vw;
+	border-radius: 5px;
+	margin: 1vh 1vw;
 	flex-direction: column;
 	overflow: auto;
-	max-height: 75%;
+	max-height: 100%;
 	align-items: center;
 	padding: 2%;
 	/* margin-top: 5%; */
