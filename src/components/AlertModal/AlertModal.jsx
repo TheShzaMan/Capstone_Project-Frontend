@@ -1,15 +1,22 @@
 import "./AlertModal.css";
-import { useState } from "react";
-// import { useNavigate } from "react-router-dom";
 
-const AlertModal = ({ header, message, handleClickModal }) => {
-	// const navigate = useNavigate();
+//\\//\\//  Add this displayModal function to any parent container of this Modal:
+// const displayModal = () => {
+// modalState === "modal-active"
+// ? setModalState("modal-inactive")
+// : setModalState("modal-active");
+// };
 
-	// console.log(modalState);
+const AlertModal = ({ header, message, setModalState, modalState }) => {
+	const handleClickModal = () => {
+		setModalState("modal-inactive");
+	};
 	return (
-		<div onClick={handleClickModal} className='modal-content'>
-			<div className='modal-header'>{header}</div>
-			<div className='modal-body'>{message}</div>
+		<div className={modalState}>
+			<div onClick={handleClickModal} className='modal-content'>
+				<div className='modal-header'>{header}</div>
+				<div className='modal-body'>{message}</div>
+			</div>
 		</div>
 	);
 };

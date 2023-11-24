@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }) => {
 
 	//\\//\\// ADD AlertModal here for successes and fails \\//\\//
 
-	const registerUser = async (registerData) => {
+	const registerUser = async (registerData, setModalState) => {
 		try {
 			let finalData = {
 				firstName: registerData.firstName,
@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }) => {
 			let response = await axios.post(`${BASE_URL}`, finalData);
 			if (response.status === 201) {
 				console.log("Successful registration! Log in to access token");
-
+				setModalState("modal-active");
 				setIsServerError(false);
 				navigate("/login");
 			} else {

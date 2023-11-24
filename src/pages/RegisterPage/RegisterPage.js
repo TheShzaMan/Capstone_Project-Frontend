@@ -9,8 +9,9 @@ const RegisterPage = () => {
 	const { registerUser } = useContext(AuthContext);
 	const [formType, setFormType] = useState("worker");
 	const [modalState, setModalState] = useState("modal-inactive");
-	const [isWorkerInput, setIsWorkerInput] = useState(false);
-	const handleClickModal = () => {
+	const [isWorkerInput, setIsWorkerInput] = useState(true);
+
+	const displayModal = () => {
 		modalState === "modal-active"
 			? setModalState("modal-inactive")
 			: setModalState("modal-active");
@@ -31,7 +32,7 @@ const RegisterPage = () => {
 	const [formData, handleInputChange, handleSubmit] = useCustomForm(
 		registerUser,
 		defaultValues,
-		handleClickModal
+		setModalState
 	);
 	const handleClickJ = () => {
 		formType === "provider" && setFormType("worker");
@@ -63,22 +64,15 @@ const RegisterPage = () => {
 							target='workerbtn'
 							className={formType}
 							onClick={handleClickJ}
-							type='radio'
-							name='isWorker' // checked={true}
-							value={formData.isWorker}
-							onChange={handleInputChange}
+							name='isWorker'
 						>
 							Jobs
 						</button>
 						<button
-							type='radio'
 							className={formType}
 							target='providerbtn'
 							name='isWorker'
 							onClick={handleClickW}
-							// checked={false}
-							value={formData.isWorker}
-							onChange={handleInputChange}
 						>
 							Workers
 						</button>
@@ -112,15 +106,24 @@ const RegisterPage = () => {
 						<span className='checkmark'></span>
 					</label>
 					<h5 className='required'>* = required</h5> */}
+					<label className='hidden-worker-input'>
+						<input
+							type='text'
+							name='isWorker'
+							value={(formData.isWorker = isWorkerInput)}
+							onChange={handleInputChange}
+						/>
+					</label>
 					<label>
 						{formType === "provider"
 							? `*Company Name:${" "}`
-							: `First Name:${" "}`}
+							: `*First Name:${" "}`}
 						<input
 							type='text'
 							name='firstName'
 							value={formData.firstName}
 							onChange={handleInputChange}
+							required
 						/>
 					</label>
 
@@ -255,11 +258,12 @@ const RegisterPage = () => {
 					)}
 					<button>Register!</button>
 				</form>
-				<div className={modalState}>
+				<div>
 					<AlertModal
 						header='Welcome to Prospector'
 						message="You have officially registered and unlocked full feature use. Whether you're prospecting for jobs or for workers, you'll find it all with Prospector!"
-						handleClickModal={handleClickModal}
+						setModalState={setModalState}
+						modalState={modalState}
 					/>
 				</div>
 			</div>
