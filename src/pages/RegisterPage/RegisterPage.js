@@ -11,11 +11,6 @@ const RegisterPage = () => {
 	const [modalState, setModalState] = useState("modal-inactive");
 	const [isWorkerInput, setIsWorkerInput] = useState(true);
 
-	const handleClickModal = () => {
-		modalState === "modal-active"
-			? setModalState("modal-inactive")
-			: setModalState("modal-active");
-	};
 	const defaultValues = {
 		firstName: "",
 		lastName: "",
@@ -29,11 +24,18 @@ const RegisterPage = () => {
 		skillLevel: "",
 		businessDescription: "",
 	};
-	const [formData, handleInputChange, handleSubmit] = useCustomForm(
-		registerUser(handleClickModal),
-		defaultValues
-		// handleClickModal
-	);
+	const handleClickModal = () => {
+		modalState === "modal-active"
+			? setModalState("modal-inactive")
+			: setModalState("modal-active");
+	};
+
+	const [formData, handleInputChange, handleSubmit] = useCustomForm({
+		onSubmit: registerUser,
+		initialValues: defaultValues,
+		handleClickModal,
+	});
+
 	const handleClickJ = () => {
 		formType === "provider" && setFormType("worker");
 		setIsWorkerInput(true);
@@ -257,7 +259,7 @@ const RegisterPage = () => {
 				<div>
 					<AlertModal
 						header='Welcome to Prospector'
-						message="You have officially registered and unlocked full feature use. Whether you're prospecting for jobs or for workers, you'll find it all with Prospector!"
+						message='You have officially registered and unlocked full feature use. Please log in to continue.'
 						handleClickModal={handleClickModal}
 						modalState={modalState}
 					/>

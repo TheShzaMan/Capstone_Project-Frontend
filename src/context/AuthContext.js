@@ -51,6 +51,14 @@ export const AuthProvider = ({ children }) => {
 				console.log("Successful registration! Log in to access token");
 				setIsServerError(false);
 				handleClickModal();
+				await new Promise((resolve) => {
+					const handleClick = () => {
+						document.removeEventListener("click", handleClick);
+						resolve();
+					};
+					document.addEventListener("click", handleClick);
+				});
+
 				navigate("/login");
 			} else {
 				navigate("/register");
