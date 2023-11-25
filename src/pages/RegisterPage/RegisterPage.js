@@ -11,7 +11,7 @@ const RegisterPage = () => {
 	const [modalState, setModalState] = useState("modal-inactive");
 	const [isWorkerInput, setIsWorkerInput] = useState(true);
 
-	const displayModal = () => {
+	const handleClickModal = () => {
 		modalState === "modal-active"
 			? setModalState("modal-inactive")
 			: setModalState("modal-active");
@@ -30,9 +30,9 @@ const RegisterPage = () => {
 		businessDescription: "",
 	};
 	const [formData, handleInputChange, handleSubmit] = useCustomForm(
-		registerUser,
-		defaultValues,
-		setModalState
+		registerUser(handleClickModal),
+		defaultValues
+		// handleClickModal
 	);
 	const handleClickJ = () => {
 		formType === "provider" && setFormType("worker");
@@ -43,10 +43,6 @@ const RegisterPage = () => {
 		setIsWorkerInput(false);
 	};
 	const updatedIsWorker = { ...formData, isWorker: `${isWorkerInput}` };
-
-	// formData.isWorker === true
-	// 	? setFormType("worker")
-	// 	: setFormType("provider");
 
 	return (
 		<div className='register-form container'>
@@ -262,7 +258,7 @@ const RegisterPage = () => {
 					<AlertModal
 						header='Welcome to Prospector'
 						message="You have officially registered and unlocked full feature use. Whether you're prospecting for jobs or for workers, you'll find it all with Prospector!"
-						setModalState={setModalState}
+						handleClickModal={handleClickModal}
 						modalState={modalState}
 					/>
 				</div>

@@ -1,16 +1,13 @@
 import "./AlertModal.css";
 
 //\\//\\//  Add this displayModal function to any parent container of this Modal:
-// const displayModal = () => {
+// const handleClickModal = () => {
 // modalState === "modal-active"
 // ? setModalState("modal-inactive")
 // : setModalState("modal-active");
 // };
 
-const AlertModal = ({ header, message, setModalState, modalState }) => {
-	const handleClickModal = () => {
-		setModalState("modal-inactive");
-	};
+const AlertModal = ({ header, message, handleClickModal, modalState }) => {
 	return (
 		<div className={modalState}>
 			<div onClick={handleClickModal} className='modal-content'>

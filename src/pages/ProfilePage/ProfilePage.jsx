@@ -68,11 +68,12 @@ const ProfilePage = () => {
 							handleClickModal={handleClickModal}
 						/>
 					</div>
-					<div className={modalState}>
+					<div>
 						<AlertModal
 							header='SUCCESS'
 							message='Your profile has been successfully edited.'
 							handleClickModal={handleClickModal}
+							modalState={modalState}
 						/>
 					</div>
 
