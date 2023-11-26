@@ -10,6 +10,7 @@ const RegisterPage = () => {
 	const [formType, setFormType] = useState("worker");
 	const [modalState, setModalState] = useState("modal-inactive");
 	const [isWorkerInput, setIsWorkerInput] = useState(true);
+	const [forTo, setForTo] = useState("For");
 
 	const defaultValues = {
 		firstName: "",
@@ -39,10 +40,12 @@ const RegisterPage = () => {
 	const handleClickJ = () => {
 		formType === "provider" && setFormType("worker");
 		setIsWorkerInput(true);
+		setForTo("For");
 	};
 	const handleClickW = () => {
 		formType === "worker" && setFormType("provider");
 		setIsWorkerInput(false);
+		setForTo("To");
 	};
 	const updatedIsWorker = { ...formData, isWorker: `${isWorkerInput}` };
 
@@ -50,7 +53,7 @@ const RegisterPage = () => {
 		<div className='register-form container'>
 			<div className='form-container'>
 				<label className='isWorker'>
-					<p>Looking For:</p>
+					<p>Looking {forTo}:</p>
 					<div className='work-select'>
 						{/* <select
 							className='isWorker'
@@ -64,7 +67,7 @@ const RegisterPage = () => {
 							onClick={handleClickJ}
 							name='isWorker'
 						>
-							Jobs
+							WORK
 						</button>
 						<button
 							className={formType}
@@ -72,7 +75,7 @@ const RegisterPage = () => {
 							name='isWorker'
 							onClick={handleClickW}
 						>
-							Workers
+							HIRE
 						</button>
 						{/* </select> */}
 					</div>
@@ -256,14 +259,13 @@ const RegisterPage = () => {
 					)}
 					<button>Register!</button>
 				</form>
-				<div>
-					<AlertModal
-						header='Welcome to Prospector'
-						message='You have officially registered and unlocked full feature use. Please log in to continue.'
-						handleClickModal={handleClickModal}
-						modalState={modalState}
-					/>
-				</div>
+
+				<AlertModal
+					header='Welcome to Prospector'
+					message='You have officially registered and unlocked full feature use. Please log in to continue.'
+					handleClickModal={handleClickModal}
+					modalState={modalState}
+				/>
 			</div>
 		</div>
 	);

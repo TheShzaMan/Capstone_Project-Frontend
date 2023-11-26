@@ -51,6 +51,7 @@ export const AuthProvider = ({ children }) => {
 				console.log("Successful registration! Log in to access token");
 				setIsServerError(false);
 				handleClickModal();
+				// the following is to ensure that the modal is displayed and acted on before navigating to login
 				await new Promise((resolve) => {
 					const handleClick = () => {
 						document.removeEventListener("click", handleClick);
@@ -58,7 +59,6 @@ export const AuthProvider = ({ children }) => {
 					};
 					document.addEventListener("click", handleClick);
 				});
-
 				navigate("/login");
 			} else {
 				navigate("/register");

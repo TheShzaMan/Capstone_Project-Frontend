@@ -42,28 +42,28 @@ const UserCard = ({ displayedUser, thisUserId, handleClickEdit }) => {
 					{user.skillLevel && (
 						<div>
 							Skill Level{":   "}
-							<p>{user.skillLevel}</p>
+							<p>user.skillLevel</p>
 						</div>
 					)}
 				</div>
 			) : (
 				<div className='card-info'>
-					<div className='cardname'>{user.firstName}</div>
+					<div className='cardname'>{user.user.firstName}</div>
 					<div className='hr'></div>
-					<div>{`@${user.userName}`}</div>
-					{user.phoneNumber && (
+					<div>{`@${user.user.userName}`}</div>
+					{user.user.phoneNumber && (
 						<div>
 							Contact{":   "}
-							<p>{user.phoneNumber}</p>
+							<p>{user.user.phoneNumber}</p>
 						</div>
 					)}{" "}
-					{user.email && (
+					{user.user.email && (
 						<div>
-							Email{":   "} <p>{user.email}</p>
+							Email{":   "} <p>{user.user.email}</p>
 						</div>
 					)}
 					<div>
-						About{":   "} <p>{user.businessDescription}</p>
+						About{":   "} <p>{user.user.businessDescription}</p>
 					</div>
 				</div>
 			)}

@@ -7,10 +7,11 @@ import "./LoginPage.css";
 const LoginPage = () => {
 	const { loginUser, isServerError } = useContext(AuthContext);
 	const defaultValues = { userName: "", password: "Qw12345^" }; //\\//\\// Change password value back to empty string when done presenting/testing
-	const [formData, handleInputChange, handleSubmit, reset] = useCustomForm(
-		loginUser,
-		defaultValues
-	);
+	const [formData, handleInputChange, handleSubmit, reset] = useCustomForm({
+		onSubmit: loginUser,
+		initialValues: defaultValues,
+		// handleClickModal: {},
+	});
 
 	useEffect(() => {
 		if (isServerError) {

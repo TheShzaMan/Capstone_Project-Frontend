@@ -3,7 +3,8 @@ import React from "react";
 
 const JobCard = ({ oneJob, index, handleDisplayDetail, setJobToDisplay }) => {
 	const handleClickDisplay = () => {
-		setJobToDisplay(oneJob.postedByUser.id);
+		//setJobToDisplay(oneJob.postedByUser.id);
+		setJobToDisplay(oneJob);
 		handleDisplayDetail();
 	};
 	//console.log(oneJob);

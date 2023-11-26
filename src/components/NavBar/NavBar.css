@@ -22,7 +22,7 @@ li {
 	width: 100vw;
 	position: fixed;
 	top: 0;
-
+	z-index: 1;
 	min-width: 420px;
 }
 button.user {
@@ -121,6 +121,7 @@ button.dropbtn:hover {
 	align-items: center;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
+	align-content: flex-start;
 }
 
 .dropdown-content a {
@@ -142,8 +143,8 @@ button.dropbtn:hover {
 	box-shadow: inset -2px -2px 2px rgb(254, 253, 253);
 	/* position: sticky; */
 	margin: 8px;
-	transition-duration: 350ms;
-	transition-timing-function: cubic-bezier();
+	transition-duration: 400ms;
+	transition-timing-function: ease-in-out;
 }
 .dropdown-content a:hover {
 	background-color: rgba(70, 131, 180, 0.745);

@@ -88,7 +88,7 @@ const Navbar = () => {
 										>
 											Profile
 										</Link>
-										{!user.isWorker && (
+										{user.isWorker === false && (
 											<a
 												onClick={handleClickPostJob}
 												style={{ cursor: "pointer" }}

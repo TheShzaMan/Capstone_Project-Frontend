@@ -139,6 +139,7 @@ const SearchPage = () => {
 			setJobToDisplay={setJobToDisplay}
 		/>
 	));
+	const handleClickApply = () => {};
 
 	// const jobMarkers = jobList.map((job, index) => (
 	// 	<Marker position={job.location} />
@@ -153,36 +154,53 @@ const SearchPage = () => {
 			{jobDisplayState === "open" && (
 				<div className='darkout-bg'>
 					<div className='popup-container'>
-						<button
-							className='exit-form'
-							onClick={handleDisplayDetail}
-						>
-							X
-						</button>
-						<h2>This Job is Hosted By</h2>
-						{displayedUser?.user ? (
-							<UserCard
-								displayedUser={displayedUser.user} //erroring on some users because need .user added here.
-								thisUserId={thisUserId}
-							/>
-						) : (
-							<UserCard
-								displayedUser={displayedUser}
-								thisUserId={thisUserId}
-							/>
-						)}
-
-						{!displayedUser && (
-							<div className='loading'>Loading...</div>
-						)}
-
-						{displayedUser?.totalReviewsJobs > 0 ? (
-							<ReviewSummaryCard displayedUser={displayedUser} />
-						) : (
-							<div className='card'>
-								User has not yet been reviewed.
-							</div>
-						)}
+						<div className='pop-job-header'>
+							<button
+								className='alt-btn m'
+								onClick={handleClickApply}
+							>
+								Apply To This Job
+							</button>
+							<button
+								className='exit-form'
+								onClick={handleDisplayDetail}
+							>
+								X
+							</button>
+						</div>
+						<div className='job-details-full'>
+							{!jobToDisplay ? (
+								<div className='loading'>Loading...</div>
+							) : (
+								<div className='pop-job-card'>
+									<JobCard
+										target='pop-job-card'
+										oneJob={jobToDisplay}
+									/>
+								</div>
+							)}
+							<h2>This Job is Hosted By</h2>
+							{displayedUser?.user ? (
+								<UserCard
+									displayedUser={displayedUser} //erroring on some users because need .user added here.
+									thisUserId={thisUserId}
+								/>
+							) : (
+								<div className='loading'>Loading...</div>
+							)}
+							{/* {!displayedUser && (
+								<div className='loading'>Loading...</div>
+							)} */}
+							{displayedUser?.totalReviewsJobs > 0 ? (
+								<ReviewSummaryCard
+									displayedUser={displayedUser}
+								/>
+							) : (
+								<div className='card'>
+									User has not yet been reviewed.
+								</div>
+							)}
+						</div>
 					</div>
 				</div>
 			)}

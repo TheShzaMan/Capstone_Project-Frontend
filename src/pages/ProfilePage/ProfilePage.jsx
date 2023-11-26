@@ -68,14 +68,13 @@ const ProfilePage = () => {
 							handleClickModal={handleClickModal}
 						/>
 					</div>
-					<div>
-						<AlertModal
-							header='SUCCESS'
-							message='Your profile has been successfully edited.'
-							handleClickModal={handleClickModal}
-							modalState={modalState}
-						/>
-					</div>
+
+					<AlertModal
+						header='SUCCESS'
+						message='Your profile has been successfully edited.'
+						handleClickModal={handleClickModal}
+						modalState={modalState}
+					/>
 
 					{/* <button onClick={handleClickEdit}>Edit Profile</button> */}
 					{displayedUser.totalReviewsJobs > 0 ? (
