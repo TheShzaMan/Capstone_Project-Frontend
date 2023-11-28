@@ -8,6 +8,7 @@ import { Marker } from "@react-google-maps/api";
 import UserCard from "../../components/UserCard/UserCard";
 import useAuth from "../../hooks/useAuth";
 import ReviewSummaryCard from "../../components/ReviewSummaryCard/ReviewSummaryCard";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 //will be needing to add props to < map/> of a list of marker spots
 const SearchPage = () => {
@@ -23,18 +24,17 @@ const SearchPage = () => {
 	const [jobFilters, setJobFilters] = useState("allJobs");
 	const [myJobs, setMyJobs] = useState([]);
 	const [filterBtn, setFilterBtn] = useState("My Jobs");
-	//const [job, setJob] = useState("");
-	// const [sites, setSites] = useState([]);
-	// const [clickCoordinates, setClickCoordinates] = useState({}, {});
-	//connect to a post new job form
-	// console.log(user.id);
+	const [isApplied, setIsApplied] = useState(false);
+	const [modalState, setModalState] = useState("modal-inactive");
 	const thisUserId = user.id;
+	console.log({ user });
 	useEffect(() => {
 		fetchJobs();
 	}, []);
 	useEffect(() => {
 		fetchUser();
 	}, [jobToDisplay]);
+	// const jobPostedByUserId = jobToDisplay.postedByUser.id;
 
 	const fetchJobs = async () => {
 		try {
@@ -52,47 +52,40 @@ const SearchPage = () => {
 			//while (!postedByUserId) {
 			//console.log(jobToDisplay);
 			let response = await axios.get(
-				`https://localhost:5001/api/Reviews/profile/${jobToDisplay}/`,
+				`https://localhost:5001/api/Reviews/profile/${jobToDisplay.postedByUser.id}/`,
 				{
 					headers: {
 						Authorization: "Bearer " + token,
 					},
 				}
 			);
-			//}
 			console.log("displayedUser:", response.data);
-
 			setDisplayedUser(response.data);
 		} catch (error) {
 			console.warn("Error in the fetchUser request.", error);
 		}
 	};
-	// console.log(displayedUser);
-
-	// const fetchJobWithReview = async () => {
-	// 	try {
-	// 		let response = await axios.get(
-	// 			`https://localhost:5001/api/Jobs/${job.id}`,
-	// 			{
-	// 				headers: {
-	// 					Authorization: "Bearer " + token,
-	// 				},
-	// 			}
-	// 		);
-	// 		console.log(response);
-	// 		setJobToDisplay(response);
-	// 	} catch (error) {
-	// 		console.warn("Error in the fetchJobWithReview", error);
-	// 	}
-	// };
+	// console.log(jobToDisplay);
+	const handleClickApply = async () => {
+		try {
+			let response = await axios.put(
+				`https://localhost:5001/api/Jobs/apply/${jobToDisplay.id}`,
+				{
+					headers: {
+						Authorization: "Bearer " + token,
+					},
+				}
+			);
+			setIsApplied(true);
+		} catch (error) {
+			console.log("Error in handleClickApply Put Request", error);
+		}
+	};
 	const filterMyJobs = () => {
 		setMyJobs(jobList.filter((job) => job.postedByUser.id === thisUserId));
 	};
 	const handleDisplayDetail = () => {
-		//setPostedByUserId(jobToDisplay.postedByUser.id);
-
-		console.log(jobToDisplay);
-
+		// console.log(jobToDisplay);
 		setJobDisplayState(jobDisplayState === "open" ? "closed" : "open");
 	};
 	const handleJobFilters = () => {
@@ -122,15 +115,14 @@ const SearchPage = () => {
 			setSetBtn("Map View");
 		}
 	};
+	const handleClickModal = () => {
+		modalState === "modal-active"
+			? setModalState("modal-inactive")
+			: setModalState("modal-active");
+	};
 	const myJobCards = myJobs.map((myJob, index) => (
-		<JobCard
-			oneJob={myJob}
-			key={index}
-			// handleDisplayDetail={handleDisplayDetail}
-			// setJobToDisplay={setJobToDisplay}
-		/>
+		<JobCard oneJob={myJob} key={index} />
 	));
-
 	const availableJobs = jobList.map((oneJob, index) => (
 		<JobCard
 			oneJob={oneJob}
@@ -139,13 +131,12 @@ const SearchPage = () => {
 			setJobToDisplay={setJobToDisplay}
 		/>
 	));
-	const handleClickApply = () => {};
 
 	// const jobMarkers = jobList.map((job, index) => (
 	// 	<Marker position={job.location} />
 	// ));
-	console.log("jobToDisplay:", jobToDisplay);
-	console.log("displayedUser for userCard and reviewCard", displayedUser);
+	// console.log("jobToDisplay:", jobToDisplay);
+	// console.log("displayedUser for userCard and reviewCard", displayedUser);
 
 	return !jobList ? (
 		<div className='loading'>Loading...</div>
@@ -154,20 +145,37 @@ const SearchPage = () => {
 			{jobDisplayState === "open" && (
 				<div className='darkout-bg'>
 					<div className='popup-container'>
-						<div className='pop-job-header'>
-							<button
-								className='alt-btn m'
-								onClick={handleClickApply}
-							>
-								Apply To This Job
-							</button>
-							<button
-								className='exit-form'
-								onClick={handleDisplayDetail}
-							>
-								X
-							</button>
-						</div>
+						{user.isWorker === true ? (
+							<div className='pop-job-header'>
+								{!isApplied ? (
+									<button
+										className='alt-btn m'
+										onClick={handleClickApply}
+									>
+										Apply To This Job
+									</button>
+								) : (
+									<button className='alt-btn m' disabled>
+										Applied
+									</button>
+								)}
+								<button
+									className='exit-form'
+									onClick={handleDisplayDetail}
+								>
+									X
+								</button>
+							</div>
+						) : (
+							<div className='pop-job-header'>
+								<button
+									className='exit-form'
+									onClick={handleDisplayDetail}
+								>
+									X
+								</button>
+							</div>
+						)}
 						<div className='job-details-full'>
 							{!jobToDisplay ? (
 								<div className='loading'>Loading...</div>
@@ -179,7 +187,7 @@ const SearchPage = () => {
 									/>
 								</div>
 							)}
-							<h2>This Job is Hosted By</h2>
+							<h2>This Job Posted By</h2>
 							{displayedUser?.user ? (
 								<UserCard
 									displayedUser={displayedUser} //erroring on some users because need .user added here.
@@ -204,6 +212,12 @@ const SearchPage = () => {
 					</div>
 				</div>
 			)}
+			<AlertModal
+				header='Application Submitted'
+				message='If chosen you will be contacted by the job provider using the contact information from your profile.'
+				handleClickModal={handleClickModal}
+				modalState={modalState}
+			/>
 			<div className='job-btns'>
 				<button className='alt-btn m' onClick={handleToggleMap}>
 					{setBtn}

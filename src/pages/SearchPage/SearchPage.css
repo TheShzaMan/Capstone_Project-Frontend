@@ -25,8 +25,8 @@ p.search-page {
 	height: auto;
 	/* z-index: -1; */
 	background-color: rgba(70, 131, 180, 0.434);
-	top: 18vh;
-	right: 0vh;
+	top: 25vh;
+	right: 0vw;
 	font-size: 20px;
 	text-shadow: 2px 2px black;
 	box-shadow: none;
@@ -51,8 +51,8 @@ p.search-page {
 	height: auto;
 	/* z-index: -1; */
 	background-color: rgba(70, 131, 180, 0.434);
-	top: 33vh;
-	right: 0vh;
+	top: 40vh;
+	right: 0vw;
 	font-size: 20px;
 	text-shadow: 2px 2px black;
 	box-shadow: none;
@@ -100,11 +100,14 @@ p.search-page {
 	overflow: auto;
 	margin-top: 10px;
 	overflow-x: hidden;
+	row-gap: 1rem;
+	display: flex;
+	flex-direction: column;
 }
 .pop-job-header .alt-btn.m {
 	position: absolute;
 	top: 0;
-	right: 20vw;
+	right: 18vw;
 	width: fit-content;
 	background-color: steelblue;
 }

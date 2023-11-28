@@ -6,6 +6,8 @@ import {
 	useJsApiLoader,
 	maps,
 	Marker,
+	useLoadScript,
+	DrawingManager,
 } from "@react-google-maps/api";
 
 import API_KEY from "../../config.js";
@@ -58,6 +60,14 @@ const Map = ({ handleMapClick, clickCoordinates, confirmPin, jobList }) => {
 	//const addSite = (site) => {
 	// setSites(...sites, clickCoordinates);
 	// console.log(clickCoordinates);
+	const initMap = () => {
+		const map = new GoogleMap.Map(document.getElementById("map"), {
+			zoom: 8,
+			center: { coordinates },
+			mapTypeId: "hybrid",
+			mapTypeControl: false,
+		});
+	};
 
 	return (
 		<div className='map'>
@@ -67,8 +77,10 @@ const Map = ({ handleMapClick, clickCoordinates, confirmPin, jobList }) => {
 				<GoogleMap
 					mapContainerClassName='map-container'
 					center={coordinates}
-					zoom={9}
+					zoom={8}
 					onClick={handleMapClick}
+					mapTypeId='hybrid'
+					mapTypeControl={false}
 				>
 					{/* {jobList.map((job) => ( */}
 					{/* //(job) => console.log(job.location) //key={job.id} */}
