@@ -3,9 +3,9 @@ import "./UserCard.css";
 import { useState } from "react";
 
 const UserCard = ({ displayedUser, thisUserId, handleClickEdit }) => {
-	const user = displayedUser;
+	const user = displayedUser.user;
 
-	//console.log("user from UserCard:", user);
+	// console.log("user from UserCard:", user);
 	// console.log({ thisUserId });
 	return !user ? (
 		<div className='loading'>Loading...</div>
@@ -48,22 +48,22 @@ const UserCard = ({ displayedUser, thisUserId, handleClickEdit }) => {
 				</div>
 			) : (
 				<div className='card-info'>
-					<div className='cardname'>{user.user.firstName}</div>
+					<div className='cardname'>{user.firstName}</div>
 					<div className='hr'></div>
-					<div>{`@${user.user.userName}`}</div>
-					{user.user.phoneNumber && (
+					<div>{`@${user.userName}`}</div>
+					{user.phoneNumber && (
 						<div>
 							Contact{":   "}
-							<p>{user.user.phoneNumber}</p>
+							<p>{user.phoneNumber}</p>
 						</div>
 					)}{" "}
-					{user.user.email && (
+					{user.email && (
 						<div>
-							Email{":   "} <p>{user.user.email}</p>
+							Email{":   "} <p>{user.email}</p>
 						</div>
 					)}
 					<div>
-						About{":   "} <p>{user.user.businessDescription}</p>
+						About{":   "} <p>{user.businessDescription}</p>
 					</div>
 				</div>
 			)}

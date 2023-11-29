@@ -13,7 +13,7 @@ const EditProfileForm = ({
 	handleClickModal,
 }) => {
 	const [profileEdit, setProfileEdit] = useState({});
-	const user = thisUser;
+	const user = thisUser.user;
 	console.log(user);
 
 	const defaultValues = {
@@ -61,10 +61,11 @@ const EditProfileForm = ({
 		}
 	};
 
-	const [formData, handleInputChange, handleSubmit] = useCustomForm(
-		putEditProfile,
-		defaultValues
-	);
+	const [formData, handleInputChange, handleSubmit] = useCustomForm({
+		onSubmit: putEditProfile,
+		initialValues: defaultValues,
+		handleClickModal,
+	});
 
 	return (
 		<div className='darkout-bg'>

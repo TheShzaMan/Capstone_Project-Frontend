@@ -26,14 +26,18 @@ const SearchPage = () => {
 	const [filterBtn, setFilterBtn] = useState("My Jobs");
 	const [isApplied, setIsApplied] = useState(false);
 	const [modalState, setModalState] = useState("modal-inactive");
+	const [loggedInUser, setLoggedInUser] = useState();
 	const thisUserId = user.id;
-	console.log({ user });
+	// console.log({ user });
 	useEffect(() => {
 		fetchJobs();
 	}, []);
 	useEffect(() => {
-		fetchUser();
+		fetchPostedByUser();
 	}, [jobToDisplay]);
+	useEffect(() => {
+		fetchUser();
+	}, []);
 	// const jobPostedByUserId = jobToDisplay.postedByUser.id;
 
 	const fetchJobs = async () => {
@@ -47,10 +51,10 @@ const SearchPage = () => {
 			console.warn("Error in the fetchJobs request.", error);
 		}
 	};
-	const fetchUser = async () => {
+	const fetchPostedByUser = async () => {
 		try {
 			//while (!postedByUserId) {
-			//console.log(jobToDisplay);
+			// console.log(jobToDisplay);
 			let response = await axios.get(
 				`https://localhost:5001/api/Reviews/profile/${jobToDisplay.postedByUser.id}/`,
 				{
@@ -59,24 +63,46 @@ const SearchPage = () => {
 					},
 				}
 			);
-			console.log("displayedUser:", response.data);
+			console.log("displayedUser:", response);
 			setDisplayedUser(response.data);
 		} catch (error) {
-			console.warn("Error in the fetchUser request.", error);
+			console.warn("Error in the fetchPostedByUser request.", error);
 		}
 	};
-	// console.log(jobToDisplay);
-	const handleClickApply = async () => {
+	async function fetchUser() {
 		try {
-			let response = await axios.put(
-				`https://localhost:5001/api/Jobs/apply/${jobToDisplay.id}`,
+			let response = await axios.get(
+				`https://localhost:5001/api/Reviews/profile/${thisUserId}/`,
 				{
 					headers: {
 						Authorization: "Bearer " + token,
 					},
 				}
 			);
-			setIsApplied(true);
+			console.log(response.data);
+			setLoggedInUser(response.data);
+		} catch (error) {
+			console.warn(
+				"Error in the fetchUser request in Search Page.",
+				error
+			);
+		}
+	}
+
+	// console.log(jobToDisplay);
+	const handleClickApply = async () => {
+		try {
+			// console.log(token);
+			let response = await axios.put(
+				`https://localhost:5001/api/Jobs/apply/${jobToDisplay.id}`,
+				{},
+				{
+					headers: {
+						Authorization: "Bearer " + token,
+					},
+				}
+			);
+			setModalState("modal-active");
 		} catch (error) {
 			console.log("Error in handleClickApply Put Request", error);
 		}
@@ -135,7 +161,7 @@ const SearchPage = () => {
 	// const jobMarkers = jobList.map((job, index) => (
 	// 	<Marker position={job.location} />
 	// ));
-	// console.log("jobToDisplay:", jobToDisplay);
+	console.log("jobToDisplay:", jobToDisplay);
 	// console.log("displayedUser for userCard and reviewCard", displayedUser);
 
 	return !jobList ? (
@@ -145,7 +171,7 @@ const SearchPage = () => {
 			{jobDisplayState === "open" && (
 				<div className='darkout-bg'>
 					<div className='popup-container'>
-						{user.isWorker === true ? (
+						{loggedInUser.user.isWorker === true ? (
 							<div className='pop-job-header'>
 								{!isApplied ? (
 									<button
@@ -155,7 +181,7 @@ const SearchPage = () => {
 										Apply To This Job
 									</button>
 								) : (
-									<button className='alt-btn m' disabled>
+									<button className='alt-btn m disabled'>
 										Applied
 									</button>
 								)}

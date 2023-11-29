@@ -35,6 +35,15 @@ p.search-page {
 	border-radius: 10px;
 	border-style: inset;
 }
+.alt-btn.m.disabled {
+	opacity: 0.6;
+	cursor: default;
+	border: none;
+}
+.alt-btn.m.disabled:hover {
+	font-size: 20px;
+	border: none;
+}
 .alt-btn.m:hover {
 	/* font-size: 21px; */
 

@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-const useCustomForm = ({ onSubmit, initialValues = {}, handleClickModal }) => {
+const useCustomForm = ({
+	onSubmit,
+	initialValues = {},
+	handleClickModal,
+	fetchUser,
+}) => {
 	const [formData, setFormValues] = useState(initialValues);
 
 	const handleInputChange = (e) => {
@@ -15,7 +20,7 @@ const useCustomForm = ({ onSubmit, initialValues = {}, handleClickModal }) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		onSubmit(formData, handleClickModal);
+		onSubmit(formData, handleClickModal, fetchUser);
 	};
 
 	const reset = () => {
