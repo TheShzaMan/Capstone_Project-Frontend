@@ -1,39 +1,50 @@
 import "./JobCard.css";
 import React from "react";
+import { useState } from "react";
 
-const JobCard = ({ oneJob, index, handleDisplayDetail, setJobToDisplay }) => {
-	const handleClickDisplay = () => {
-		//setJobToDisplay(oneJob.postedByUser.id);
-		setJobToDisplay(oneJob);
-		handleDisplayDetail();
+const JobCard = ({ thisJob, index, handleJobClick }) => {
+	// const [thisJob, setThisJob] = useState();
+
+	const handleClick = () => {
+		// setThisJob(oneJob);
+		handleJobClick(thisJob);
 	};
-	//console.log(oneJob);
+
+	// const handleClickDisplay = () => {
+	// 	//setJobToDisplay(oneJob.postedByUser.id);
+	// 	setJobToDisplay(oneJob);
+	// 	// setPostedByUserId(oneJob.postedByUser.id);
+	// 	handleDisplayDetail();
+	// 	console.log(
+	// 		"postedByUserId at jobCard onClick listner: ",
+	// 		oneJob.postedByUser.id,
+	// 		"oneJob: ",
+	// 		oneJob
+	// 	);
+	// fetchPostedByUser();
+	// setJobDisplayState("opened");
 
 	return (
 		<div>
-			{!oneJob ? (
+			{!thisJob ? (
 				<div className='loading'>Loading...</div>
 			) : (
-				<div
-					key={index}
-					className='jobcard card'
-					onClick={handleClickDisplay}
-				>
+				<div key={index} className='jobcard card' onClick={handleClick}>
 					<div className='cardname'>
-						{oneJob.jobName} - {oneJob.jobDescription}
+						{thisJob.jobName} - {thisJob.jobDescription}
 					</div>
 					<div>
 						<div className='card-info'>
 							{`Pay/hour:  $`}
 							<span className='textra'>
-								{oneJob.payPerHour.toFixed(2)}
+								{thisJob.payPerHour.toFixed(2)}
 							</span>
 						</div>
 						<div className='card-info'>
 							{`Min. Skill Level Req.:`}
-							<span className='textra'>{oneJob.skillLevel}</span>
+							<span className='textra'>{thisJob.skillLevel}</span>
 						</div>
-						<div className='card-info'>{oneJob.location}</div>
+						<div className='card-info'>{thisJob.location}</div>
 					</div>
 				</div>
 			)}
