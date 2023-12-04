@@ -48,7 +48,7 @@ const ProfilePage = () => {
 			console.warn("Error in the fetchUser request.", error);
 		}
 	}
-	console.log(displayedUser);
+	// console.log(displayedUser);
 	//a button or dropdown menu items for post job and edit profile
 	return (
 		<div className='profile-page container'>

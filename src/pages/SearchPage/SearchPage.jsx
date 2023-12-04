@@ -19,8 +19,8 @@ const SearchPage = () => {
 	const [jobDisplayState, setJobDisplayState] = useState("closed");
 	const [jobList, setJobList] = useState([]);
 	const [jobToDisplay, setJobToDisplay] = useState();
-	const [displayedUser, setDisplayedUser] = useState();
-
+	const [displayedUser, setDisplayedUser] = useState(null);
+	// const [availableJobs, setAvailableJobs] = useState(null);
 	const [postedByUserId, setPostedByUserId] = useState();
 	const [jobFilters, setJobFilters] = useState("allJobs");
 	const [myJobs, setMyJobs] = useState([]);
@@ -28,15 +28,19 @@ const SearchPage = () => {
 	const [hasApplied, setHasApplied] = useState(false);
 	const [modalState, setModalState] = useState("modal-inactive");
 	const [loggedInUser, setLoggedInUser] = useState();
-
+	const [displayedJobCard, setDisplayedJobCard] = useState(null);
 	const thisUserId = user.id;
 	// console.log({ user });
 	useEffect(() => {
 		fetchJobs();
 	}, []);
 	useEffect(() => {
-		fetchUser();
-	}, []);
+		fetchUser(thisUserId, setLoggedInUser);
+		console.log(loggedInUser);
+	}, [thisUserId]);
+	useEffect(() => {
+		fetchUser(postedByUserId, setDisplayedUser);
+	}, [postedByUserId]);
 	// useEffect(() => {
 	// 	fetchPostedByUser();
 	// }, []);
@@ -53,42 +57,31 @@ const SearchPage = () => {
 			console.warn("Error in the fetchJobs request.", error);
 		}
 	};
-	const fetchUser = async () => {
-		try {
-			let response = await axios.get(
-				`https://localhost:5001/api/Reviews/profile/${thisUserId}/`,
-				{
-					headers: {
-						Authorization: "Bearer " + token,
-					},
-				}
-			);
-			console.log(response.data);
-			setLoggedInUser(response.data);
-		} catch (error) {
-			console.warn(
-				"Error in the fetchUser request in Search Page.",
-				error
-			);
-		}
-	};
-	const fetchPostedByUser = async () => {
-		try {
-			//while (!postedByUserId) {
-			// console.log(jobToDisplay);
-			let response = await axios.get(
-				`https://localhost:5001/api/Reviews/profile/${postedByUserId}/`,
-				{
-					headers: {
-						Authorization: "Bearer " + token,
-					},
-				}
-			);
-			// console.log("displayedUser:", response);
-			setDisplayedUser(response.data);
-			displayDetail();
-		} catch (error) {
-			console.warn("Error in the fetchPostedByUser request.", error);
+	const fetchUser = async (userId, setState) => {
+		if (userId) {
+			try {
+				let response = await axios.get(
+					`https://localhost:5001/api/Reviews/profile/${userId}/`,
+					{
+						headers: {
+							Authorization: "Bearer " + token,
+						},
+					}
+				);
+				console.log(response.data);
+				setState(response.data);
+
+				console.log(
+					"displayedUser at fetchUser api call: ",
+					displayedUser
+				);
+			} catch (error) {
+				console.warn(
+					"Error in the fetchUser request in Search Page.",
+					error
+				);
+			}
+		} else {
 		}
 	};
 
@@ -112,37 +105,44 @@ const SearchPage = () => {
 	};
 	const filterMyJobs = () => {
 		setMyJobs(jobList.filter((job) => job.postedByUser.id === thisUserId));
-	};
+	}; //CHECK THIS SYNTAX
 
 	const handleJobClick = (thisJob) => {
-		//setJobToDisplay(oneJob.postedByUser.id);
 		setJobToDisplay(thisJob);
-		console.log("jobToDisplay: ", jobToDisplay);
 		setPostedByUserId(thisJob.postedByUser.id);
+		setJobDisplayState("open");
+	};
 
-		console.log(
-			"postedByUserId at SearchPage onClick listner: ",
-			postedByUserId,
-			"jobToDisplay: ",
-			jobToDisplay
-		);
-		postedByUserId === thisJob.postedByUser.id ? (
-			fetchPostedByUser()
+	console.log(
+		"postedByUserId at SearchPage onClick listner: ",
+		postedByUserId,
+		"jobToDisplay: ",
+		jobToDisplay,
+		"jobDisplayState: ",
+		jobDisplayState
+	);
+
+	const handleJobDisplay = () => {
+		setJobDisplayState(jobDisplayState === "closed" ? "open" : "closed");
+	};
+	// setDisplayedJobCard(<JobCard oneJob={jobToDisplay} />);
+	useEffect(() => {
+		postedByUserId && postedByUserId === jobToDisplay.postedByUser.id ? (
+			fetchUser(postedByUserId, setDisplayedUser)
 		) : (
 			<div className='loading'>Awaiting postedByUserId</div>
 		);
-	};
-	const displayDetail = () => {
-		displayedUser.user.id === postedByUserId &&
-			setJobDisplayState("opened");
+	}, [postedByUserId]);
 
-		console.log(
-			"jobToDisplay at SearchPage: ",
-			jobToDisplay
-			// "displayedUserId: ",
-			// displayedUserId
-		);
-	};
+	console.log(displayedUser);
+
+	// console.log(
+	// 	"jobToDisplay at SearchPage displayDetail: ",
+	// 	jobDisplayState
+	// "displayedUserId: ",
+	// displayedUserId
+	// );
+
 	const handleJobFilters = () => {
 		if (jobFilters === "allJobs") {
 			setJobFilters("myJobs");
@@ -176,23 +176,28 @@ const SearchPage = () => {
 			: setModalState("modal-active");
 	};
 	const myJobCards = myJobs.map((myJob, index) => (
-		<JobCard oneJob={myJob} key={index} handleClick={handleJobClick} />
+		<JobCard thisJob={myJob} key={index} handleClick={handleJobClick} />
 	));
 	const availableJobs = jobList.map((oneJob, index) => (
-		<JobCard
-			thisJob={oneJob}
-			key={index}
-			handleJobClick={handleJobClick}
-			// handleDisplayDetail={handleDisplayDetail}
-			//setJobDisplayState={setJobDisplayState}
-			// setJobToDisplay={setJobToDisplay}
-			// setPostedByUserId={setPostedByUserId}
-			//fetchPostedByUser={fetchPostedByUser}
-		/>
+		<JobCard thisJob={oneJob} key={index} handleJobClick={handleJobClick} />
 	));
-	const displayedJobCard = availableJobs.filter((jobToDisplay) => (
-		<JobCard oneJob={jobToDisplay} />
-	));
+	const displayJobCard = availableJobs
+		.filter(function (availJob) {
+			if (availJob === jobToDisplay) {
+				return true;
+			}
+		})
+		.map((availJob, index) => <JobCard thisJob={availJob} key={index} />);
+
+	console.log(
+		"jobToDisplay: ",
+		jobToDisplay,
+
+		"jobToDisplay @ displayJobCard filter: ",
+		jobToDisplay,
+		"displayJobCard: ",
+		displayJobCard
+	);
 
 	const checkApplied = () => {
 		jobToDisplay &&
@@ -212,6 +217,7 @@ const SearchPage = () => {
 			hasApplied
 		);
 	};
+
 	// const jobMarkers = jobList.map((job, index) => (
 	// 	<Marker position={job.location} />
 	// ));
@@ -220,7 +226,7 @@ const SearchPage = () => {
 	// console.log("AppliedUserIds: ", jobToDisplay.appliedUserIds);
 	// console.log(postedByUserId);
 
-	console.log("displayedUser for userCard and reviewCard", displayedUser);
+	// console.log("displayedUser for userCard and reviewCard", displayedUser);
 	return !jobList ? (
 		<div className='search-page container'>
 			<div className='loading'>Loading...</div>
@@ -230,7 +236,7 @@ const SearchPage = () => {
 			{jobDisplayState === "open" && (
 				<div className='darkout-bg'>
 					<div className='popup-container'>
-						{loggedInUser.user.isWorker === true ? (
+						{loggedInUser?.user.isWorker === true ? (
 							<div className='pop-job-header'>
 								{!hasApplied ? (
 									<button
@@ -246,7 +252,7 @@ const SearchPage = () => {
 								)}
 								<button
 									className='exit-form'
-									onClick={setJobDisplayState("closed")}
+									onClick={handleJobDisplay}
 								>
 									X
 								</button>
@@ -255,7 +261,7 @@ const SearchPage = () => {
 							<div className='pop-job-header'>
 								<button
 									className='exit-form'
-									onClick={setJobDisplayState("closed")}
+									onClick={handleJobDisplay}
 								>
 									X
 								</button>
@@ -271,12 +277,14 @@ const SearchPage = () => {
 								</div>
 							)}
 							<h2>This Job Posted By</h2>
-
-							<UserCard
-								displayedUser={displayedUser} //erroring on some users because need .user added here.
-								thisUserId={thisUserId}
-							/>
-
+							{!displayedUser ? (
+								<div className='loading'>Loading...</div>
+							) : (
+								<UserCard
+									displayedUser={displayedUser} //erroring on some users because need .user added here.
+									thisUserId={thisUserId}
+								/>
+							)}
 							{displayedUser?.totalReviewsJobs > 0 ? (
 								<ReviewSummaryCard
 									displayedUser={displayedUser}

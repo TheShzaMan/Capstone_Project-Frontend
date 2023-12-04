@@ -90,7 +90,7 @@ const PostJob = ({ handleClickPostJob }) => {
 			? `lat: ${clickCoordinates.lat}, lng: ${clickCoordinates.lng}`
 			: "",
 	};
-	console.log(clickCoordinates);
+	// console.log(clickCoordinates);
 	return (
 		<div className='darkout-bg post'>
 			<div className='popup-container'>

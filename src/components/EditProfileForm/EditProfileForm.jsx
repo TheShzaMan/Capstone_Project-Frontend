@@ -14,7 +14,7 @@ const EditProfileForm = ({
 }) => {
 	const [profileEdit, setProfileEdit] = useState({});
 	const user = thisUser.user;
-	console.log(user);
+	// console.log(user);
 
 	const defaultValues = {
 		skillLevel: user.skillLevel ? user.skillLevel : "",
