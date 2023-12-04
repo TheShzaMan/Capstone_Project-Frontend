@@ -12,16 +12,19 @@
 
 .r-data .explain {
 	visibility: hidden;
-	width: 50vw;
-	background-color: steelblue;
+	width: 30vw;
+	background-image: linear-gradient(to top, black, steelblue);
 	color: #fff;
+	font-weight: 100;
 	text-align: center;
 	padding: 5px;
 	border-radius: 6px;
 	display: flex;
 	align-content: center;
-	position: absolute;
-	bottom: 50px;
+	align-self: center;
+	position: fixed;
+	top: 50vh;
+	right: 10vw;
 	z-index: 1;
 }
 .r-data:hover .explain {

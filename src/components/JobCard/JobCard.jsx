@@ -7,22 +7,16 @@ const JobCard = ({ thisJob, index, handleJobClick }) => {
 
 	const handleClick = () => {
 		// setThisJob(oneJob);
-		handleJobClick(thisJob);
-	};
 
-	// const handleClickDisplay = () => {
-	// 	//setJobToDisplay(oneJob.postedByUser.id);
-	// 	setJobToDisplay(oneJob);
-	// 	// setPostedByUserId(oneJob.postedByUser.id);
-	// 	handleDisplayDetail();
-	// 	console.log(
-	// 		"postedByUserId at jobCard onClick listner: ",
-	// 		oneJob.postedByUser.id,
-	// 		"oneJob: ",
-	// 		oneJob
-	// 	);
-	// fetchPostedByUser();
-	// setJobDisplayState("opened");
+		handleJobClick(thisJob);
+
+		// console.log(
+		// 	"postedByUserId at jobCard onClick listner: ",
+		// 	thisJob.postedByUser.id,
+		// 	"thisJob: ",
+		// 	thisJob
+		// );
+	};
 
 	return (
 		<div>
@@ -36,9 +30,8 @@ const JobCard = ({ thisJob, index, handleJobClick }) => {
 					<div>
 						<div className='card-info'>
 							{`Pay/hour:  $`}
-							<span className='textra'>
-								{thisJob.payPerHour.toFixed(2)}
-							</span>
+
+							<span className='textra'>{thisJob.payPerHour}</span>
 						</div>
 						<div className='card-info'>
 							{`Min. Skill Level Req.:`}

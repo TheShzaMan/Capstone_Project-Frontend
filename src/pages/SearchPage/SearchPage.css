@@ -6,7 +6,7 @@
 	margin-bottom: 19vh;
 	height: 78vh;
 	width: 80vw;
-	padding-left: 5vw;
+	padding-left: 20vw;
 	padding-right: 5vw;
 
 	/* position: relative; */
@@ -14,19 +14,23 @@
 p.search-page {
 	color: white;
 }
+.job-btns {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	right: 0vw;
+	width: 20vw;
+	align-items: end;
+	height: 50vh;
+	justify-content: space-evenly;
+}
 .alt-btn.m {
 	display: flex;
-	/* justify-self: center; */
-	/* align-self: center; */
-	position: fixed;
-
-	max-width: none;
-	width: 20vw;
+	margin: 0;
+	min-width: 15vw;
+	/* width: 40vw; */
 	height: auto;
-	/* z-index: -1; */
 	background-color: rgba(70, 131, 180, 0.434);
-	top: 25vh;
-	right: 0vw;
 	font-size: 20px;
 	text-shadow: 2px 2px black;
 	box-shadow: none;
@@ -35,33 +39,28 @@ p.search-page {
 	border-radius: 10px;
 	border-style: inset;
 }
-.alt-btn.m.disabled {
+.alt-btn.m.apply {
+	max-width: fit-content;
+}
+.alt-btn.m.apply.disabled {
 	opacity: 0.6;
 	cursor: default;
 	border: none;
 }
-.alt-btn.m.disabled:hover {
+.alt-btn.m.apply.disabled:hover {
 	font-size: 20px;
 	border: none;
 }
 .alt-btn.m:hover {
-	/* font-size: 21px; */
-
 	font-size: 19px;
 }
 .alt-btn.l {
 	display: flex;
-	/* justify-self: center; */
-	/* align-self: center; */
-	position: absolute;
-
-	max-width: none;
-	width: 20vw;
+	margin: 0;
+	min-width: 15vw;
+	/* width: 20vw; */
 	height: auto;
-	/* z-index: -1; */
 	background-color: rgba(70, 131, 180, 0.434);
-	top: 40vh;
-	right: 0vw;
 	font-size: 20px;
 	text-shadow: 2px 2px black;
 	box-shadow: none;
@@ -71,8 +70,6 @@ p.search-page {
 	border-style: inset;
 }
 .alt-btn.l:hover {
-	/* font-size: 21px; */
-
 	font-size: 19px;
 }
 .search-page.open-form {

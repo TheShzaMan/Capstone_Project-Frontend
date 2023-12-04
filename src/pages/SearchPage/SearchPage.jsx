@@ -18,9 +18,10 @@ const SearchPage = () => {
 	const [setBtn, setSetBtn] = useState("Map View");
 	const [jobDisplayState, setJobDisplayState] = useState("closed");
 	const [jobList, setJobList] = useState([]);
+	const [availJobs, setAvailJobs] = useState([]);
 	const [jobToDisplay, setJobToDisplay] = useState();
 	const [displayedUser, setDisplayedUser] = useState(null);
-	// const [availableJobs, setAvailableJobs] = useState(null);
+	// const [availJobCards, setAvailableJobs] = useState(null);
 	const [postedByUserId, setPostedByUserId] = useState();
 	const [jobFilters, setJobFilters] = useState("allJobs");
 	const [myJobs, setMyJobs] = useState([]);
@@ -51,8 +52,21 @@ const SearchPage = () => {
 			let response = await axios.get(
 				`https://localhost:5001/api/Jobs/avail`
 			);
-			// console.log(response.data);
+			console.log(response.data);
 			setJobList(response.data);
+
+			const filteredJobs = jobList.filter(function (job) {
+				if (job.isFulfilled === false) {
+					return true;
+				}
+			});
+			console.log(
+				"filteredJobs: ",
+				filteredJobs,
+				"availJobs: ",
+				availJobs
+			);
+			setAvailJobs(filteredJobs);
 		} catch (error) {
 			console.warn("Error in the fetchJobs request.", error);
 		}
@@ -86,7 +100,7 @@ const SearchPage = () => {
 	};
 
 	// console.log(jobToDisplay);
-	const handleClickApply = async () => {
+	const addUserIdToApplied = async () => {
 		try {
 			// console.log(token);
 			let response = await axios.put(
@@ -99,6 +113,7 @@ const SearchPage = () => {
 				}
 			);
 			setModalState("modal-active");
+			setHasApplied(true);
 		} catch (error) {
 			console.log("Error in handleClickApply Put Request", error);
 		}
@@ -109,9 +124,21 @@ const SearchPage = () => {
 
 	const handleJobClick = (thisJob) => {
 		setJobToDisplay(thisJob);
-		setPostedByUserId(thisJob.postedByUser.id);
-		setJobDisplayState("open");
 	};
+	useEffect(() => {
+		if (jobToDisplay) {
+			setPostedByUserId(jobToDisplay.postedByUserId);
+			checkApplied(jobToDisplay);
+		}
+		if (
+			jobToDisplay &&
+			jobToDisplay.postedByUserId &&
+			jobToDisplay.postedByUserId === postedByUserId
+		) {
+			setJobDisplayState("open");
+		} else {
+		}
+	}, [jobToDisplay]);
 
 	console.log(
 		"postedByUserId at SearchPage onClick listner: ",
@@ -119,13 +146,15 @@ const SearchPage = () => {
 		"jobToDisplay: ",
 		jobToDisplay,
 		"jobDisplayState: ",
-		jobDisplayState
+		jobDisplayState,
+		"hasApplied",
+		hasApplied
 	);
 
 	const handleJobDisplay = () => {
 		setJobDisplayState(jobDisplayState === "closed" ? "open" : "closed");
 	};
-	// setDisplayedJobCard(<JobCard oneJob={jobToDisplay} />);
+
 	useEffect(() => {
 		postedByUserId && postedByUserId === jobToDisplay.postedByUser.id ? (
 			fetchUser(postedByUserId, setDisplayedUser)
@@ -134,14 +163,9 @@ const SearchPage = () => {
 		);
 	}, [postedByUserId]);
 
-	console.log(displayedUser);
-
-	// console.log(
-	// 	"jobToDisplay at SearchPage displayDetail: ",
-	// 	jobDisplayState
-	// "displayedUserId: ",
-	// displayedUserId
-	// );
+	const handleClickApply = () => {
+		addUserIdToApplied();
+	};
 
 	const handleJobFilters = () => {
 		if (jobFilters === "allJobs") {
@@ -176,36 +200,52 @@ const SearchPage = () => {
 			: setModalState("modal-active");
 	};
 	const myJobCards = myJobs.map((myJob, index) => (
-		<JobCard thisJob={myJob} key={index} handleClick={handleJobClick} />
+		<JobCard
+			thisJob={myJob}
+			key={index}
+			handleClick={handleJobClick}
+			checkApplied={checkApplied}
+		/>
 	));
-	const availableJobs = jobList.map((oneJob, index) => (
-		<JobCard thisJob={oneJob} key={index} handleJobClick={handleJobClick} />
+	const availJobCards = jobList.map((oneJob, index) => (
+		<JobCard
+			thisJob={oneJob}
+			key={index}
+			handleJobClick={handleJobClick}
+			checkApplied={checkApplied}
+		/>
 	));
-	const displayJobCard = availableJobs
-		.filter(function (availJob) {
-			if (availJob === jobToDisplay) {
-				return true;
-			}
-		})
-		.map((availJob, index) => <JobCard thisJob={availJob} key={index} />);
+
+	// const displayJobCard = <JobCard thisJob={jobToDisplay} />;
+	// <JobCard thisJob={selectedJob} />;
+	// .map((availJob, index) => );
 
 	console.log(
 		"jobToDisplay: ",
 		jobToDisplay,
-
+		"joblist:",
+		jobList,
+		"availJobCards as : ",
+		availJobCards,
 		"jobToDisplay @ displayJobCard filter: ",
-		jobToDisplay,
-		"displayJobCard: ",
-		displayJobCard
+		jobToDisplay
 	);
 
-	const checkApplied = () => {
-		jobToDisplay &&
-			jobToDisplay.appliedUserIds.map(
-				(aui) => aui === loggedInUser.user.id && setHasApplied(true)
-			);
-		// console.log(jobToDisplay.appliedUserIds);
-		// console.log("hasApplied: ", hasApplied);
+	function checkApplied(jobToCheck) {
+		if (jobToCheck && jobToCheck.appliedUserIds) {
+			const job = jobToCheck;
+
+			console.log(job);
+			if (job.appliedUserIds.includes(thisUserId)) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	jobToDisplay &&
 		console.log(
 			"jobToDisplay.id: ",
 			jobToDisplay.id,
@@ -216,7 +256,8 @@ const SearchPage = () => {
 			"hasApplied: ",
 			hasApplied
 		);
-	};
+	// console.log(jobToDisplay.appliedUserIds);
+	// console.log("hasApplied: ", hasApplied);
 
 	// const jobMarkers = jobList.map((job, index) => (
 	// 	<Marker position={job.location} />
@@ -240,13 +281,13 @@ const SearchPage = () => {
 							<div className='pop-job-header'>
 								{!hasApplied ? (
 									<button
-										className='alt-btn m'
+										className='alt-btn m apply'
 										onClick={handleClickApply}
 									>
 										Apply To This Job
 									</button>
 								) : (
-									<button className='alt-btn m disabled'>
+									<button className='alt-btn m apply disabled'>
 										Applied
 									</button>
 								)}
@@ -268,12 +309,12 @@ const SearchPage = () => {
 							</div>
 						)}
 						<div className='job-details-full'>
-							{!jobToDisplay ? (
+							{jobToDisplay && !jobToDisplay ? (
 								<div className='loading'>Loading...</div>
 							) : (
 								<div className='pop-job-card'>
-									{displayedJobCard}
-									{checkApplied()}
+									{/* {checkApplied()} */}
+									<JobCard thisJob={jobToDisplay} />
 								</div>
 							)}
 							<h2>This Job Posted By</h2>
@@ -285,7 +326,8 @@ const SearchPage = () => {
 									thisUserId={thisUserId}
 								/>
 							)}
-							{displayedUser?.totalReviewsJobs > 0 ? (
+							{displayedUser &&
+							displayedUser.totalReviewsJobs > 0 ? (
 								<ReviewSummaryCard
 									displayedUser={displayedUser}
 								/>
@@ -308,20 +350,21 @@ const SearchPage = () => {
 				<button className='alt-btn m' onClick={handleToggleMap}>
 					{setBtn}
 				</button>
-				{setBtn === "List View" && (
-					<div className={mapState}>
-						<Map
-							handleToggleMap={handleToggleMap}
-							jobList={jobList}
-						/>
-					</div>
-				)}
-				{setBtn === "Map View" && <div>{availableJobs}</div>}
 				<button className='alt-btn l' onClick={handleJobFilters}>
 					{filterBtn}
 				</button>
-				{jobFilters === "myJobs" && <div>{myJobCards}</div>}
 			</div>
+			{setBtn === "List View" && (
+				<div className={mapState}>
+					<Map handleToggleMap={handleToggleMap} jobList={jobList} />
+				</div>
+			)}
+			{setBtn === "Map View" && (
+				<div className='job-list'>{availJobCards}</div>
+			)}
+			{jobFilters === "myJobs" && (
+				<div className='job-list'>{myJobCards}</div>
+			)}
 		</div>
 	);
 };
