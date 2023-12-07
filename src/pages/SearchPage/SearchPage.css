@@ -1,19 +1,21 @@
 .search-page {
-	justify-content: center;
-	align-items: flex-start;
+	margin-top: 18vh;
+	height: 71vh;
+	/* display: block; */
 	flex-direction: column;
-	margin-top: 15vh;
-	height: 78vh;
-	width: 78vw;
-	padding-right: 5vw;
-	margin-left: 5vw;
-	position: relative;
+	/* overflow-x: hidden; */
+	width: 80%;
+	align-items: end;
+	/* height: inherit; */
+	row-gap: 10px;
+	padding-top: 9vh;
 }
 .searchcard-container {
-	margin: 0;
-	height: 65vh;
+	margin: 5vh;
+	height: 78vh;
 	display: flex;
 	flex-direction: column;
+	row-gap: 5vh;
 }
 p.search-page {
 	color: white;
@@ -122,4 +124,7 @@ p.search-page {
 	right: 18vw;
 	width: fit-content;
 	background-color: steelblue;
+}
+div [target="search-map"] {
+	margin-top: 0;
 }

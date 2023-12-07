@@ -202,22 +202,13 @@ const SearchPage = () => {
 			// checkApplied={checkApplied}
 		/>
 	));
-	const availJobCards = jobList.map((oneJob, index) => (
-		<JobCard
-			thisJob={oneJob}
-			key={index}
-			handleJobClick={handleJobClick}
-			// checkApplied={checkApplied}
-		/>
-	));
 
 	console.log(
 		"jobToDisplay: ",
 		jobToDisplay,
 		"joblist:",
 		jobList,
-		"availJobCards as : ",
-		availJobCards,
+
 		"jobToDisplay @ displayJobCard filter: ",
 		jobToDisplay
 	);
@@ -229,17 +220,17 @@ const SearchPage = () => {
 		return false;
 	}
 
-	jobToDisplay &&
-		console.log(
-			"jobToDisplay.id: ",
-			jobToDisplay.id,
-			"loggedInUserId: ",
-			loggedInUser.user.id,
-			"appliedUserIds: ",
-			jobToDisplay.appliedUserIds,
-			"hasApplied: ",
-			hasApplied
-		);
+	// jobToDisplay &&
+	// 	console.log(
+	// 		"jobToDisplay.id: ",
+	// 		jobToDisplay.id,
+	// 		"loggedInUserId: ",
+	// 		loggedInUser.user.id,
+	// 		"appliedUserIds: ",
+	// 		jobToDisplay.appliedUserIds,
+	// 		"hasApplied: ",
+	// 		hasApplied
+	// 	);
 
 	return !jobList ? (
 		<div className='search-page container'>
@@ -328,18 +319,18 @@ const SearchPage = () => {
 				</button>
 			</div>
 			{setBtn === "List View" && (
-				<div className={mapState}>
+				<div className={mapState} target='search-map'>
 					<Map handleToggleMap={handleToggleMap} jobList={jobList} />
 				</div>
 			)}
 			{setBtn === "Map View" && (
 				// <div className='job-list'>{availJobCards}</div>
-				<div className='searchcard-container'>
+				<>
 					<CardList
 						cardArray={jobList}
 						eventListner={handleJobClick}
 					/>
-				</div>
+				</>
 			)}
 		</div>
 	);

@@ -10,11 +10,11 @@ const UserCard = ({ displayedUser, thisUserId, handleClickEdit }) => {
 	return !user ? (
 		<div className='loading'>Loading...</div>
 	) : (
-		<div className='card'>
+		<div className='usercard card'>
 			{user.isWorker === true ? (
 				<div className='card-info'>
 					<div className='cardname'>{`${user.firstName} ${user.lastName}`}</div>
-					<div className='hr'></div>
+					<hr />
 					<div>{`@${user.userName}`}</div>
 					{/* A ternary because not all users will have both phone number and email */}
 					{user.phoneNumber && (

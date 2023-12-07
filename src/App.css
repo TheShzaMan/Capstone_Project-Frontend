@@ -165,27 +165,26 @@ form {
 	flex-direction: column;
 	margin: 5px;
 	word-wrap: break-word;
-	/* max-height: fit-content; */
 	height: 40vh;
 	width: 50vw;
 	align-items: center;
 	box-shadow: 2px 2px 4px 1px rgb(3, 3, 3);
 	padding: 10px;
 	margin-top: 0;
-	/* background: rgba(97, 121, 135, 0.403); */
-	background: rgba(43, 104, 139, 0.555);
+	background: linear-gradient(
+		to top,
+		rgba(0, 0, 0, 0.688),
+		rgba(43, 104, 139, 0.688)
+	);
 	border: 1px solid rgb(250, 249, 249);
 	opacity: 1;
 	color: rgb(236, 243, 251);
 	text-shadow: 2px 2px 2px black;
 	letter-spacing: 1px;
-	/* max-width: 70vw;
-	min-width: 250px; */
 	border-radius: 4px;
 }
 .card p {
 	font-size: 22px;
-	/* letter-spacing: normal; */
 	font-weight: 400;
 	display: inline;
 	font-weight: bold;
@@ -194,7 +193,6 @@ form {
 .card-info {
 	margin-top: 10px;
 	padding: 2px;
-	/* margin-bottom: 1rem; */
 	letter-spacing: 1px;
 	font-weight: bold;
 	font-size: 17px;

@@ -1,3 +1,6 @@
 .jobcard:hover {
-	cursor: default;
+	cursor: pointer;
+}
+.jobcard {
+	height: fit-content;
 }
