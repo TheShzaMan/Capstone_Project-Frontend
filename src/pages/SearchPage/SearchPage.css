@@ -1,15 +1,19 @@
 .search-page {
 	justify-content: center;
 	align-items: flex-start;
-	flex-direction: row-reverse;
-	margin-top: 8vh;
-	margin-bottom: 19vh;
+	flex-direction: column;
+	margin-top: 15vh;
 	height: 78vh;
-	width: 80vw;
-	padding-left: 20vw;
+	width: 78vw;
 	padding-right: 5vw;
-
-	/* position: relative; */
+	margin-left: 5vw;
+	position: relative;
+}
+.searchcard-container {
+	margin: 0;
+	height: 65vh;
+	display: flex;
+	flex-direction: column;
 }
 p.search-page {
 	color: white;
@@ -17,12 +21,14 @@ p.search-page {
 .job-btns {
 	display: flex;
 	flex-direction: column;
-	position: absolute;
+	position: fixed;
 	right: 0vw;
+	top: 15vh;
 	width: 20vw;
 	align-items: end;
 	height: 50vh;
 	justify-content: space-evenly;
+	margin-top: 0;
 }
 .alt-btn.m {
 	display: flex;

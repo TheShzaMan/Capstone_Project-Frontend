@@ -9,6 +9,7 @@ import UserCard from "../../components/UserCard/UserCard";
 import useAuth from "../../hooks/useAuth";
 import ReviewSummaryCard from "../../components/ReviewSummaryCard/ReviewSummaryCard";
 import AlertModal from "../../components/AlertModal/AlertModal";
+import CardList from "../../components/CardsList";
 
 //will be needing to add props to < map/> of a list of marker spots
 const SearchPage = () => {
@@ -37,22 +38,15 @@ const SearchPage = () => {
 	}, []);
 	useEffect(() => {
 		fetchUser(thisUserId, setLoggedInUser);
-		console.log(loggedInUser);
+		// console.log(loggedInUser);
 	}, [thisUserId]);
-	useEffect(() => {
-		fetchUser(postedByUserId, setDisplayedUser);
-	}, [postedByUserId]);
-	// useEffect(() => {
-	// 	fetchPostedByUser();
-	// }, []);
-	// const jobPostedByUserId = jobToDisplay.postedByUser.id;
 
 	const fetchJobs = async () => {
 		try {
 			let response = await axios.get(
 				`https://localhost:5001/api/Jobs/avail`
 			);
-			console.log(response.data);
+			// console.log(response.data);
 			setJobList(response.data);
 
 			const filteredJobs = jobList.filter(function (job) {
@@ -60,12 +54,12 @@ const SearchPage = () => {
 					return true;
 				}
 			});
-			console.log(
-				"filteredJobs: ",
-				filteredJobs,
-				"availJobs: ",
-				availJobs
-			);
+			// console.log(
+			// 	"filteredJobs: ",
+			// 	filteredJobs,
+			// 	"availJobs: ",
+			// 	availJobs
+			// );
 			setAvailJobs(filteredJobs);
 		} catch (error) {
 			console.warn("Error in the fetchJobs request.", error);
@@ -82,7 +76,7 @@ const SearchPage = () => {
 						},
 					}
 				);
-				console.log(response.data);
+				// console.log(response.data);
 				setState(response.data);
 
 				console.log(
@@ -127,13 +121,14 @@ const SearchPage = () => {
 	};
 	useEffect(() => {
 		if (jobToDisplay) {
-			setPostedByUserId(jobToDisplay.postedByUserId);
+			setPostedByUserId(jobToDisplay.postedByUser.id);
 			checkApplied(jobToDisplay);
 		}
+
 		if (
 			jobToDisplay &&
-			jobToDisplay.postedByUserId &&
-			jobToDisplay.postedByUserId === postedByUserId
+			jobToDisplay.postedByUser.id &&
+			jobToDisplay.postedByUser.id === postedByUserId
 		) {
 			setJobDisplayState("open");
 		} else {
@@ -204,7 +199,7 @@ const SearchPage = () => {
 			thisJob={myJob}
 			key={index}
 			handleClick={handleJobClick}
-			checkApplied={checkApplied}
+			// checkApplied={checkApplied}
 		/>
 	));
 	const availJobCards = jobList.map((oneJob, index) => (
@@ -212,13 +207,9 @@ const SearchPage = () => {
 			thisJob={oneJob}
 			key={index}
 			handleJobClick={handleJobClick}
-			checkApplied={checkApplied}
+			// checkApplied={checkApplied}
 		/>
 	));
-
-	// const displayJobCard = <JobCard thisJob={jobToDisplay} />;
-	// <JobCard thisJob={selectedJob} />;
-	// .map((availJob, index) => );
 
 	console.log(
 		"jobToDisplay: ",
@@ -233,18 +224,11 @@ const SearchPage = () => {
 
 	function checkApplied(jobToCheck) {
 		if (jobToCheck && jobToCheck.appliedUserIds) {
-			const job = jobToCheck;
-
-			console.log(job);
-			if (job.appliedUserIds.includes(thisUserId)) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
+			return jobToCheck.appliedUserIds.includes(thisUserId);
 		}
+		return false;
 	}
+
 	jobToDisplay &&
 		console.log(
 			"jobToDisplay.id: ",
@@ -256,18 +240,7 @@ const SearchPage = () => {
 			"hasApplied: ",
 			hasApplied
 		);
-	// console.log(jobToDisplay.appliedUserIds);
-	// console.log("hasApplied: ", hasApplied);
 
-	// const jobMarkers = jobList.map((job, index) => (
-	// 	<Marker position={job.location} />
-	// ));
-	//console.log("jobToDisplay.postedByUser.id:", jobToDisplay.postedByUser.id);
-
-	// console.log("AppliedUserIds: ", jobToDisplay.appliedUserIds);
-	// console.log(postedByUserId);
-
-	// console.log("displayedUser for userCard and reviewCard", displayedUser);
 	return !jobList ? (
 		<div className='search-page container'>
 			<div className='loading'>Loading...</div>
@@ -360,10 +333,13 @@ const SearchPage = () => {
 				</div>
 			)}
 			{setBtn === "Map View" && (
-				<div className='job-list'>{availJobCards}</div>
-			)}
-			{jobFilters === "myJobs" && (
-				<div className='job-list'>{myJobCards}</div>
+				// <div className='job-list'>{availJobCards}</div>
+				<div className='searchcard-container'>
+					<CardList
+						cardArray={jobList}
+						eventListner={handleJobClick}
+					/>
+				</div>
 			)}
 		</div>
 	);

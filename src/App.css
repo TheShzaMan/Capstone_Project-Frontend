@@ -165,10 +165,12 @@ form {
 	flex-direction: column;
 	margin: 5px;
 	word-wrap: break-word;
-	max-height: fit-content;
+	/* max-height: fit-content; */
+	height: 40vh;
+	width: 50vw;
 	align-items: center;
 	box-shadow: 2px 2px 4px 1px rgb(3, 3, 3);
-	padding: 2%;
+	padding: 10px;
 	margin-top: 0;
 	/* background: rgba(97, 121, 135, 0.403); */
 	background: rgba(43, 104, 139, 0.555);
@@ -177,20 +179,20 @@ form {
 	color: rgb(236, 243, 251);
 	text-shadow: 2px 2px 2px black;
 	letter-spacing: 1px;
-	max-width: 70vw;
-	min-width: 250px;
+	/* max-width: 70vw;
+	min-width: 250px; */
 	border-radius: 4px;
-	padding-top: 1%;
 }
 .card p {
-	font-size: 18px;
+	font-size: 22px;
 	/* letter-spacing: normal; */
 	font-weight: 400;
 	display: inline;
+	font-weight: bold;
 }
 
 .card-info {
-	margin-top: 0;
+	margin-top: 10px;
 	padding: 2px;
 	/* margin-bottom: 1rem; */
 	letter-spacing: 1px;
@@ -203,13 +205,16 @@ form {
 	font-weight: bold;
 }
 
-.hr {
-	height: 2px;
+hr {
+	height: 3px;
+	width: 80%;
+	margin: 10px;
 	background-color: rgb(236, 243, 251);
 	box-shadow: 1px 1px 1px black;
 }
 .textra {
 	border: solid 1px white;
+	border-radius: 5px;
 	color: white;
 	font-weight: bolder;
 	background-color: rgba(70, 131, 180, 0.81);
