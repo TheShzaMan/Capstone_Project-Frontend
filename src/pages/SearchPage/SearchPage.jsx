@@ -1,15 +1,17 @@
 import "./SearchPage.css";
-import Map from "../../components/Map/Map";
 import React from "react";
-import { useState, useEffect } from "react";
-import JobCard from "../../components/JobCard/JobCard";
 import axios from "axios";
-import { Marker } from "@react-google-maps/api";
-import UserCard from "../../components/UserCard/UserCard";
+import { useState, useEffect } from "react";
+import useModal from "../../hooks/useModal";
 import useAuth from "../../hooks/useAuth";
+import useFilter from "../../hooks/useFilter";
+import Map from "../../components/Map/Map";
+import JobCard from "../../components/JobCard/JobCard";
+import UserCard from "../../components/UserCard/UserCard";
 import ReviewSummaryCard from "../../components/ReviewSummaryCard/ReviewSummaryCard";
-import AlertModal from "../../components/AlertModal/AlertModal";
 import CardList from "../../components/CardsList";
+import AlertModal from "../../components/AlertModal/AlertModal";
+import { Marker } from "@react-google-maps/api";
 
 //will be needing to add props to < map/> of a list of marker spots
 const SearchPage = () => {
@@ -18,54 +20,51 @@ const SearchPage = () => {
 	const [listState, setListState] = useState("closed-form");
 	const [setBtn, setSetBtn] = useState("Map View");
 	const [jobDisplayState, setJobDisplayState] = useState("closed");
+	const [allJobs, setAllJobs] = useState([]);
 	const [jobList, setJobList] = useState([]);
-	const [availJobs, setAvailJobs] = useState([]);
 	const [jobToDisplay, setJobToDisplay] = useState();
 	const [displayedUser, setDisplayedUser] = useState(null);
 	// const [availJobCards, setAvailableJobs] = useState(null);
 	const [postedByUserId, setPostedByUserId] = useState();
-	const [jobFilters, setJobFilters] = useState("allJobs");
-	const [myJobs, setMyJobs] = useState([]);
 	const [filterBtn, setFilterBtn] = useState("My Jobs");
 	const [hasApplied, setHasApplied] = useState(false);
-	const [modalState, setModalState] = useState("modal-inactive");
 	const [loggedInUser, setLoggedInUser] = useState();
-	const [displayedJobCard, setDisplayedJobCard] = useState(null);
 	const thisUserId = user.id;
+
+	const { modalState, openModal, closeModal } = useModal();
+	const { myJobs, availJobs } = useFilter();
+
 	// console.log({ user });
 	useEffect(() => {
 		fetchJobs();
 	}, []);
 	useEffect(() => {
-		fetchUser(thisUserId, setLoggedInUser);
+		setLoggedInUser(fetchUser(thisUserId));
 		// console.log(loggedInUser);
-	}, [thisUserId]);
+	}, []);
+
+	loggedInUser &&
+		console.log(
+			"On load, allJobs: ",
+
+			"loggedInUser: ",
+			loggedInUser,
+			"filtered jobs: ",
+			jobList
+		);
 
 	const fetchJobs = async () => {
 		try {
 			let response = await axios.get(
 				`https://localhost:5001/api/Jobs/avail`
 			);
-			// console.log(response.data);
 			setJobList(response.data);
-
-			const filteredJobs = jobList.filter(function (job) {
-				if (job.isFulfilled === false) {
-					return true;
-				}
-			});
-			// console.log(
-			// 	"filteredJobs: ",
-			// 	filteredJobs,
-			// 	"availJobs: ",
-			// 	availJobs
-			// );
-			setAvailJobs(filteredJobs);
+			setAllJobs(response.data);
 		} catch (error) {
 			console.warn("Error in the fetchJobs request.", error);
 		}
 	};
-	const fetchUser = async (userId, setState) => {
+	const fetchUser = async (userId) => {
 		if (userId) {
 			try {
 				let response = await axios.get(
@@ -77,12 +76,9 @@ const SearchPage = () => {
 					}
 				);
 				// console.log(response.data);
-				setState(response.data);
+				return response.data;
 
-				console.log(
-					"displayedUser at fetchUser api call: ",
-					displayedUser
-				);
+				console.log();
 			} catch (error) {
 				console.warn(
 					"Error in the fetchUser request in Search Page.",
@@ -106,15 +102,12 @@ const SearchPage = () => {
 					},
 				}
 			);
-			setModalState("modal-active");
 			setHasApplied(true);
+			openModal();
 		} catch (error) {
 			console.log("Error in handleClickApply Put Request", error);
 		}
 	};
-	const filterMyJobs = () => {
-		setMyJobs(jobList.filter((job) => job.postedByUser.id === thisUserId));
-	}; //CHECK THIS SYNTAX
 
 	const handleJobClick = (thisJob) => {
 		setJobToDisplay(thisJob);
@@ -135,16 +128,16 @@ const SearchPage = () => {
 		}
 	}, [jobToDisplay]);
 
-	console.log(
-		"postedByUserId at SearchPage onClick listner: ",
-		postedByUserId,
-		"jobToDisplay: ",
-		jobToDisplay,
-		"jobDisplayState: ",
-		jobDisplayState,
-		"hasApplied",
-		hasApplied
-	);
+	// console.log(
+	// 	"postedByUserId at SearchPage onClick listner: ",
+	// 	postedByUserId,
+	// 	"jobToDisplay: ",
+	// 	jobToDisplay,
+	// 	"jobDisplayState: ",
+	// 	jobDisplayState,
+	// 	"hasApplied",
+	// 	hasApplied
+	// );
 
 	const handleJobDisplay = () => {
 		setJobDisplayState(jobDisplayState === "closed" ? "open" : "closed");
@@ -152,7 +145,7 @@ const SearchPage = () => {
 
 	useEffect(() => {
 		postedByUserId && postedByUserId === jobToDisplay.postedByUser.id ? (
-			fetchUser(postedByUserId, setDisplayedUser)
+			fetchUser(postedByUserId)
 		) : (
 			<div className='loading'>Awaiting postedByUserId</div>
 		);
@@ -160,17 +153,17 @@ const SearchPage = () => {
 
 	const handleClickApply = () => {
 		addUserIdToApplied();
+		// openModal();
 	};
 
 	const handleJobFilters = () => {
-		if (jobFilters === "allJobs") {
-			setJobFilters("myJobs");
+		if (filterBtn === "All Jobs") {
+			setJobList(availJobs(allJobs));
 			setMapState("closed-form");
 			setListState("closed-form");
 			setFilterBtn("My Jobs");
-			filterMyJobs();
-		} else if (jobFilters === "myJobs") {
-			setJobFilters("allJobs");
+		} else if (filterBtn === "My Jobs") {
+			setJobList(myJobs(thisUserId, allJobs));
 			setFilterBtn("All Jobs");
 		}
 	};
@@ -189,29 +182,23 @@ const SearchPage = () => {
 			setSetBtn("Map View");
 		}
 	};
+
 	const handleClickModal = () => {
-		modalState === "modal-active"
-			? setModalState("modal-inactive")
-			: setModalState("modal-active");
+		modalState === "modal-active" ? closeModal() : openModal();
 	};
-	const myJobCards = myJobs.map((myJob, index) => (
-		<JobCard
-			thisJob={myJob}
-			key={index}
-			handleClick={handleJobClick}
-			// checkApplied={checkApplied}
-		/>
-	));
+	// const filterAvailJobs = () => {
+	// 	const availJobs = jobList.
+	// }
 
-	console.log(
-		"jobToDisplay: ",
-		jobToDisplay,
-		"joblist:",
-		jobList,
+	// console.log(
+	// 	"jobToDisplay: ",
+	// 	jobToDisplay,
+	// 	"joblist:",
+	// 	jobList,
 
-		"jobToDisplay @ displayJobCard filter: ",
-		jobToDisplay
-	);
+	// 	"jobToDisplay @ displayJobCard filter: ",
+	// 	jobToDisplay
+	// );
 
 	function checkApplied(jobToCheck) {
 		if (jobToCheck && jobToCheck.appliedUserIds) {

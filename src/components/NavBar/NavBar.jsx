@@ -33,7 +33,7 @@ const Navbar = () => {
 			? setModalState("modal-inactive")
 			: setModalState("modal-active");
 	};
-	console.log("menuDropState:", menuDropState);
+	// console.log("menuDropState:", menuDropState);
 
 	return (
 		<div className='navBar'>
