@@ -6,8 +6,7 @@ const JobCard = ({ thisJob, index, handleJobClick }) => {
 	// const [thisJob, setThisJob] = useState();
 
 	const handleClick = () => {
-		handleJobClick(thisJob);
-
+		handleJobClick(thisJob, index);
 		console.log(
 			"postedByUserId at jobCard onClick listner: ",
 			thisJob.postedByUser.id,
@@ -16,7 +15,7 @@ const JobCard = ({ thisJob, index, handleJobClick }) => {
 		);
 	};
 
-	return (
+	return thisJob ? (
 		<li key={index} className='jobcard card' onClick={handleClick}>
 			<div className='cardname'>{thisJob.jobName}</div>
 			<p>{thisJob.jobDescription}</p>
@@ -34,6 +33,8 @@ const JobCard = ({ thisJob, index, handleJobClick }) => {
 				<div className='card-info'>{thisJob.location}</div>
 			</div>
 		</li>
+	) : (
+		<div className='loading'>Loading...</div>
 	);
 };
 

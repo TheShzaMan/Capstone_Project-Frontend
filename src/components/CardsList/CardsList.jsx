@@ -1,5 +1,5 @@
 import React from "react";
-import JobCard from "./JobCard/JobCard";
+import JobCard from "../JobCard/JobCard";
 
 const CardList = ({ cardArray = [], eventListner }) => {
 	const availJobCards = cardArray.map((oneJob, index) => (
