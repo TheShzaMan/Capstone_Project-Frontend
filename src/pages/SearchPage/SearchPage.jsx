@@ -19,7 +19,7 @@ const SearchPage = () => {
 	const [listState, setListState] = useState("closed-form");
 	const [setBtn, setSetBtn] = useState("Map View");
 	const [jobDetailDisplayed, setjobDetailDisplayed] = useState(false);
-	const [allJobs, setAllJobs] = useState([]);
+	// const [allJobs, setAllJobs] = useState();
 	const [jobList, setJobList] = useState([]);
 	const [jobToDisplay, setJobToDisplay] = useState();
 	const [displayedUser, setDisplayedUser] = useState(null);
@@ -27,30 +27,22 @@ const SearchPage = () => {
 	const [postedByUserId, setPostedByUserId] = useState();
 	const [filterBtn, setFilterBtn] = useState("My Jobs");
 	const [hasApplied, setHasApplied] = useState(false);
-	const [loggedInUser, setLoggedInUser] = useState({});
-	const [userResult, setUserResult] = useState({});
+	const [loggedInUser, setLoggedInUser] = useState();
+	const [userResult, setUserResult] = useState();
 	const thisUserId = user.id;
-
+	//const loggedInUser = null;
 	const { modalState, openModal, closeModal } = useModal();
 	const { myJobs, availJobs } = useFilter();
 
 	// console.log({ user });
 	useEffect(() => {
 		fetchJobs();
-	}, []);
-	useEffect(() => {
 		fetchUser(thisUserId);
-		console.log("userResult: ", userResult);
-		userResult && setLoggedInUser(userResult);
 	}, []);
 
-	loggedInUser &&
-		console.log(
-			"On load, loggedInUser: ",
-			loggedInUser,
-			"filtered jobs: ",
-			jobList
-		);
+	const allJobs = jobList;
+
+	console.log("jobList: ", jobList, "allJobs: ", allJobs);
 
 	const fetchJobs = async () => {
 		try {
@@ -58,7 +50,6 @@ const SearchPage = () => {
 				`https://localhost:5001/api/Jobs/avail`
 			);
 			setJobList(response.data);
-			setAllJobs(response.data);
 		} catch (error) {
 			console.warn("Error in the fetchJobs request.", error);
 		}
@@ -78,28 +69,27 @@ const SearchPage = () => {
 			console.warn("Error in the fetchJobs request.", error);
 		}
 	};
-	const fetchUser = async (userId) => {
-		if (userId) {
-			try {
-				let response = await axios.get(
-					`https://localhost:5001/api/Reviews/profile/${userId}/`,
-					{
-						headers: {
-							Authorization: "Bearer " + token,
-						},
-					}
-				);
-				setUserResult(response.data);
-				// return response.data;
+	const fetchUser = async (idToFetch) => {
+		console.log(idToFetch);
+		try {
+			let response = await axios.get(
+				`https://localhost:5001/api/Reviews/profile/${idToFetch}/`,
+				{
+					headers: {
+						Authorization: "Bearer " + token,
+					},
+				}
+			);
+			!loggedInUser && setLoggedInUser(response.data);
+			setUserResult(response.data);
+			//return response.data;
 
-				// console.log();
-			} catch (error) {
-				console.warn(
-					"Error in the fetchUser request in Search Page.",
-					error
-				);
-			}
-		} else {
+			// console.log();
+		} catch (error) {
+			console.warn(
+				"Error in the fetchUser request in Search Page.",
+				error
+			);
 		}
 	};
 	const addUserIdToApplied = async () => {
@@ -113,7 +103,6 @@ const SearchPage = () => {
 					},
 				}
 			);
-
 			openModal();
 		} catch (error) {
 			console.log("Error in handleClickApply Put Request", error);
@@ -123,53 +112,18 @@ const SearchPage = () => {
 	// console.log(jobToDisplay);
 
 	const handleJobClick = (thisJob, index) => {
-		console.log(thisJob);
-		fetchAJob(thisJob.id);
-
+		setJobToDisplay(thisJob);
 		fetchUser(thisJob.postedByUser.id);
-
-		userResult.user.id === jobToDisplay.postedByUser.id &&
-			setDisplayedUser(userResult);
+		setDisplayedUser(userResult);
+		// userResult.user.id === jobToDisplay.postedByUser.id &&
+		// 	setDisplayedUser(userResult);
 
 		handleJobDisplay();
 	};
-	// useEffect(() => {
-	// 	if (jobToDisplay) {
-	// 		setPostedByUserId(jobToDisplay.postedByUser.id);
-	// 	}
-
-	// 	if (
-	// 		jobToDisplay &&
-	// 		jobToDisplay.postedByUser.id &&
-	// 		jobToDisplay.postedByUser.id === postedByUserId
-	// 	) {
-	// 		setjobDetailDisplayed(true);
-	// 	} else {
-	// 	}
-	// }, [jobToDisplay]);
-
-	// console.log(
-	// 	"postedByUserId at SearchPage onClick listner: ",
-	// 	postedByUserId,
-	// 	"jobToDisplay: ",
-	// 	jobToDisplay,
-	// 	"jobDetailDisplayed: ",
-	// 	jobDetailDisplayed,
-	// 	"hasApplied",
-	// 	hasApplied
-	// );
 
 	const handleJobDisplay = () => {
 		setjobDetailDisplayed(!jobDetailDisplayed ? true : false);
 	};
-
-	// useEffect(() => {
-	// 	postedByUserId && postedByUserId === jobToDisplay.postedByUser.id ? (
-	// 		fetchUser(postedByUserId)
-	// 	) : (
-	// 		<div className='loading'>Awaiting postedByUserId</div>
-	// 	);
-	// }, [postedByUserId]);
 
 	const handleJobFilters = () => {
 		if (filterBtn === "All Jobs") {
@@ -198,39 +152,6 @@ const SearchPage = () => {
 		}
 	};
 
-	// const filterAvailJobs = () => {
-	// 	const availJobs = jobList.
-	// }
-
-	// console.log(
-	// 	"jobToDisplay: ",
-	// 	jobToDisplay,
-	// 	"joblist:",
-	// 	jobList,
-
-	// 	"jobToDisplay @ displayJobCard filter: ",
-	// 	jobToDisplay
-	// );
-
-	// function checkApplied(jobToCheck) {
-	// 	if (jobToCheck && jobToCheck.appliedUserIds) {
-	// 		return jobToCheck.appliedUserIds.includes(thisUserId);
-	// 	}
-	// 	return false;
-	// }
-
-	// jobToDisplay &&
-	// 	console.log(
-	// 		"jobToDisplay.id: ",
-	// 		jobToDisplay.id,
-	// 		"loggedInUserId: ",
-	// 		loggedInUser.user.id,
-	// 		"appliedUserIds: ",
-	// 		jobToDisplay.appliedUserIds,
-	// 		"hasApplied: ",
-	// 		hasApplied
-	// 	);
-	console.log(displayedUser);
 	return !jobList ? (
 		<div className='search-page container'>
 			<div className='loading'>Loading...</div>
@@ -241,11 +162,17 @@ const SearchPage = () => {
 				<div className='darkout-bg'>
 					<JobDisplay
 						jobToDisplay={jobToDisplay}
-						displayedUser={displayedUser}
 						loggedInUser={loggedInUser}
+						displayedUser={displayedUser}
 						handleJobDisplay={handleJobDisplay}
 						addUserIdToApplied={addUserIdToApplied}
 					/>
+					{console.log(
+						"loggedInUser: ",
+						loggedInUser,
+						"displayedUser: ",
+						displayedUser
+					)}
 				</div>
 			)}
 

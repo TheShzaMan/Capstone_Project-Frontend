@@ -23,7 +23,7 @@ const JobDisplay = ({
 	const handleClickModal = () => {
 		modalState === "modal-active" ? closeModal() : openModal();
 	};
-	console.log(loggedInUser);
+	//console.log(loggedInUser);
 	return (
 		<div className='popup-container'>
 			{loggedInUser?.user?.isWorker === true ? (
@@ -61,14 +61,12 @@ const JobDisplay = ({
 					</div>
 				)}
 				<h2>This Job Posted By</h2>
-				{!displayedUser ? (
-					<div className='loading'>Loading...</div>
-				) : (
-					<UserCard
-						displayedUser={displayedUser} //erroring on some users because need .user added here.
-						thisUserId={loggedInUser.id}
-					/>
-				)}
+
+				<UserCard
+					displayedUser={jobToDisplay.postedByProfile}
+					// thisUserId={loggedInUser.id}
+				/>
+				{/* )} */}
 				{displayedUser && displayedUser.totalReviewsJobs > 0 ? (
 					<ReviewSummaryCard displayedUser={displayedUser} />
 				) : (

@@ -3,7 +3,7 @@ import "./UserCard.css";
 import { useState } from "react";
 
 const UserCard = ({ displayedUser, thisUserId, handleClickEdit }) => {
-	const user = displayedUser.user;
+	const user = displayedUser;
 
 	// console.log("user from UserCard:", user);
 	// console.log({ thisUserId });
