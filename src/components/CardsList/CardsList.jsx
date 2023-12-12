@@ -1,13 +1,19 @@
 import React from "react";
 import JobCard from "../JobCard/JobCard";
 
-const CardList = ({ cardArray = [], eventListner }) => {
+const CardList = ({
+	cardArray = [],
+	eventListner,
+	callbackFunction,
+	thisUserId,
+}) => {
 	const availJobCards = cardArray.map((oneJob, index) => (
 		<JobCard
 			thisJob={oneJob}
 			key={index}
 			handleJobClick={eventListner}
-			// checkApplied={checkApplied}
+			checkApplied={callbackFunction}
+			thisUserId={thisUserId}
 		/>
 	));
 

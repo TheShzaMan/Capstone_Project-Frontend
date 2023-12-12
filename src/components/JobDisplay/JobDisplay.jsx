@@ -5,6 +5,7 @@ import ReviewSummaryCard from "../ReviewSummaryCard/ReviewSummaryCard";
 import JobCard from "../JobCard/JobCard";
 import useModal from "../../hooks/useModal";
 import AlertModal from "../AlertModal/AlertModal";
+import { useEffect } from "react";
 
 const JobDisplay = ({
 	jobToDisplay,

@@ -27,22 +27,30 @@ const SearchPage = () => {
 	const [postedByUserId, setPostedByUserId] = useState();
 	const [filterBtn, setFilterBtn] = useState("My Jobs");
 	const [hasApplied, setHasApplied] = useState(false);
-	const [loggedInUser, setLoggedInUser] = useState();
+	const [jobsApplied, setJobsApplied] = useState([]);
 	const [userResult, setUserResult] = useState();
 	const thisUserId = user.id;
-	//const loggedInUser = null;
+
 	const { modalState, openModal, closeModal } = useModal();
 	const { myJobs, availJobs } = useFilter();
 
 	// console.log({ user });
 	useEffect(() => {
 		fetchJobs();
-		fetchUser(thisUserId);
+		//fetchUser("04a05dad-ca8d-4668-8571-abdaa7f18f83");
 	}, []);
 
 	const allJobs = jobList;
+	checkApplied(jobList);
 
-	console.log("jobList: ", jobList, "allJobs: ", allJobs);
+	console.log(
+		"jobList: ",
+		jobList,
+		"allJobs: ",
+		allJobs,
+		"jobsApplied: ",
+		jobsApplied
+	);
 
 	const fetchJobs = async () => {
 		try {
@@ -80,11 +88,11 @@ const SearchPage = () => {
 					},
 				}
 			);
-			!loggedInUser && setLoggedInUser(response.data);
+
 			setUserResult(response.data);
 			//return response.data;
 
-			// console.log();
+			// console.log(userResult);
 		} catch (error) {
 			console.warn(
 				"Error in the fetchUser request in Search Page.",
@@ -113,17 +121,32 @@ const SearchPage = () => {
 
 	const handleJobClick = (thisJob, index) => {
 		setJobToDisplay(thisJob);
+		// checkApplied(thisJob, thisUserId);
 		fetchUser(thisJob.postedByUser.id);
-		setDisplayedUser(userResult);
-		// userResult.user.id === jobToDisplay.postedByUser.id &&
-		// 	setDisplayedUser(userResult);
+		//fetchUser("3f4d8760-db3c-4922-a379-cc8b0a0b6956");
 
+		// if current thisJobToDisplay != previousJobToDisplay && setDisplayedUser(userResult)
 		handleJobDisplay();
 	};
+	//console.log(userResult);
 
 	const handleJobDisplay = () => {
+		setDisplayedUser(userResult);
+
 		setjobDetailDisplayed(!jobDetailDisplayed ? true : false);
 	};
+
+	function checkApplied(jobArray) {
+		const jobsThisUserApplied = jobArray.map((job) => {
+			job.appliedUserIds.filter((id) => {
+				if (id === thisUserId && !jobsApplied.includes(job)) {
+					setJobsApplied([...jobsApplied, job]);
+				} else {
+					return false;
+				}
+			});
+		});
+	}
 
 	const handleJobFilters = () => {
 		if (filterBtn === "All Jobs") {
@@ -162,14 +185,18 @@ const SearchPage = () => {
 				<div className='darkout-bg'>
 					<JobDisplay
 						jobToDisplay={jobToDisplay}
-						loggedInUser={loggedInUser}
+						loggedInUser={thisUserId}
 						displayedUser={displayedUser}
 						handleJobDisplay={handleJobDisplay}
 						addUserIdToApplied={addUserIdToApplied}
 					/>
 					{console.log(
 						"loggedInUser: ",
-						loggedInUser,
+						thisUserId,
+						"hasApplied: ",
+						hasApplied,
+						"jobsApplied: ",
+						jobsApplied,
 						"displayedUser: ",
 						displayedUser
 					)}
@@ -195,6 +222,8 @@ const SearchPage = () => {
 					<CardList
 						cardArray={jobList}
 						eventListner={handleJobClick}
+						callbackFunction={checkApplied}
+						thisUserId={thisUserId}
 					/>
 				</>
 			)}

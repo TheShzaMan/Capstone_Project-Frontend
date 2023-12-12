@@ -2,11 +2,18 @@ import "./JobCard.css";
 import React from "react";
 import { useState } from "react";
 
-const JobCard = ({ thisJob, index, handleJobClick }) => {
-	// const [thisJob, setThisJob] = useState();
-
+const JobCard = ({
+	thisJob,
+	index,
+	handleJobClick,
+	checkApplied,
+	thisUserId,
+}) => {
+	// const [hasApplied, setThisJob] = useState();
+	// checkApplied(thisJob, thisUserId);
 	const handleClick = () => {
 		handleJobClick(thisJob, index);
+		// checkApplied(thisJob);
 		console.log(
 			"postedByUserId at jobCard onClick listner: ",
 			thisJob.postedByUser.id,
