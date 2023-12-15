@@ -6,11 +6,11 @@ const JobCard = ({
 	thisJob,
 	index,
 	handleJobClick,
-	checkApplied,
-	thisUserId,
+	jobsApplied,
+	userHasApplied,
+	//hasApplied,
 }) => {
-	// const [hasApplied, setThisJob] = useState();
-	// checkApplied(thisJob, thisUserId);
+	userHasApplied(jobsApplied, thisJob);
 	const handleClick = () => {
 		handleJobClick(thisJob, index);
 		// checkApplied(thisJob);
@@ -23,23 +23,27 @@ const JobCard = ({
 	};
 
 	return thisJob ? (
-		<li key={index} className='jobcard card' onClick={handleClick}>
-			<div className='cardname'>{thisJob.jobName}</div>
-			<p>{thisJob.jobDescription}</p>
-			<hr></hr>
-			<div>
-				<div className='card-info'>
-					{`Pay/hour:  $`}
+		hasApplied ? (
+			<>Already Applied</>
+		) : (
+			<li key={index} className='jobcard card' onClick={handleClick}>
+				<div className='cardname'>{thisJob.jobName}</div>
+				<p>{thisJob.jobDescription}</p>
+				<hr></hr>
+				<div>
+					<div className='card-info'>
+						{`Pay/hour:  $`}
 
-					<span className='textra'>{thisJob.payPerHour}</span>
+						<span className='textra'>{thisJob.payPerHour}</span>
+					</div>
+					<div className='card-info'>
+						{`Min. Skill Level Req.:`}
+						<span className='textra'>{thisJob.skillLevel}</span>
+					</div>
+					<div className='card-info'>{thisJob.location}</div>
 				</div>
-				<div className='card-info'>
-					{`Min. Skill Level Req.:`}
-					<span className='textra'>{thisJob.skillLevel}</span>
-				</div>
-				<div className='card-info'>{thisJob.location}</div>
-			</div>
-		</li>
+			</li>
+		)
 	) : (
 		<div className='loading'>Loading...</div>
 	);

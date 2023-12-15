@@ -24,9 +24,9 @@ const SearchPage = () => {
 	const [jobToDisplay, setJobToDisplay] = useState();
 	const [displayedUser, setDisplayedUser] = useState(null);
 	// const [availJobCards, setAvailableJobs] = useState(null);
-	const [postedByUserId, setPostedByUserId] = useState();
+	//const [postedByUserId, setPostedByUserId] = useState();
 	const [filterBtn, setFilterBtn] = useState("My Jobs");
-	const [hasApplied, setHasApplied] = useState(false);
+	const [loggedInUser, setLoggedInUser] = useState();
 	const [jobsApplied, setJobsApplied] = useState([]);
 	const [userResult, setUserResult] = useState();
 	const thisUserId = user.id;
@@ -36,12 +36,12 @@ const SearchPage = () => {
 
 	// console.log({ user });
 	useEffect(() => {
+		fetchUser(thisUserId);
 		fetchJobs();
-		//fetchUser("04a05dad-ca8d-4668-8571-abdaa7f18f83");
 	}, []);
 
 	const allJobs = jobList;
-	checkApplied(jobList);
+	checkApplied(allJobs);
 
 	console.log(
 		"jobList: ",
@@ -77,6 +77,7 @@ const SearchPage = () => {
 			console.warn("Error in the fetchJobs request.", error);
 		}
 	};
+
 	const fetchUser = async (idToFetch) => {
 		console.log(idToFetch);
 		try {
@@ -88,11 +89,10 @@ const SearchPage = () => {
 					},
 				}
 			);
-
-			setUserResult(response.data);
-			//return response.data;
-
-			// console.log(userResult);
+			let userData = await response.data;
+			!loggedInUser
+				? setLoggedInUser(userData)
+				: setDisplayedUser(userData);
 		} catch (error) {
 			console.warn(
 				"Error in the fetchUser request in Search Page.",
@@ -100,6 +100,12 @@ const SearchPage = () => {
 			);
 		}
 	};
+	console.log(
+		"logged in: ",
+		loggedInUser,
+		"job is posted by: ",
+		displayedUser
+	);
 	const addUserIdToApplied = async () => {
 		try {
 			let response = await axios.put(
@@ -185,16 +191,16 @@ const SearchPage = () => {
 				<div className='darkout-bg'>
 					<JobDisplay
 						jobToDisplay={jobToDisplay}
-						loggedInUser={thisUserId}
+						loggedInUserId={thisUserId}
 						displayedUser={displayedUser}
+						jobsAppliedArray={jobsApplied}
 						handleJobDisplay={handleJobDisplay}
 						addUserIdToApplied={addUserIdToApplied}
 					/>
 					{console.log(
 						"loggedInUser: ",
 						thisUserId,
-						"hasApplied: ",
-						hasApplied,
+
 						"jobsApplied: ",
 						jobsApplied,
 						"displayedUser: ",
@@ -222,7 +228,7 @@ const SearchPage = () => {
 					<CardList
 						cardArray={jobList}
 						eventListner={handleJobClick}
-						callbackFunction={checkApplied}
+						jobsApplied={jobsApplied}
 						thisUserId={thisUserId}
 					/>
 				</>

@@ -1,10 +1,14 @@
 .r-data {
 	position: relative;
-	display: inline-block;
-	border-bottom: 1px dotted rgb(251, 249, 249);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	/* border-bottom: 1px dotted rgb(251, 249, 249); */
 	font-weight: bold;
 	font-size: 15px;
-	margin-top: 0;
+	margin-top: 5px;
+	padding: 0 13%;
 }
 .r-data .textra {
 	padding: 1px 5px;
@@ -23,8 +27,8 @@
 	align-content: center;
 	align-self: center;
 	position: fixed;
-	top: 50vh;
-	right: 10vw;
+	top: 45vh;
+	left: 5vw;
 	z-index: 1;
 }
 .r-data:hover .explain {
@@ -35,7 +39,12 @@
 }
 
 .review {
-	max-height: 100%;
+	height: fit-content;
+}
+.card-hr {
+	width: 95%;
 }
 .subcard {
+	display: flex;
+	flex-direction: column;
 }

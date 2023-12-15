@@ -14,7 +14,7 @@ const UserCard = ({ displayedUser, thisUserId, handleClickEdit }) => {
 			{user.isWorker === true ? (
 				<div className='card-info'>
 					<div className='cardname'>{`${user.firstName} ${user.lastName}`}</div>
-					<hr />
+					<hr className='card-hr'></hr>
 					<div>{`@${user.userName}`}</div>
 					{/* A ternary because not all users will have both phone number and email */}
 					{user.phoneNumber && (
@@ -49,7 +49,7 @@ const UserCard = ({ displayedUser, thisUserId, handleClickEdit }) => {
 			) : (
 				<div className='card-info'>
 					<div className='cardname'>{user.firstName}</div>
-					<div className='hr'></div>
+					<hr className='card-hr'></hr>
 					<div>{`@${user.userName}`}</div>
 					{user.phoneNumber && (
 						<div>

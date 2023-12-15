@@ -1,6 +1,17 @@
 import "./AlertModal.css";
 
-const AlertModal = ({ header, message, handleClickModal, modalState }) => {
+const AlertModal = ({
+	header,
+	message,
+	closeModal,
+	modalState,
+	closePopup,
+}) => {
+	const handleClickModal = () => {
+		closeModal();
+		closePopup();
+	};
+
 	return (
 		<div className={modalState}>
 			<div onClick={handleClickModal} className='modal-content'>

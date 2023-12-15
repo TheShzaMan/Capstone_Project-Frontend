@@ -5,7 +5,8 @@ import ReviewSummaryCard from "../ReviewSummaryCard/ReviewSummaryCard";
 import JobCard from "../JobCard/JobCard";
 import useModal from "../../hooks/useModal";
 import AlertModal from "../AlertModal/AlertModal";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const JobDisplay = ({
 	jobToDisplay,
@@ -15,7 +16,8 @@ const JobDisplay = ({
 	addUserIdToApplied,
 }) => {
 	const { modalState, openModal, closeModal } = useModal();
-
+	const [hasApplied, setHasApplied] = useState(false);
+	//maybe move hasApplied state here and pass in jobsApplied array in props to compare job id to jobToDisplay id
 	const handleClickApply = () => {
 		addUserIdToApplied();
 		// openModal();
@@ -24,7 +26,7 @@ const JobDisplay = ({
 	const handleClickModal = () => {
 		modalState === "modal-active" ? closeModal() : openModal();
 	};
-	//console.log(loggedInUser);
+	console.log(loggedInUser);
 	return (
 		<div className='popup-container'>
 			{loggedInUser?.user?.isWorker === true ? (

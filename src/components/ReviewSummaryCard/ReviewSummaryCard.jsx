@@ -1,13 +1,16 @@
 import React from "react";
 import "./ReviewSummaryCard.css";
 
-const ReviewSummaryCard = (singleUser) => {
-	const review = singleUser.displayedUser;
+const ReviewSummaryCard = ({ displayedUser }) => {
+	const review = displayedUser;
 	const user = review.user;
-	// console.log(review.user);
-	const avgOverall = review.avgOverallScore;
-	const avgForDisplay = avgOverall.toFixed(1);
-	return (
+	console.log(review);
+	// const avgOverall = review.avgOverallScore;
+	// const avgForDisplay = avgOverall.toFixed(1);
+
+	return !review ? (
+		<div className='loading'>Loading...</div>
+	) : (
 		<div className='card review'>
 			{user.isWorker ? (
 				<div className='card-info'>
@@ -15,10 +18,12 @@ const ReviewSummaryCard = (singleUser) => {
 						Review Summary:{" "}
 						<p className='cardname'> @{user.userName}</p>
 					</div>
-					<div className='hr'></div>
+					<hr className='card-hr'></hr>
 					<h3>
 						Overall Avg. Score:{" "}
-						<span className='textra'>{avgForDisplay}</span>
+						<span className='textra'>
+							{review.avgOverallScore.toFixed(1)}
+						</span>
 						/5
 					</h3>
 					<div>
@@ -27,8 +32,9 @@ const ReviewSummaryCard = (singleUser) => {
 							{review.totalReviewsJobs.toFixed(1)}
 						</span>
 					</div>
-					<div className='subcard card'>
-						<h4>Avg scores breakdown:</h4>
+					<div className='subcard'>
+						<hr className='card-hr'></hr>
+						<h3>Avg scores breakdown:</h3>
 						<div className='r-data'>
 							Adherence to offer:{" "}
 							<span className='textra'>
@@ -100,7 +106,7 @@ const ReviewSummaryCard = (singleUser) => {
 						Review Summary:{" "}
 						<p className='cardname'> @{user.userName}</p>
 					</div>
-					<div className='hr'></div>
+					<hr className='card-hr'></hr>
 					<h3>
 						Overall Avg. Score:{" "}
 						<span className='textra'>
@@ -114,8 +120,9 @@ const ReviewSummaryCard = (singleUser) => {
 							{review.totalReviewsJobs}
 						</span>
 					</div>
-					<div className='subcard card'>
-						<h4>Avg scores breakdown:</h4>
+					<div className='subcard'>
+						<hr className='card-hr'></hr>
+						<h3>Avg scores breakdown:</h3>
 						<div className='r-data'>
 							Adherence to offer:{" "}
 							<span className='textra'>
