@@ -11,7 +11,11 @@ const usePopup = () => {
 		setPopupState("closed-form");
 	};
 
-	return { popupState, openPopup, closePopup };
+	const togglePopup = () => {
+		popupState === "closed-form" ? openPopup() : closePopup();
+	};
+
+	return { popupState, openPopup, closePopup, togglePopup };
 };
 
 export default usePopup;

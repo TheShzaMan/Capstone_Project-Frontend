@@ -4,3 +4,6 @@
 .jobcard {
 	height: fit-content;
 }
+#alt.jobcard:hover {
+	cursor: default;
+}

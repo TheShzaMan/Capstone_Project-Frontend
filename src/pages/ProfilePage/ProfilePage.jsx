@@ -1,12 +1,12 @@
+import React from "react";
 import "./ProfilePage.css";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import React from "react";
-import UserCard from "../../components/UserCard/UserCard";
 import useAuth from "../../hooks/useAuth";
-import ReviewSummaryCard from "../../components/ReviewSummaryCard/ReviewSummaryCard";
-import EditProfileForm from "../../components/EditProfileForm/EditProfileForm";
 import usePopup from "../../hooks/usePopup";
+import ReviewSummaryCard from "../../components/ReviewSummaryCard/ReviewSummaryCard";
+import UserCard from "../../components/UserCard/UserCard";
+import EditProfileForm from "../../components/EditProfileForm/EditProfileForm";
 
 const ProfilePage = () => {
 	const [user, token] = useAuth();

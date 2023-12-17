@@ -1,5 +1,6 @@
 import React from "react";
 import "./JobDisplay.css";
+//import "../JobCard/JobCard.css";
 import UserCard from "../UserCard/UserCard";
 import ReviewSummaryCard from "../ReviewSummaryCard/ReviewSummaryCard";
 import JobCard from "../JobCard/JobCard";
@@ -12,7 +13,9 @@ const JobDisplay = ({
 	jobToDisplay,
 	displayedUser,
 	loggedInUser,
-	handleJobDisplay,
+	closePopup,
+	openPopup,
+	//handleJobDisplay,
 	addUserIdToApplied,
 }) => {
 	const { modalState, openModal, closeModal } = useModal();
@@ -26,7 +29,9 @@ const JobDisplay = ({
 	const handleClickModal = () => {
 		modalState === "modal-active" ? closeModal() : openModal();
 	};
-	console.log(loggedInUser);
+	loggedInUser?.user
+		? console.log(loggedInUser)
+		: console.log("still waiting...");
 	return (
 		<div className='popup-container'>
 			{loggedInUser?.user?.isWorker === true ? (
@@ -43,33 +48,41 @@ const JobDisplay = ({
 							Applied
 						</button>
 					)}
-					<button className='exit-form' onClick={handleJobDisplay}>
+					<button className='exit-form' onClick={closePopup}>
 						X
 					</button>
 				</div>
 			) : (
 				<div className='pop-job-header'>
-					<button className='exit-form' onClick={handleJobDisplay}>
+					<button className='exit-form' onClick={closePopup}>
 						X
 					</button>
 				</div>
 			)}
 			<div className='job-details-full'>
-				{jobToDisplay && !jobToDisplay ? (
+				{!jobToDisplay ? (
 					<div className='loading'>Loading...</div>
 				) : (
 					<div className='pop-job-card'>
 						{/* {checkApplied()} */}
-						<JobCard thisJob={jobToDisplay} />
+						<JobCard
+							style='alt'
+							thisJob={jobToDisplay}
+							handleJobClick={openPopup}
+						/>
 					</div>
 				)}
-				<h2>This Job Posted By</h2>
 
-				<UserCard
-					displayedUser={jobToDisplay.postedByProfile}
-					// thisUserId={loggedInUser.id}
-				/>
-				{/* )} */}
+				<h2>This Job Posted By</h2>
+				{displayedUser?.user ? (
+					<UserCard
+						displayedUser={displayedUser.user}
+						// thisUserId={loggedInUser.id}
+					/>
+				) : (
+					<div className='loading'>Loading...</div>
+				)}
+
 				{displayedUser && displayedUser.totalReviewsJobs > 0 ? (
 					<ReviewSummaryCard displayedUser={displayedUser} />
 				) : (

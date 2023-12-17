@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import useModal from "../../hooks/useModal";
 import useAuth from "../../hooks/useAuth";
+import usePopup from "../../hooks/usePopup";
 import useFilter from "../../hooks/useFilter";
 import Map from "../../components/Map/Map";
 
@@ -18,13 +19,9 @@ const SearchPage = () => {
 	const [mapState, setMapState] = useState("closed-form");
 	const [listState, setListState] = useState("closed-form");
 	const [setBtn, setSetBtn] = useState("Map View");
-	const [jobDetailDisplayed, setjobDetailDisplayed] = useState(false);
-	// const [allJobs, setAllJobs] = useState();
 	const [jobList, setJobList] = useState([]);
 	const [jobToDisplay, setJobToDisplay] = useState();
 	const [displayedUser, setDisplayedUser] = useState(null);
-	// const [availJobCards, setAvailableJobs] = useState(null);
-	//const [postedByUserId, setPostedByUserId] = useState();
 	const [filterBtn, setFilterBtn] = useState("My Jobs");
 	const [loggedInUser, setLoggedInUser] = useState();
 	const [jobsApplied, setJobsApplied] = useState([]);
@@ -32,16 +29,19 @@ const SearchPage = () => {
 	const thisUserId = user.id;
 
 	const { modalState, openModal, closeModal } = useModal();
+	const { popupState, openPopup, closePopup, togglePopup } = usePopup();
 	const { myJobs, availJobs } = useFilter();
+	//const [hasApplied, setHasApplied] = useState(false);
 
 	// console.log({ user });
 	useEffect(() => {
 		fetchUser(thisUserId);
 		fetchJobs();
 	}, []);
-
+	// console.log(popupState);
 	const allJobs = jobList;
-	checkApplied(allJobs);
+
+	//checkApplied(allJobs);
 
 	console.log(
 		"jobList: ",
@@ -132,27 +132,25 @@ const SearchPage = () => {
 		//fetchUser("3f4d8760-db3c-4922-a379-cc8b0a0b6956");
 
 		// if current thisJobToDisplay != previousJobToDisplay && setDisplayedUser(userResult)
-		handleJobDisplay();
+		openPopup();
 	};
 	//console.log(userResult);
 
-	const handleJobDisplay = () => {
-		setDisplayedUser(userResult);
+	// const handleJobDisplay = () => {
+	// 	popupState openPopup();
+	// };
 
-		setjobDetailDisplayed(!jobDetailDisplayed ? true : false);
-	};
-
-	function checkApplied(jobArray) {
-		const jobsThisUserApplied = jobArray.map((job) => {
-			job.appliedUserIds.filter((id) => {
-				if (id === thisUserId && !jobsApplied.includes(job)) {
-					setJobsApplied([...jobsApplied, job]);
-				} else {
-					return false;
-				}
-			});
-		});
-	}
+	// function checkApplied(jobArray) {
+	// 	const jobsThisUserApplied = jobArray.map((job) => {
+	// 		job.appliedUserIds.filter((id) => {
+	// 			if (id === thisUserId && !jobsApplied.includes(job)) {
+	// 				setJobsApplied([...jobsApplied, job]);
+	// 			} else {
+	// 				return false;
+	// 			}
+	// 		});
+	// 	});
+	// }
 
 	const handleJobFilters = () => {
 		if (filterBtn === "All Jobs") {
@@ -187,27 +185,34 @@ const SearchPage = () => {
 		</div>
 	) : (
 		<div className='search-page container'>
-			{jobDetailDisplayed && (
-				<div className='darkout-bg'>
-					<JobDisplay
-						jobToDisplay={jobToDisplay}
-						loggedInUserId={thisUserId}
-						displayedUser={displayedUser}
-						jobsAppliedArray={jobsApplied}
-						handleJobDisplay={handleJobDisplay}
-						addUserIdToApplied={addUserIdToApplied}
-					/>
-					{console.log(
-						"loggedInUser: ",
-						thisUserId,
-
-						"jobsApplied: ",
-						jobsApplied,
-						"displayedUser: ",
-						displayedUser
-					)}
-				</div>
-			)}
+			<div className={popupState}>
+				{!jobToDisplay ? (
+					<div className='loading'>Loading...</div>
+				) : !displayedUser ? (
+					<div className='loading'>Loading...</div>
+				) : (
+					<div className='darkout-bg'>
+						<JobDisplay
+							jobToDisplay={jobToDisplay}
+							loggedInUserId={thisUserId}
+							displayedUser={displayedUser}
+							closePopup={closePopup}
+							openPopup={openPopup}
+							jobsAppliedArray={jobsApplied}
+							//handleJobDisplay={handleJobDisplay}
+							addUserIdToApplied={addUserIdToApplied}
+						/>
+						{console.log(
+							"loggedInUser: ",
+							thisUserId,
+							"jobToDisplay: ",
+							jobToDisplay,
+							"displayedUser: ",
+							displayedUser
+						)}
+					</div>
+				)}
+			</div>
 
 			<div className='job-btns'>
 				<button className='alt-btn m' onClick={handleToggleMap}>
@@ -230,6 +235,8 @@ const SearchPage = () => {
 						eventListner={handleJobClick}
 						jobsApplied={jobsApplied}
 						thisUserId={thisUserId}
+						// checkForApplied={checkForApplied}
+						// hasApplied={hasApplied}
 					/>
 				</>
 			)}

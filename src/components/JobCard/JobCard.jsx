@@ -1,16 +1,27 @@
 import "./JobCard.css";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const JobCard = ({
 	thisJob,
 	index,
 	handleJobClick,
-	jobsApplied,
-	userHasApplied,
-	//hasApplied,
+	thisUserId,
+	// displayStyle = "jobcard card",
+	style = "normal",
+	// hasApplied,
+	// checkForApplied,
 }) => {
-	userHasApplied(jobsApplied, thisJob);
+	// const [displayStyle, setDisplayStyle] = useState();
+	const [hasApplied, setHasApplied] = useState(false);
+	useEffect(() => {
+		checkForApplied(thisJob);
+	}, []);
+
+	// !styling && setDisplayStyle("jobcard card");
+	const checkForApplied = (thisJob) => {
+		thisJob.appliedUserIds.includes(thisUserId) && setHasApplied(true);
+	};
 	const handleClick = () => {
 		handleJobClick(thisJob, index);
 		// checkApplied(thisJob);
@@ -23,27 +34,28 @@ const JobCard = ({
 	};
 
 	return thisJob ? (
-		hasApplied ? (
-			<>Already Applied</>
-		) : (
-			<li key={index} className='jobcard card' onClick={handleClick}>
-				<div className='cardname'>{thisJob.jobName}</div>
-				<p>{thisJob.jobDescription}</p>
-				<hr></hr>
-				<div>
-					<div className='card-info'>
-						{`Pay/hour:  $`}
+		<li
+			key={index}
+			id={style}
+			className='jobcard card'
+			onClick={handleClick}
+		>
+			<div className='cardname'>{thisJob.jobName}</div>
+			<p>{thisJob.jobDescription}</p>
+			<hr></hr>
+			<div>
+				<div className='card-info'>
+					{`Pay/hour:  $`}
 
-						<span className='textra'>{thisJob.payPerHour}</span>
-					</div>
-					<div className='card-info'>
-						{`Min. Skill Level Req.:`}
-						<span className='textra'>{thisJob.skillLevel}</span>
-					</div>
-					<div className='card-info'>{thisJob.location}</div>
+					<span className='textra'>{thisJob.payPerHour}</span>
 				</div>
-			</li>
-		)
+				<div className='card-info'>
+					{`Min. Skill Level Req.:`}
+					<span className='textra'>{thisJob.skillLevel}</span>
+				</div>
+				<div className='card-info'>{thisJob.location}</div>
+			</div>
+		</li>
 	) : (
 		<div className='loading'>Loading...</div>
 	);

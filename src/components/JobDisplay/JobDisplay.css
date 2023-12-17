@@ -1,3 +1,9 @@
+#jobCard {
+	display: none;
+	color: black;
+	cursor: crosshair !important;
+}
+
 .pop-job-header {
 	display: flex;
 	flex-direction: row;
