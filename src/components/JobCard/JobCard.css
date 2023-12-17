@@ -1,9 +1,29 @@
 .jobcard:hover {
 	cursor: pointer;
 }
+
 .jobcard {
 	height: fit-content;
+	position: relative;
 }
+
 #alt.jobcard:hover {
 	cursor: default;
+}
+
+.stamp {
+	display: none;
+}
+#applied.stamp {
+	display: inherit;
+	background-color: rgba(54, 168, 9, 0.747);
+	rotate: -25deg;
+	width: fit-content;
+	font-size: 42px;
+	font-weight: bolder;
+	position: absolute;
+	overflow: hidden;
+	text-wrap: nowrap;
+	color: rgb(249, 251, 249);
+	top: 40%;
 }

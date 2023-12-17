@@ -1,27 +1,23 @@
 import "./JobCard.css";
 import React from "react";
 import { useState, useEffect } from "react";
+import { checkForApplied } from "../../utils/MiscUtils";
 
 const JobCard = ({
 	thisJob,
 	index,
 	handleJobClick,
 	thisUserId,
-	// displayStyle = "jobcard card",
 	style = "normal",
-	// hasApplied,
-	// checkForApplied,
+	hasApplied,
+	setHasApplied,
 }) => {
-	// const [displayStyle, setDisplayStyle] = useState();
-	const [hasApplied, setHasApplied] = useState(false);
 	useEffect(() => {
-		checkForApplied(thisJob);
-	}, []);
+		const applied = checkForApplied(thisJob, thisUserId);
+		setHasApplied(applied);
+		console.log("hasApplied from JobCard: ", hasApplied);
+	}, [checkForApplied, thisJob, thisUserId]);
 
-	// !styling && setDisplayStyle("jobcard card");
-	const checkForApplied = (thisJob) => {
-		thisJob.appliedUserIds.includes(thisUserId) && setHasApplied(true);
-	};
 	const handleClick = () => {
 		handleJobClick(thisJob, index);
 		// checkApplied(thisJob);
@@ -40,6 +36,9 @@ const JobCard = ({
 			className='jobcard card'
 			onClick={handleClick}
 		>
+			<div className='stamp' id={style}>
+				APP SUBMITTED
+			</div>
 			<div className='cardname'>{thisJob.jobName}</div>
 			<p>{thisJob.jobDescription}</p>
 			<hr></hr>

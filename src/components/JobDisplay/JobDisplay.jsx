@@ -8,6 +8,7 @@ import useModal from "../../hooks/useModal";
 import AlertModal from "../AlertModal/AlertModal";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { checkForApplied } from "../../utils/MiscUtils";
 
 const JobDisplay = ({
 	jobToDisplay,
@@ -15,36 +16,46 @@ const JobDisplay = ({
 	loggedInUser,
 	closePopup,
 	openPopup,
-	//handleJobDisplay,
+	hasApplied,
+	setHasApplied,
 	addUserIdToApplied,
 }) => {
 	const { modalState, openModal, closeModal } = useModal();
-	const [hasApplied, setHasApplied] = useState(false);
+	//const [hasApplied, setHasApplied] = useState(false);
+	//	const [showApplyBtn, setShowApplyBtn] = useState(true);
 	//maybe move hasApplied state here and pass in jobsApplied array in props to compare job id to jobToDisplay id
+	useEffect(() => {
+		loggedInUser &&
+			setHasApplied(checkForApplied(jobToDisplay, loggedInUser.user.id));
+	}, [checkForApplied, jobToDisplay, loggedInUser]);
+
 	const handleClickApply = () => {
 		addUserIdToApplied();
 		// openModal();
 	};
+	console.log(hasApplied);
+	// const checkForApplied = () => {
+	// 	jobToDisplay.appliedUserIds.includes(loggedInUser.user.id) &&
+	// 		setShowApplyBtn(false);
+	// };
 
 	const handleClickModal = () => {
 		modalState === "modal-active" ? closeModal() : openModal();
 	};
-	loggedInUser?.user
-		? console.log(loggedInUser)
-		: console.log("still waiting...");
+
 	return (
 		<div className='popup-container'>
 			{loggedInUser?.user?.isWorker === true ? (
 				<div className='pop-job-header'>
-					{!jobToDisplay.userHasApplied ? (
+					{!hasApplied ? (
 						<button
 							className='alt-btn m apply'
 							onClick={handleClickApply}
 						>
-							Apply To This Job
+							1-Click Apply
 						</button>
 					) : (
-						<button className='alt-btn m apply disabled'>
+						<button className='alt-btn m apply disabled '>
 							Applied
 						</button>
 					)}
@@ -69,6 +80,8 @@ const JobDisplay = ({
 							style='alt'
 							thisJob={jobToDisplay}
 							handleJobClick={openPopup}
+							hasApplied={hasApplied}
+							setHasApplied={setHasApplied}
 						/>
 					</div>
 				)}

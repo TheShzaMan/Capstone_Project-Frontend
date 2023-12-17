@@ -31,7 +31,7 @@ const SearchPage = () => {
 	const { modalState, openModal, closeModal } = useModal();
 	const { popupState, openPopup, closePopup, togglePopup } = usePopup();
 	const { myJobs, availJobs } = useFilter();
-	//const [hasApplied, setHasApplied] = useState(false);
+	const [hasApplied, setHasApplied] = useState(false);
 
 	// console.log({ user });
 	useEffect(() => {
@@ -194,11 +194,13 @@ const SearchPage = () => {
 					<div className='darkout-bg'>
 						<JobDisplay
 							jobToDisplay={jobToDisplay}
-							loggedInUserId={thisUserId}
+							loggedInUser={loggedInUser}
 							displayedUser={displayedUser}
 							closePopup={closePopup}
 							openPopup={openPopup}
 							jobsAppliedArray={jobsApplied}
+							hasApplied={hasApplied}
+							setHasApplied={setHasApplied}
 							//handleJobDisplay={handleJobDisplay}
 							addUserIdToApplied={addUserIdToApplied}
 						/>
@@ -235,8 +237,8 @@ const SearchPage = () => {
 						eventListner={handleJobClick}
 						jobsApplied={jobsApplied}
 						thisUserId={thisUserId}
-						// checkForApplied={checkForApplied}
-						// hasApplied={hasApplied}
+						hasApplied={hasApplied}
+						setHasApplied={setHasApplied}
 					/>
 				</>
 			)}
