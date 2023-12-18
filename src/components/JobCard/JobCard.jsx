@@ -1,5 +1,5 @@
-import "./JobCard.css";
 import React from "react";
+import "./JobCard.css";
 import { useState, useEffect } from "react";
 import { checkForApplied } from "../../utils/MiscUtils";
 
@@ -9,26 +9,16 @@ const JobCard = ({
 	handleJobClick,
 	thisUserId,
 	style = "normal",
-	// hasApplied,
-	// setHasApplied,
 }) => {
 	const [hasApplied, setHasApplied] = useState(false);
 
 	useEffect(() => {
 		const applied = checkForApplied(thisJob, thisUserId);
 		setHasApplied(applied);
-		console.log("hasApplied from JobCard: ", hasApplied);
 	}, [thisJob, thisJob.appliedUserIds]);
 
 	const handleClick = () => {
 		handleJobClick(thisJob, index);
-		// checkApplied(thisJob);
-		console.log(
-			"postedByUserId at jobCard onClick listner: ",
-			thisJob.postedByUser.id,
-			"thisJob: ",
-			thisJob
-		);
 	};
 
 	return thisJob ? (
@@ -47,7 +37,6 @@ const JobCard = ({
 			<div>
 				<div className='card-info'>
 					{`Pay/hour:  $`}
-
 					<span className='textra'>{thisJob.payPerHour}</span>
 				</div>
 				<div className='card-info'>
@@ -55,6 +44,7 @@ const JobCard = ({
 					<span className='textra'>{thisJob.skillLevel}</span>
 				</div>
 				<div className='card-info'>{thisJob.location}</div>
+				{/* Location line of JobCard to be replaced with Area in future app iterations*/}
 			</div>
 		</li>
 	) : (

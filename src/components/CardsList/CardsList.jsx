@@ -1,6 +1,5 @@
 import React from "react";
 import JobCard from "../JobCard/JobCard";
-import { useState } from "react";
 import { checkForApplied } from "../../utils/MiscUtils";
 
 const CardList = ({
@@ -21,7 +20,7 @@ const CardList = ({
 			hasApplied={hasApplied}
 		/>
 	));
-	// console.log(cardArray);
+
 	return !availJobCards ? (
 		<div className='loading'>Loading...</div>
 	) : (

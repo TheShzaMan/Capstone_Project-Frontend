@@ -1,12 +1,17 @@
+//General Imports
 import React from "react";
 import "./ProfilePage.css";
 import axios from "axios";
-import { useState, useEffect } from "react";
-import useAuth from "../../hooks/useAuth";
-import usePopup from "../../hooks/usePopup";
+
+//Component Imports
 import ReviewSummaryCard from "../../components/ReviewSummaryCard/ReviewSummaryCard";
 import UserCard from "../../components/UserCard/UserCard";
 import EditProfileForm from "../../components/EditProfileForm/EditProfileForm";
+
+//Hooks and Util Imports
+import { useState, useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
+import usePopup from "../../hooks/usePopup";
 
 const ProfilePage = () => {
 	const [user, token] = useAuth();
@@ -42,7 +47,7 @@ const ProfilePage = () => {
 						displayedUser={displayedUser.user}
 						handleClickEdit={openPopup}
 					/>
-
+					{/* EditProfileForm to display as popup when edit button is clicked */}
 					<EditProfileForm
 						thisUser={displayedUser.user}
 						token={token}
