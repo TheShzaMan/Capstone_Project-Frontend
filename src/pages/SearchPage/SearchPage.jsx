@@ -9,7 +9,6 @@ import useFilter from "../../hooks/useFilter";
 import Map from "../../components/Map/Map";
 
 import CardList from "../../components/CardsList/CardsList";
-import AlertModal from "../../components/AlertModal/AlertModal";
 import { Marker } from "@react-google-maps/api";
 import JobDisplay from "../../components/JobDisplay/JobDisplay";
 
@@ -31,13 +30,15 @@ const SearchPage = () => {
 	const { modalState, openModal, closeModal } = useModal();
 	const { popupState, openPopup, closePopup, togglePopup } = usePopup();
 	const { myJobs, availJobs } = useFilter();
-	const [hasApplied, setHasApplied] = useState(false);
 
 	// console.log({ user });
 	useEffect(() => {
 		fetchUser(thisUserId);
-		fetchJobs();
 	}, []);
+	useEffect(() => {
+		fetchJobs();
+	}, [jobToDisplay, modalState]);
+
 	// console.log(popupState);
 	const allJobs = jobList;
 
@@ -62,21 +63,21 @@ const SearchPage = () => {
 			console.warn("Error in the fetchJobs request.", error);
 		}
 	};
-	const fetchAJob = async (jobId) => {
-		try {
-			let response = await axios.get(
-				`https://localhost:5001/api/Jobs/${jobId}`,
-				{
-					headers: {
-						Authorization: "Bearer " + token,
-					},
-				}
-			);
-			setJobToDisplay(response.data);
-		} catch (error) {
-			console.warn("Error in the fetchJobs request.", error);
-		}
-	};
+	// const fetchAJob = async (jobId) => {
+	// 	try {
+	// 		let response = await axios.get(
+	// 			`https://localhost:5001/api/Jobs/${jobId}`,
+	// 			{
+	// 				headers: {
+	// 					Authorization: "Bearer " + token,
+	// 				},
+	// 			}
+	// 		);
+	// 		setJobToDisplay(response.data);
+	// 	} catch (error) {
+	// 		console.warn("Error in the fetchJobs request.", error);
+	// 	}
+	// };
 
 	const fetchUser = async (idToFetch) => {
 		console.log(idToFetch);
@@ -117,6 +118,7 @@ const SearchPage = () => {
 					},
 				}
 			);
+			console.log(response);
 			openModal();
 		} catch (error) {
 			console.log("Error in handleClickApply Put Request", error);
@@ -199,8 +201,10 @@ const SearchPage = () => {
 							closePopup={closePopup}
 							openPopup={openPopup}
 							jobsAppliedArray={jobsApplied}
-							hasApplied={hasApplied}
-							setHasApplied={setHasApplied}
+							// hasApplied={hasApplied}
+							// setHasApplied={setHasApplied}
+							modalState={modalState}
+							closeModal={closeModal}
 							//handleJobDisplay={handleJobDisplay}
 							addUserIdToApplied={addUserIdToApplied}
 						/>
@@ -237,8 +241,8 @@ const SearchPage = () => {
 						eventListner={handleJobClick}
 						jobsApplied={jobsApplied}
 						thisUserId={thisUserId}
-						hasApplied={hasApplied}
-						setHasApplied={setHasApplied}
+						// hasApplied={hasApplied}
+						// setHasApplied={setHasApplied}
 					/>
 				</>
 			)}

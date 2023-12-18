@@ -9,7 +9,7 @@ const AlertModal = ({
 }) => {
 	const handleClickModal = () => {
 		closeModal();
-		closePopup();
+		closePopup && closePopup();
 	};
 
 	return (

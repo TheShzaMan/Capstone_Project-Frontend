@@ -16,32 +16,36 @@ const JobDisplay = ({
 	loggedInUser,
 	closePopup,
 	openPopup,
-	hasApplied,
-	setHasApplied,
+	// hasApplied,
+	// setHasApplied,
 	addUserIdToApplied,
+	modalState,
+	closeModal,
 }) => {
-	const { modalState, openModal, closeModal } = useModal();
-	//const [hasApplied, setHasApplied] = useState(false);
+	// const { modalState, openModal, closeModal } = useModal();
+	const [hasApplied, setHasApplied] = useState(false);
+
 	//	const [showApplyBtn, setShowApplyBtn] = useState(true);
 	//maybe move hasApplied state here and pass in jobsApplied array in props to compare job id to jobToDisplay id
 	useEffect(() => {
 		loggedInUser &&
 			setHasApplied(checkForApplied(jobToDisplay, loggedInUser.user.id));
-	}, [checkForApplied, jobToDisplay, loggedInUser]);
+	}, [checkForApplied, jobToDisplay, modalState]);
 
 	const handleClickApply = () => {
 		addUserIdToApplied();
+
 		// openModal();
 	};
-	console.log(hasApplied);
+	//console.log(hasApplied);
 	// const checkForApplied = () => {
 	// 	jobToDisplay.appliedUserIds.includes(loggedInUser.user.id) &&
 	// 		setShowApplyBtn(false);
 	// };
 
-	const handleClickModal = () => {
-		modalState === "modal-active" ? closeModal() : openModal();
-	};
+	// const handleClickModal = () => {
+	// 	closeModal();
+	// };
 
 	return (
 		<div className='popup-container'>
@@ -80,8 +84,8 @@ const JobDisplay = ({
 							style='alt'
 							thisJob={jobToDisplay}
 							handleJobClick={openPopup}
-							hasApplied={hasApplied}
-							setHasApplied={setHasApplied}
+							// hasApplied={hasApplied}
+							// setHasApplied={setHasApplied}
 						/>
 					</div>
 				)}
@@ -104,8 +108,9 @@ const JobDisplay = ({
 				<AlertModal
 					header='Application Submitted'
 					message='If chosen you will be contacted by the job provider using the contact information from your profile.'
-					handleClickModal={handleClickModal}
+					closeModal={closeModal}
 					modalState={modalState}
+					closePopup={closePopup}
 				/>
 			</div>
 		</div>

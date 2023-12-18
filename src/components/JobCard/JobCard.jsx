@@ -9,14 +9,16 @@ const JobCard = ({
 	handleJobClick,
 	thisUserId,
 	style = "normal",
-	hasApplied,
-	setHasApplied,
+	// hasApplied,
+	// setHasApplied,
 }) => {
+	const [hasApplied, setHasApplied] = useState(false);
+
 	useEffect(() => {
 		const applied = checkForApplied(thisJob, thisUserId);
 		setHasApplied(applied);
 		console.log("hasApplied from JobCard: ", hasApplied);
-	}, [checkForApplied, thisJob, thisUserId]);
+	}, [thisJob, thisJob.appliedUserIds]);
 
 	const handleClick = () => {
 		handleJobClick(thisJob, index);
