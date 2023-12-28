@@ -162,17 +162,14 @@ const SearchPage = () => {
 			)}
 
 			{/* JobDisplay to popup upon click on a jobCard or map marker */}
-			{!jobToDisplay ? (
-				<div className='loading'>Loading...</div>
-			) : !displayedUser ? (
-				<div className='loading'>Loading...</div>
-			) : (
+			{jobToDisplay && displayedUser && (
 				<>
 					<JobDisplay
 						jobToDisplay={jobToDisplay}
 						loggedInUser={loggedInUser}
 						displayedUser={displayedUser}
 						togglePopup={togglePopup}
+						popupState={popupState}
 						modalState={modalState}
 						closeModal={closeModal}
 						addUserIdToApplied={addUserIdToApplied}

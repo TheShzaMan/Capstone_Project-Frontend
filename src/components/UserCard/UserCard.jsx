@@ -42,7 +42,7 @@ const UserCard = ({ displayedUser, thisUserId, handleClickEdit }) => {
 					{user.skillLevel && (
 						<div>
 							Skill Level{":   "}
-							<p>user.skillLevel</p>
+							<p>{user.skillLevel}</p>
 						</div>
 					)}
 				</div>

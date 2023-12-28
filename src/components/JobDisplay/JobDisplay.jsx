@@ -17,27 +17,38 @@ const JobDisplay = ({
 	displayedUser,
 	loggedInUser,
 	togglePopup,
+	popupState,
 	modalState,
 	closeModal,
 	addUserIdToApplied,
 }) => {
 	const [hasApplied, setHasApplied] = useState(false);
-	const [popupState, setPopupState] = useState("closed-form");
+	const displayedUserId = displayedUser.user.id;
+	const loggedInUserId = loggedInUser.user.id;
+
 	useEffect(() => {
-		loggedInUser &&
+		loggedInUser?.isWorker &&
 			setHasApplied(checkForApplied(jobToDisplay, loggedInUser.user.id));
 	}, [checkForApplied, jobToDisplay, modalState]);
 
 	const handleClickApply = () => {
 		addUserIdToApplied();
 	};
-
+	console.log(
+		"displayedUser: ",
+		displayedUser,
+		"loggedInUser: ",
+		loggedInUser,
+		"jobToDisplay: ",
+		jobToDisplay
+	);
 	return !jobToDisplay ? (
 		<div className='loading'>Loading...</div>
 	) : (
 		<div className={popupState}>
 			<div className='darkout-bg'>
 				<div className='popup-container'>
+					{/* Display for Worker users Only */}
 					{loggedInUser?.user?.isWorker ? (
 						<div className='pop-job-header'>
 							{!hasApplied ? (
@@ -57,7 +68,25 @@ const JobDisplay = ({
 							</button>
 						</div>
 					) : (
+						// Display for Job Provider users Only
 						<div className='pop-job-header'>
+							{loggedInUserId === displayedUserId ? (
+								jobToDisplay.appliedUserIds.length === 0 ? (
+									<div>No one has applied yet</div>
+								) : (
+									<div className='applicant-count'>
+										<div className='textra'>
+											{jobToDisplay.appliedUserIds.length}{" "}
+										</div>
+										<div className='txt-btn'>
+											Applicants
+										</div>
+									</div>
+								)
+							) : (
+								<>" "</>
+							)}
+
 							<button className='exit-form' onClick={togglePopup}>
 								X
 							</button>
