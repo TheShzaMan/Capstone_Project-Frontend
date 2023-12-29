@@ -8,6 +8,7 @@
 	top: 0;
 	left: 4px;
 	width: 98%;
+	height: 55px;
 }
 .job-details-full {
 	border: solid 1px white;
@@ -28,4 +29,24 @@
 	right: 18vw;
 	width: fit-content;
 	background-color: steelblue;
+}
+
+.applicant-count {
+	display: flex;
+	column-gap: 5px;
+}
+
+.app-count {
+	background-color: rgb(4, 178, 13);
+}
+
+.applicants {
+	color: rgb(236, 243, 251);
+	text-shadow: 2px 2px 2px black;
+	letter-spacing: 1px;
+}
+
+.applicants:hover {
+	text-decoration: underline;
+	font-size: 22px;
 }

@@ -8,6 +8,7 @@ import UserCard from "../UserCard/UserCard";
 import ReviewSummaryCard from "../ReviewSummaryCard/ReviewSummaryCard";
 import JobCard from "../JobCard/JobCard";
 import AlertModal from "../AlertModal/AlertModal";
+import ApplicantDisplay from "../ApplicantDisplay/ApplicantDisplay";
 
 //Util Imports
 import { checkForApplied } from "../../utils/MiscUtils";
@@ -25,7 +26,7 @@ const JobDisplay = ({
 	const [hasApplied, setHasApplied] = useState(false);
 	const displayedUserId = displayedUser.user.id;
 	const loggedInUserId = loggedInUser.user.id;
-
+	const [applicantDisplay, setApplicantDisplay] = useState("closed-form");
 	useEffect(() => {
 		loggedInUser?.isWorker &&
 			setHasApplied(checkForApplied(jobToDisplay, loggedInUser.user.id));
@@ -33,6 +34,10 @@ const JobDisplay = ({
 
 	const handleClickApply = () => {
 		addUserIdToApplied();
+	};
+
+	const handleApplicantClick = () => {
+		setApplicantDisplay("opened-form");
 	};
 	console.log(
 		"displayedUser: ",
@@ -74,17 +79,25 @@ const JobDisplay = ({
 								jobToDisplay.appliedUserIds.length === 0 ? (
 									<div>No one has applied yet</div>
 								) : (
-									<div className='applicant-count'>
-										<div className='textra'>
+									<div
+										className='applicant-count'
+										onClick={handleApplicantClick}
+									>
+										<div className='textra app-count'>
 											{jobToDisplay.appliedUserIds.length}{" "}
 										</div>
-										<div className='txt-btn'>
-											Applicants
+										<p className='applicants'>
+											Applications
+										</p>
+										<div className={applicantDisplay}>
+											<ApplicantDisplay
+												job={jobToDisplay}
+											/>
 										</div>
 									</div>
 								)
 							) : (
-								<>" "</>
+								<></>
 							)}
 
 							<button className='exit-form' onClick={togglePopup}>

@@ -155,6 +155,7 @@ const SearchPage = () => {
 			)}
 			{setBtn === "Map View" && (
 				<CardList
+					arrayType='jobs'
 					cardArray={jobList}
 					eventListner={handleJobClick}
 					thisUserId={thisUserId}
