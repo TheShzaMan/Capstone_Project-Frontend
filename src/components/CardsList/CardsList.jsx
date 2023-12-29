@@ -2,39 +2,60 @@ import React from "react";
 import JobCard from "../JobCard/JobCard";
 import UserCard from "../UserCard/UserCard";
 import { checkForApplied } from "../../utils/MiscUtils";
+import { useState, useEffect } from "react";
 
 const CardList = ({
-	arrayType, //jobs or users
+	arrayType, //"jobs" or "users"
 	cardArray = [],
 	eventListner,
 	thisUserId,
 	setHasApplied,
 	hasApplied,
 }) => {
-	const jobs = cardArray.map((oneJob, index) => (
-		<JobCard
-			style={checkForApplied(oneJob, thisUserId) ? "applied" : "normal"}
-			thisJob={oneJob}
-			key={index}
-			handleJobClick={eventListner}
-			thisUserId={thisUserId}
-			setHasApplied={setHasApplied}
-			hasApplied={hasApplied}
-		/>
-	));
+	const [list, setList] = useState();
+	const [cards, setCards] = useState();
 
-	const users = cardArray.map((user, index) => (
-		<UserCard displayedUser={user} key={index} />
-	));
+	useEffect(() => {
+		setCards(arrayType);
+		cards && makeList();
+	}, []);
 
-	return !arrayType ? (
-		<div className='loading'>Loading...</div>
+	const jobCards = () => {
+		const jobsList = cardArray.map((oneJob, index) => (
+			<JobCard
+				style={
+					checkForApplied(oneJob, thisUserId) ? "applied" : "normal"
+				}
+				thisJob={oneJob}
+				key={index}
+				handleJobClick={eventListner}
+				thisUserId={thisUserId}
+				setHasApplied={setHasApplied}
+				hasApplied={hasApplied}
+			/>
+		));
+		setList(jobsList);
+	};
+
+	const userCards = () => {
+		const usersList = cardArray.map((user, index) => (
+			<UserCard displayedUser={user} key={index} />
+		));
+		setList(usersList);
+	};
+
+	const makeList = () => {
+		console.log(cards);
+		if (cards === "jobs") {
+			jobCards();
+		} else if (cards === "users") {
+			userCards();
+		}
+	};
+	return !cards ? (
+		<div className='loading'>Load...</div>
 	) : (
-		(arrayType = "jobs" ? (
-			<ul className='searchcard-container'>{jobs} </ul>
-		) : (
-			<ul className='searchcard-container'>{users}</ul>
-		))
+		<ul className='searchcard-container'>{list} </ul>
 	);
 };
 
