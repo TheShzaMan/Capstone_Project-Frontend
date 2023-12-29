@@ -26,7 +26,8 @@ const JobDisplay = ({
 	const [hasApplied, setHasApplied] = useState(false);
 	const displayedUserId = displayedUser.user.id;
 	const loggedInUserId = loggedInUser.user.id;
-	const [applicantDisplay, setApplicantDisplay] = useState("closed-form");
+	const [applicantDisplayState, setApplicantDisplayState] =
+		useState("closed-form");
 	useEffect(() => {
 		loggedInUser?.isWorker &&
 			setHasApplied(checkForApplied(jobToDisplay, loggedInUser.user.id));
@@ -37,7 +38,7 @@ const JobDisplay = ({
 	};
 
 	const handleApplicantClick = () => {
-		setApplicantDisplay("opened-form");
+		setApplicantDisplayState("opened-form");
 	};
 	console.log(
 		"displayedUser: ",
@@ -89,11 +90,17 @@ const JobDisplay = ({
 										<p className='applicants'>
 											Applications
 										</p>
-										<div className={applicantDisplay}>
-											<ApplicantDisplay
-												job={jobToDisplay}
-											/>
-										</div>
+										{jobToDisplay && (
+											<div
+												className={
+													applicantDisplayState
+												}
+											>
+												<ApplicantDisplay
+													job={jobToDisplay}
+												/>
+											</div>
+										)}
 									</div>
 								)
 							) : (

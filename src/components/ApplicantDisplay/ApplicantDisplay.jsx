@@ -1,9 +1,13 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
+import CardList from "../CardsList/CardsList";
 
 const ApplicantDisplay = ({ job }) => {
-	const [applicantList, setApplicantList] = useState([]);
+	const [user, token] = useAuth();
+	const [applicantList, setApplicantList] = useState();
+	const thisUserId = user.id;
 
 	useEffect(() => {
 		job && fetchApplicants();
@@ -12,14 +16,25 @@ const ApplicantDisplay = ({ job }) => {
 	const fetchApplicants = async () => {
 		try {
 			let response = await axios.get(
-				` https://localhost:5001/api/Users/appliedto/${job.id}`
+				` https://localhost:5001/api/Users/appliedto/${job.id}`,
+				{
+					headers: {
+						Authorization: "Bearer " + token,
+					},
+				}
 			);
-			console.log(response);
+			setApplicantList(response.data);
 		} catch (error) {
 			console.warn("Error in the fetchApplicants get request", error);
 		}
 	};
-	return <></>;
+	return !applicantList ? (
+		<div className='loading'>Loading...</div>
+	) : (
+		<>
+			<CardList arrayType={"users"} cardArray={applicantList} />
+		</>
+	);
 };
 
 export default ApplicantDisplay;
