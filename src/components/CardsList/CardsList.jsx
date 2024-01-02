@@ -19,7 +19,7 @@ const CardList = ({
 		setCards(arrayType);
 		console.log(cardArray);
 		cards && makeList();
-	}, [cards]);
+	}, [cards, cardArray]);
 
 	const jobCards = () => {
 		const jobsList = cardArray.map((oneJob, index) => (

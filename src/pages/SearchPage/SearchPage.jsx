@@ -22,6 +22,7 @@ const SearchPage = () => {
 	const [mapState, setMapState] = useState("closed-form");
 	const [listState, setListState] = useState("closed-form");
 	const [setBtn, setSetBtn] = useState("Map View");
+	const [allJobs, setAllJobs] = useState();
 	const [jobList, setJobList] = useState();
 	const [jobToDisplay, setJobToDisplay] = useState();
 	const [displayedUser, setDisplayedUser] = useState(null);
@@ -41,14 +42,13 @@ const SearchPage = () => {
 		fetchJobs();
 	}, [jobToDisplay, modalState]);
 
-	const allJobs = jobList;
-
 	const fetchJobs = async () => {
 		try {
 			let response = await axios.get(
 				`https://localhost:5001/api/Jobs/avail`
 			);
 			setJobList(response.data);
+			!allJobs && setAllJobs(jobList);
 		} catch (error) {
 			console.warn("Error in the fetchJobs request.", error);
 		}
@@ -76,12 +76,7 @@ const SearchPage = () => {
 			);
 		}
 	};
-	console.log(
-		"logged in: ",
-		loggedInUser,
-		"job is posted by: ",
-		displayedUser
-	);
+
 	const addUserIdToApplied = async () => {
 		try {
 			let response = await axios.put(
