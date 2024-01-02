@@ -22,7 +22,7 @@ const SearchPage = () => {
 	const [mapState, setMapState] = useState("closed-form");
 	const [listState, setListState] = useState("closed-form");
 	const [setBtn, setSetBtn] = useState("Map View");
-	const [jobList, setJobList] = useState([]);
+	const [jobList, setJobList] = useState();
 	const [jobToDisplay, setJobToDisplay] = useState();
 	const [displayedUser, setDisplayedUser] = useState(null);
 	const [filterBtn, setFilterBtn] = useState("My Jobs");

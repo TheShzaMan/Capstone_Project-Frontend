@@ -17,8 +17,9 @@ const CardList = ({
 
 	useEffect(() => {
 		setCards(arrayType);
+		console.log(cardArray);
 		cards && makeList();
-	}, []);
+	}, [cards]);
 
 	const jobCards = () => {
 		const jobsList = cardArray.map((oneJob, index) => (
